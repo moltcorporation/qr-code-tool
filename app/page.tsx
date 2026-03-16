@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 
 type Tab = "url" | "wifi";
-type Format = "svg" | "png";
 
 const EC_LEVELS = [
   { value: "L", label: "Low (7%)" },
@@ -19,35 +18,45 @@ const features = [
   {
     title: "Static QR Codes",
     description:
-      "Generate QR codes for any URL. Download as SVG or PNG. Free, no limits.",
+      "Paste a URL, get a QR code. Download as SVG or PNG. Unlimited. Free.",
+    free: true,
   },
   {
     title: "WiFi QR Codes",
     description:
-      "Create QR codes for WiFi networks. Guests scan to connect instantly.",
+      "Guests scan, they're connected. No more spelling out passwords.",
+    free: true,
   },
   {
     title: "Dynamic QR Codes",
-    badge: "Pro",
     description:
-      "Edit where your QR code points after printing. Never reprint again.",
+      "Change where it points after you print. The QR stays the same. The destination doesn't have to.",
+    free: false,
   },
   {
     title: "Scan Analytics",
-    badge: "Pro",
     description:
-      "Track every scan: when, where, what device. See which QR codes perform.",
+      "Every scan logged: when, where, what device. Know which codes actually get used.",
+    free: false,
   },
   {
-    title: "Custom Colors",
+    title: "Your Colors",
     description:
-      "Match your QR code to your brand. Pick foreground and background colors.",
+      "Match your brand. Pick any foreground and background color. It's your code.",
+    free: true,
   },
   {
     title: "Print-Ready SVG",
     description:
-      "Download as SVG for perfect quality at any size. Business cards to billboards.",
+      "Vector output that looks sharp on a business card or a billboard. No pixels, no problems.",
+    free: true,
   },
+];
+
+const competitors = [
+  { name: "QR TIGER", price: "$7/mo", annual: "$84/yr" },
+  { name: "Uniqode", price: "$5/mo", annual: "$60/yr" },
+  { name: "Bitly QR", price: "$35/mo", annual: "$420/yr" },
 ];
 
 export default function Home() {
@@ -84,7 +93,6 @@ export default function Home() {
     setPngDataUrl("");
 
     try {
-      // Fetch SVG
       const svgRes = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -101,7 +109,6 @@ export default function Home() {
       const svg = await svgRes.text();
       setSvgData(svg);
 
-      // Fetch PNG
       const pngRes = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -126,12 +133,12 @@ export default function Home() {
 
   function downloadSvg() {
     const blob = new Blob([svgData], { type: "image/svg+xml" });
-    const url = URL.createObjectURL(blob);
+    const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
+    a.href = blobUrl;
     a.download = "qdot-qr.svg";
     a.click();
-    URL.revokeObjectURL(url);
+    URL.revokeObjectURL(blobUrl);
   }
 
   function downloadPng() {
@@ -142,29 +149,29 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-white font-sans text-zinc-900">
+    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-100">
       {/* Header */}
-      <header className="border-b border-zinc-200">
+      <header className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="text-xl font-bold tracking-tight">
-            <span className="text-emerald-600">Q</span>dot
+            <span className="text-emerald-400">Q</span>dot
           </Link>
           <nav className="flex items-center gap-6">
             <Link
               href="/pricing"
-              className="text-sm text-zinc-600 hover:text-zinc-900"
+              className="text-sm text-zinc-400 hover:text-white"
             >
               Pricing
             </Link>
             <Link
               href="/login"
-              className="text-sm text-zinc-600 hover:text-zinc-900"
+              className="text-sm text-zinc-400 hover:text-white"
             >
               Sign in
             </Link>
             <Link
               href="/register"
-              className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+              className="rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-emerald-400"
             >
               Get started
             </Link>
@@ -172,47 +179,71 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero + Generator */}
-      <section className="mx-auto max-w-3xl px-6 pb-16 pt-16 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Free QR Code Generator
+      {/* Hero */}
+      <section className="mx-auto max-w-3xl px-6 pt-20 text-center">
+        <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
+          No subscription. Ever.
+        </p>
+        <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+          QR codes without the{" "}
+          <span className="text-zinc-500 line-through">monthly bill</span>
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-zinc-600">
-          Generate QR codes instantly. Static codes are free forever. No signup
-          required.
+        <p className="mx-auto mt-6 max-w-xl text-lg text-zinc-400">
+          Other tools charge you every month for something that should be free.
+          Qdot gives you unlimited static QR codes at no cost. Need dynamic
+          codes? Pay once. Done.
         </p>
 
-        {/* Generator */}
-        <div className="mx-auto mt-10 max-w-lg text-left">
+        {/* Competitor comparison */}
+        <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-4 text-sm">
+          {competitors.map((c) => (
+            <div
+              key={c.name}
+              className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-4 py-1.5"
+            >
+              <span className="text-zinc-500">{c.name}</span>
+              <span className="font-medium text-red-400 line-through">
+                {c.price}
+              </span>
+            </div>
+          ))}
+          <div className="flex items-center gap-2 rounded-full border border-emerald-800 bg-emerald-950 px-4 py-1.5">
+            <span className="text-emerald-300">Qdot</span>
+            <span className="font-bold text-emerald-400">$9.99 once</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Generator */}
+      <section className="mx-auto max-w-lg px-6 pb-20 pt-12">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl shadow-emerald-500/5">
           {/* Tabs */}
-          <div className="flex border-b border-zinc-200">
+          <div className="flex border-b border-zinc-800">
             <button
               onClick={() => setTab("url")}
-              className={`px-4 py-2.5 text-sm font-medium ${tab === "url" ? "border-b-2 border-emerald-600 text-emerald-600" : "text-zinc-500 hover:text-zinc-700"}`}
+              className={`px-4 py-2.5 text-sm font-medium ${tab === "url" ? "border-b-2 border-emerald-400 text-emerald-400" : "text-zinc-500 hover:text-zinc-300"}`}
             >
               URL
             </button>
             <button
               onClick={() => setTab("wifi")}
-              className={`px-4 py-2.5 text-sm font-medium ${tab === "wifi" ? "border-b-2 border-emerald-600 text-emerald-600" : "text-zinc-500 hover:text-zinc-700"}`}
+              className={`px-4 py-2.5 text-sm font-medium ${tab === "wifi" ? "border-b-2 border-emerald-400 text-emerald-400" : "text-zinc-500 hover:text-zinc-300"}`}
             >
               WiFi
             </button>
           </div>
 
           <div className="mt-4 flex flex-col gap-4">
-            {/* URL input */}
             {tab === "url" && (
               <input
                 type="url"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://example.com"
-                className="w-full rounded-md border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
               />
             )}
 
-            {/* WiFi inputs */}
             {tab === "wifi" && (
               <>
                 <input
@@ -220,19 +251,19 @@ export default function Home() {
                   value={ssid}
                   onChange={(e) => setSsid(e.target.value)}
                   placeholder="Network name (SSID)"
-                  className="w-full rounded-md border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 />
                 <input
                   type="text"
                   value={wifiPassword}
                   onChange={(e) => setWifiPassword(e.target.value)}
                   placeholder="Password"
-                  className="w-full rounded-md border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
                 />
                 <select
                   value={encryption}
                   onChange={(e) => setEncryption(e.target.value)}
-                  className="w-full rounded-md border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-emerald-500"
+                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white outline-none focus:border-emerald-500"
                 >
                   {WIFI_ENCRYPTIONS.map((enc) => (
                     <option key={enc} value={enc}>
@@ -251,7 +282,7 @@ export default function Home() {
                   type="color"
                   value={fgColor}
                   onChange={(e) => setFgColor(e.target.value)}
-                  className="h-8 w-8 cursor-pointer rounded border border-zinc-300"
+                  className="h-8 w-8 cursor-pointer rounded border border-zinc-700 bg-zinc-800"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -260,7 +291,7 @@ export default function Home() {
                   type="color"
                   value={bgColor}
                   onChange={(e) => setBgColor(e.target.value)}
-                  className="h-8 w-8 cursor-pointer rounded border border-zinc-300"
+                  className="h-8 w-8 cursor-pointer rounded border border-zinc-700 bg-zinc-800"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -268,7 +299,7 @@ export default function Home() {
                 <select
                   value={errorCorrection}
                   onChange={(e) => setErrorCorrection(e.target.value)}
-                  className="rounded border border-zinc-300 px-2 py-1 text-xs outline-none focus:border-emerald-500"
+                  className="rounded border border-zinc-700 bg-zinc-800 px-2 py-1 text-xs text-white outline-none focus:border-emerald-500"
                 >
                   {EC_LEVELS.map((ec) => (
                     <option key={ec.value} value={ec.value}>
@@ -279,45 +310,44 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Generate button */}
             <button
               onClick={handleGenerate}
               disabled={loading}
-              className="w-full rounded-md bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+              className="w-full rounded-md bg-emerald-500 px-4 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400 disabled:opacity-50"
             >
               {loading ? "Generating..." : "Generate QR Code"}
             </button>
 
             {error && (
-              <p className="text-sm text-red-600">{error}</p>
+              <p className="text-sm text-red-400">{error}</p>
             )}
           </div>
 
           {/* QR Preview + Downloads */}
           {svgData && (
-            <div className="mt-6 flex flex-col items-center gap-4 rounded-lg border border-zinc-200 bg-zinc-50 p-6">
+            <div className="mt-6 flex flex-col items-center gap-4 rounded-lg border border-zinc-800 bg-zinc-950 p-6">
               <div
-                className="h-48 w-48"
+                className="h-48 w-48 rounded-lg bg-white p-3"
                 dangerouslySetInnerHTML={{ __html: svgData }}
               />
               <div className="flex gap-3">
                 <button
                   onClick={downloadSvg}
-                  className="rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-100"
+                  className="rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800"
                 >
                   Download SVG
                 </button>
                 {pngDataUrl && (
                   <button
                     onClick={downloadPng}
-                    className="rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-100"
+                    className="rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800"
                   >
                     Download PNG
                   </button>
                 )}
               </div>
-              <p className="text-xs text-zinc-400">
-                Free. No watermark. Print-ready SVG.
+              <p className="text-xs text-zinc-600">
+                Free. No watermark. No signup. Yours.
               </p>
             </div>
           )}
@@ -325,28 +355,35 @@ export default function Home() {
       </section>
 
       {/* Feature grid */}
-      <section className="border-t border-zinc-200 bg-zinc-50">
+      <section className="border-t border-zinc-800 bg-zinc-900">
         <div className="mx-auto max-w-5xl px-6 py-20">
           <h2 className="text-center text-2xl font-bold tracking-tight">
-            Everything you need to create QR codes
+            Everything. No gotchas.
           </h2>
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <p className="mx-auto mt-3 max-w-md text-center text-sm text-zinc-500">
+            Most QR tools gate basic features behind paywalls. We don't.
+          </p>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="rounded-lg border border-zinc-200 bg-white p-6 shadow-sm"
+                className="rounded-lg border border-zinc-800 bg-zinc-950 p-6"
               >
                 <div className="flex items-center gap-2">
-                  <h3 className="font-semibold text-zinc-900">
+                  <h3 className="font-semibold text-white">
                     {feature.title}
                   </h3>
-                  {feature.badge && (
-                    <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
-                      {feature.badge}
-                    </span>
-                  )}
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                      feature.free
+                        ? "bg-emerald-950 text-emerald-400"
+                        : "bg-zinc-800 text-zinc-400"
+                    }`}
+                  >
+                    {feature.free ? "Free" : "Pro"}
+                  </span>
                 </div>
-                <p className="mt-2 text-sm text-zinc-600">
+                <p className="mt-2 text-sm text-zinc-500">
                   {feature.description}
                 </p>
               </div>
@@ -358,37 +395,38 @@ export default function Home() {
       {/* Pricing teaser */}
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
         <h2 className="text-2xl font-bold tracking-tight">
-          No subscription required
+          Pay once. Use forever.
         </h2>
-        <p className="mx-auto mt-4 max-w-lg text-zinc-600">
-          Static QR codes are free forever. Upgrade once for $9.99 to unlock
-          dynamic codes and analytics. No monthly fees.
+        <p className="mx-auto mt-4 max-w-lg text-zinc-400">
+          Static QR codes are free. Unlimited. No account needed. When you
+          want dynamic codes and scan analytics, it&apos;s a one-time $9.99
+          upgrade. Not $9.99/month. Not $9.99/year. Once.
         </p>
         <Link
           href="/pricing"
-          className="mt-6 inline-block rounded-md border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-900 hover:bg-zinc-50"
+          className="mt-6 inline-block rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
         >
-          View pricing
+          See pricing
         </Link>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-200 bg-zinc-950 text-zinc-400">
+      <footer className="border-t border-zinc-800">
         <div className="mx-auto max-w-5xl px-6 py-12">
           <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-600">
                 Moltcorp Products
               </p>
               <ul className="mt-3 flex flex-col gap-2 text-sm">
                 <li>
-                  <span className="font-medium text-white">Qdot</span>{" "}
+                  <span className="font-medium text-emerald-400">Qdot</span>{" "}
                   <span className="text-zinc-600">— QR Code Generator</span>
                 </li>
                 <li>
                   <a
                     href="https://statusping-moltcorporation.vercel.app"
-                    className="hover:text-white"
+                    className="text-zinc-500 hover:text-white"
                   >
                     StatusPing
                   </a>
@@ -396,7 +434,7 @@ export default function Home() {
                 <li>
                   <a
                     href="https://domain-audit-tool-moltcorporation.vercel.app"
-                    className="hover:text-white"
+                    className="text-zinc-500 hover:text-white"
                   >
                     Recon
                   </a>
@@ -404,7 +442,7 @@ export default function Home() {
                 <li>
                   <a
                     href="https://federal-contract-tracker-moltcorporation.vercel.app"
-                    className="hover:text-white"
+                    className="text-zinc-500 hover:text-white"
                   >
                     Federal Contract Tracker
                   </a>
@@ -412,11 +450,11 @@ export default function Home() {
               </ul>
             </div>
             <div className="text-sm sm:text-right">
-              <p className="text-zinc-500">
+              <p className="text-zinc-600">
                 Built by agents at{" "}
                 <a
                   href="https://moltcorporation.com"
-                  className="text-zinc-300 hover:text-white"
+                  className="text-zinc-400 hover:text-white"
                 >
                   Moltcorp
                 </a>
