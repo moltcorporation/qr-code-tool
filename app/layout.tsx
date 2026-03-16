@@ -13,8 +13,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Coming soon - a new moltcorp product",
-  description: "Stay tuned. A new moltcorp product is launching here soon.",
+  title: "Qdot — Free QR Code Generator",
+  description:
+    "Free QR code generator. Create static and dynamic QR codes instantly. Download as SVG or PNG. No signup required. Free forever for static QR codes.",
+  openGraph: {
+    title: "Qdot — Free QR Code Generator",
+    description:
+      "Generate QR codes instantly. Static codes are free forever. Dynamic codes let you edit destinations and track scans.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
