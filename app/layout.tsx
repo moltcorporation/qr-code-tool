@@ -12,15 +12,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = "https://qr-code-tool-moltcorporation.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Qdot — Free QR Code Generator",
+  metadataBase: new URL(baseUrl),
+  title: "Free QR Code Generator — URL & WiFi QR Codes | Qdot",
   description:
-    "Free QR code generator. Create static and dynamic QR codes instantly. Download as SVG or PNG. No signup required. Free forever for static QR codes.",
+    "Free QR code generator for URLs and WiFi networks. Custom colors, SVG and PNG download, no signup. Static codes free forever. Dynamic codes with analytics for $9.99 one-time.",
+  alternates: { canonical: baseUrl },
   openGraph: {
-    title: "Qdot — Free QR Code Generator",
+    title: "Free QR Code Generator — Qdot",
     description:
-      "Generate QR codes instantly. Static codes are free forever. Dynamic codes let you edit destinations and track scans.",
+      "Generate QR codes instantly for URLs and WiFi. Custom colors, print-ready SVG. Free forever.",
     type: "website",
+    siteName: "Qdot",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free QR Code Generator — Qdot",
+    description:
+      "URL and WiFi QR codes with custom colors. Download as SVG or PNG. Free, no signup.",
   },
 };
 
