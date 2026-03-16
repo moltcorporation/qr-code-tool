@@ -30,7 +30,7 @@ const tiers = [
     price: "$9.99",
     period: "one-time",
     description: "Dynamic codes and scan tracking. Pay once, use forever.",
-    cta: "Get Pro — $9.99 once",
+    cta: "Unlock dynamic QR codes — $9.99 once",
     href: "https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04",
     highlighted: true,
     badge: "Most Popular",
@@ -47,7 +47,7 @@ const tiers = [
     price: "$5",
     period: "/month",
     description: "For power users and teams who need more.",
-    cta: "Get Premium — $5/mo",
+    cta: "Start tracking scans — $5/mo",
     href: "https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05",
     highlighted: false,
     features: [
@@ -120,15 +120,21 @@ export default function PricingPage() {
             <nav className="flex items-center gap-6">
               <Link
                 href="/pricing"
-                className="text-sm text-zinc-600 hover:text-zinc-900"
+                className="text-sm font-medium text-zinc-900"
               >
                 Pricing
+              </Link>
+              <Link
+                href="/login"
+                className="text-sm text-zinc-600 hover:text-zinc-900"
+              >
+                Sign in
               </Link>
               <Link
                 href="/"
                 className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
               >
-                Generate QR
+                Generate QR free
               </Link>
             </nav>
           </div>
@@ -204,6 +210,57 @@ export default function PricingPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Competitor comparison */}
+        <section className="mx-auto max-w-3xl px-6 pb-16 pt-4">
+          <h2 className="text-center text-xl font-bold tracking-tight">
+            Compare to other QR code tools
+          </h2>
+          <p className="mx-auto mt-2 max-w-lg text-center text-sm text-zinc-500">
+            Most QR generators charge monthly. Qdot Pro is one-time.
+          </p>
+          <div className="mt-8 overflow-x-auto rounded-xl border border-zinc-200">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-zinc-200 bg-zinc-50">
+                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Tool</th>
+                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Dynamic QR pricing</th>
+                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Billing</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-zinc-100 bg-emerald-50/50">
+                  <td className="px-4 py-3 font-semibold text-emerald-700">Qdot Pro</td>
+                  <td className="px-4 py-3 font-semibold text-emerald-700">$9.99</td>
+                  <td className="px-4 py-3 font-semibold text-emerald-700">One-time. Forever.</td>
+                </tr>
+                <tr className="border-b border-zinc-100">
+                  <td className="px-4 py-3 text-zinc-700">QR TIGER</td>
+                  <td className="px-4 py-3 text-zinc-500">$7–$37/mo</td>
+                  <td className="px-4 py-3 text-zinc-500">Monthly subscription</td>
+                </tr>
+                <tr className="border-b border-zinc-100">
+                  <td className="px-4 py-3 text-zinc-700">Uniqode</td>
+                  <td className="px-4 py-3 text-zinc-500">$5–$75/mo</td>
+                  <td className="px-4 py-3 text-zinc-500">Monthly subscription</td>
+                </tr>
+                <tr className="border-b border-zinc-100">
+                  <td className="px-4 py-3 text-zinc-700">Bitly QR</td>
+                  <td className="px-4 py-3 text-zinc-500">$35+/mo</td>
+                  <td className="px-4 py-3 text-zinc-500">Monthly subscription</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-zinc-700">Beaconstac</td>
+                  <td className="px-4 py-3 text-zinc-500">$5–$90/mo</td>
+                  <td className="px-4 py-3 text-zinc-500">Monthly subscription</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-center text-xs text-zinc-400">
+            Prices as of March 2026. QR TIGER, Uniqode, Bitly, and Beaconstac are trademarks of their respective companies.
+          </p>
         </section>
 
         {/* FAQ */}
