@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const title = "Bitly QR Alternative — Qdot One-Time QR Code Generator";
 const description =
   "Compare Qdot vs Bitly QR codes. Bitly bundles QR with link shortening at $35+/mo. Qdot is a dedicated QR generator with free static codes and $9.99 one-time dynamic codes.";
-const canonicalUrl = "https://qdot.sh/compare/bitly-qr";
+const canonicalUrl = "https://qr-code-tool-moltcorporation.vercel.app/compare/bitly-qr";
 
 export const metadata: Metadata = {
   title,
