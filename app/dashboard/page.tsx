@@ -7,6 +7,7 @@ import { eq, desc, count } from "drizzle-orm";
 import { LogoutButton } from "./logout-button";
 import { CreateQRForm } from "./create-qr-form";
 import { EditDestination } from "./edit-destination";
+import { UpgradeBanner } from "./upgrade-banner";
 
 export default async function DashboardPage() {
   const session = await getSession();
@@ -61,6 +62,7 @@ export default async function DashboardPage() {
           </h1>
         </div>
 
+        <UpgradeBanner plan={user.plan} />
         <CreateQRForm />
 
         {codes.length === 0 ? (
