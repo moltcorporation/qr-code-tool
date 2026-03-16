@@ -108,3 +108,33 @@ export async function GET(
     recentScans: recentScans.slice(0, 20),
   });
 }
+
+// Delete a QR code
+export async function DELETE(
+  _request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const session = await getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  const { id } = await params;
+
+  // Verify ownership
+  const [qr] = await db
+    .select({ id: qrCodes.id })
+    .from(qrCodes)
+    .where(and(eq(qrCodes.id, id), eq(qrCodes.userId, session.userId)))
+    .limit(1);
+
+  if (!qr) {
+    return NextResponse.json({ error: "QR code not found" }, { status: 404 });
+  }
+
+  // Delete associated scans first, then the QR code
+  await db.delete(scans).where(eq(scans.qrCodeId, id));
+  await db.delete(qrCodes).where(eq(qrCodes.id, id));
+
+  return NextResponse.json({ success: true });
+}

@@ -8,6 +8,8 @@ import { LogoutButton } from "./logout-button";
 import { CreateQRForm } from "./create-qr-form";
 import { EditDestination } from "./edit-destination";
 import { UpgradeBanner } from "./upgrade-banner";
+import { QRPreview } from "./qr-preview";
+import { CopyLinkButton, DownloadButtons, DeleteButton } from "./qr-actions";
 
 export default async function DashboardPage() {
   const session = await getSession();
@@ -66,9 +68,18 @@ export default async function DashboardPage() {
         <CreateQRForm />
 
         {codes.length === 0 ? (
-          <div className="mt-8 rounded-lg border border-dashed border-zinc-300 bg-white p-12 text-center">
-            <p className="text-sm text-zinc-500">
-              No dynamic QR codes yet. Create one above.
+          <div className="mt-8 rounded-lg border border-dashed border-zinc-300 bg-white p-16 text-center">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100">
+              <svg className="h-7 w-7 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-zinc-900">
+              Create your first dynamic QR code
+            </h3>
+            <p className="mt-1 text-sm text-zinc-500 max-w-sm mx-auto">
+              Dynamic QR codes let you change the destination URL anytime without reprinting. Enter a URL above to get started.
             </p>
           </div>
         ) : (
@@ -76,26 +87,42 @@ export default async function DashboardPage() {
             {codes.map((qr) => (
               <div
                 key={qr.id}
-                className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-5"
+                className="flex items-start gap-4 rounded-lg border border-zinc-200 bg-white p-5"
               >
-                <div className="flex flex-col gap-1">
+                {/* QR Preview */}
+                <QRPreview
+                  shortCode={qr.shortCode}
+                  fgColor={qr.fgColor || "#000000"}
+                  bgColor={qr.bgColor || "#ffffff"}
+                />
+
+                {/* Info */}
+                <div className="flex flex-1 flex-col gap-1.5 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-medium text-zinc-900">
                       {qr.title || qr.shortCode}
                     </span>
-                    <span className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs text-zinc-500">
-                      /q/{qr.shortCode}
-                    </span>
                   </div>
                   <EditDestination id={qr.id} currentUrl={qr.destinationUrl} />
-                  <span className="text-xs text-zinc-400">
-                    Created{" "}
-                    {qr.createdAt
-                      ? new Date(qr.createdAt).toLocaleDateString()
-                      : ""}
-                  </span>
+                  <CopyLinkButton shortCode={qr.shortCode} />
+                  <div className="flex items-center gap-3 mt-1">
+                    <span className="text-xs text-zinc-400">
+                      Created{" "}
+                      {qr.createdAt
+                        ? new Date(qr.createdAt).toLocaleDateString()
+                        : ""}
+                    </span>
+                    <DownloadButtons
+                      shortCode={qr.shortCode}
+                      fgColor={qr.fgColor || "#000000"}
+                      bgColor={qr.bgColor || "#ffffff"}
+                      title={qr.title || qr.shortCode}
+                    />
+                  </div>
                 </div>
-                <div className="flex items-center gap-6">
+
+                {/* Right side: stats + actions */}
+                <div className="flex items-center gap-3 flex-shrink-0">
                   <div className="text-right">
                     <span className="text-2xl font-bold text-zinc-900">
                       {qr.scanCount}
@@ -108,6 +135,10 @@ export default async function DashboardPage() {
                   >
                     Analytics
                   </Link>
+                  <DeleteButton
+                    id={qr.id}
+                    title={qr.title || qr.shortCode}
+                  />
                 </div>
               </div>
             ))}
