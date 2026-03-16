@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 type Tab = "url" | "wifi";
@@ -72,6 +72,14 @@ export default function Home() {
   const [pngDataUrl, setPngDataUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [totalCodes, setTotalCodes] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("/api/stats")
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => d && setTotalCodes(d.totalCodes))
+      .catch(() => {});
+  }, []);
 
   function getData(): string {
     if (tab === "wifi") {
@@ -181,9 +189,16 @@ export default function Home() {
 
       {/* Hero */}
       <section className="mx-auto max-w-3xl px-6 pt-20 text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
-          No subscription. Ever.
-        </p>
+        <div className="flex items-center justify-center gap-3">
+          <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
+            No subscription. Ever.
+          </p>
+          {totalCodes !== null && totalCodes > 0 && (
+            <span className="rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-400">
+              {totalCodes.toLocaleString()} QR codes generated
+            </span>
+          )}
+        </div>
         <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
           QR codes without the{" "}
           <span className="text-zinc-500 line-through">monthly bill</span>
@@ -351,6 +366,88 @@ export default function Home() {
               </p>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Trust badges */}
+      <section className="mx-auto flex max-w-2xl flex-wrap items-center justify-center gap-4 px-6 pb-16">
+        <div className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-400">
+          <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          No signup required
+        </div>
+        <div className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-400">
+          <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          One-time payment, not monthly
+        </div>
+        <div className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-4 py-2 text-sm text-zinc-400">
+          <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          No watermark on downloads
+        </div>
+      </section>
+
+      {/* Use cases */}
+      <section className="border-t border-zinc-800 bg-zinc-900/50">
+        <div className="mx-auto max-w-5xl px-6 py-20">
+          <h2 className="text-center text-2xl font-bold tracking-tight">
+            QR codes that work after you print them
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-center text-sm text-zinc-500">
+            Dynamic QR codes let you change the destination anytime. No
+            reprinting. No wasted materials.
+          </p>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+            {[
+              {
+                title: "Restaurant menus",
+                desc: "Update your menu QR without reprinting table cards. Seasonal specials? Just change the link.",
+                icon: "M3 3h18v18H3V3zm3 6h12m-12 4h8",
+              },
+              {
+                title: "Business cards",
+                desc: "Switch jobs or update your portfolio? Your QR code still works. Same card, new destination.",
+                icon: "M15 9h3m-3 3h3m-3 3h3M6 9h.01M6 12h.01M6 15h.01M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1z",
+              },
+              {
+                title: "Event marketing",
+                desc: "Track which flyers, posters, or ads drive the most scans. Real data, not guesses.",
+                icon: "M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z",
+              },
+              {
+                title: "Product packaging",
+                desc: "Redirect to seasonal campaigns, new product launches, or updated instructions. One code, infinite uses.",
+                icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4",
+              },
+            ].map((uc) => (
+              <div
+                key={uc.title}
+                className="flex gap-4 rounded-lg border border-zinc-800 bg-zinc-950 p-6"
+              >
+                <svg
+                  className="mt-0.5 h-6 w-6 shrink-0 text-emerald-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d={uc.icon}
+                  />
+                </svg>
+                <div>
+                  <h3 className="font-semibold text-white">{uc.title}</h3>
+                  <p className="mt-1 text-sm text-zinc-500">{uc.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
