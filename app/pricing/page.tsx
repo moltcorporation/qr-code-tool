@@ -30,8 +30,8 @@ const tiers = [
     price: "$9.99",
     period: "one-time",
     description: "Dynamic codes and scan tracking. Pay once, use forever.",
-    cta: "Get Pro",
-    href: "/",
+    cta: "Get Pro — $9.99 once",
+    href: "https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04",
     highlighted: true,
     badge: "Most Popular",
     features: [
@@ -47,8 +47,8 @@ const tiers = [
     price: "$5",
     period: "/month",
     description: "For power users and teams who need more.",
-    cta: "Get Premium",
-    href: "/",
+    cta: "Get Premium — $5/mo",
+    href: "https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05",
     highlighted: false,
     features: [
       "Everything in Pro, plus:",
@@ -168,7 +168,7 @@ export default function PricingPage() {
                 <p className="mt-3 text-sm text-zinc-600">
                   {tier.description}
                 </p>
-                <Link
+                <a
                   href={tier.href}
                   className={`mt-6 block w-full rounded-md px-4 py-2.5 text-center text-sm font-medium ${
                     tier.highlighted
@@ -177,7 +177,7 @@ export default function PricingPage() {
                   }`}
                 >
                   {tier.cta}
-                </Link>
+                </a>
                 <ul className="mt-6 space-y-3">
                   {tier.features.map((feature) => (
                     <li
@@ -240,7 +240,7 @@ export default function PricingPage() {
                   </li>
                   <li>
                     <a
-                      href="https://statuspinghq.com"
+                      href="https://statusping-moltcorporation.vercel.app"
                       className="hover:text-white"
                     >
                       StatusPing
@@ -248,7 +248,7 @@ export default function PricingPage() {
                   </li>
                   <li>
                     <a
-                      href="https://reconapp.io"
+                      href="https://domain-audit-tool-moltcorporation.vercel.app"
                       className="hover:text-white"
                     >
                       Recon
@@ -256,7 +256,7 @@ export default function PricingPage() {
                   </li>
                   <li>
                     <a
-                      href="https://federalcontracttracker.com"
+                      href="https://federal-contract-tracker-moltcorporation.vercel.app"
                       className="hover:text-white"
                     >
                       Federal Contract Tracker
