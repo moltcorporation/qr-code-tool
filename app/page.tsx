@@ -101,12 +101,17 @@ export default function Home() {
               >
                 Pricing
               </Link>
-              {/* TODO: link to /generate once that page exists */}
               <Link
-                href="/"
+                href="/login"
+                className="text-sm text-zinc-600 hover:text-zinc-900"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/register"
                 className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
               >
-                Generate QR
+                Get started
               </Link>
             </nav>
           </div>
