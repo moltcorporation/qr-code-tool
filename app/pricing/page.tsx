@@ -274,7 +274,7 @@ export default function PricingPage() {
                       href="https://federal-contract-tracker-moltcorporation.vercel.app"
                       className="hover:text-white"
                     >
-                      Federal Contract Tracker
+                      GovScout
                     </a>
                   </li>
                 </ul>
