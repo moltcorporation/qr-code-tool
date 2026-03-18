@@ -16,39 +16,39 @@ const WIFI_ENCRYPTIONS = ["WPA", "WEP", "nopass"];
 
 const features = [
   {
-    title: "Static QR Codes",
+    title: "Restaurant menus that update",
     description:
-      "Paste a URL, get a QR code. Download as SVG or PNG. Unlimited. Free.",
-    free: true,
-  },
-  {
-    title: "WiFi QR Codes",
-    description:
-      "Guests scan, they're connected. No more spelling out passwords.",
-    free: true,
-  },
-  {
-    title: "Dynamic QR Codes",
-    description:
-      "Change where it points after you print. The QR stays the same. The destination doesn't have to.",
+      "Change your seasonal menu without reprinting table cards. One QR code, unlimited menu updates.",
     free: false,
   },
   {
-    title: "Scan Analytics",
+    title: "WiFi without the awkward ask",
     description:
-      "Every scan logged: when, where, what device. Know which codes actually get used.",
-    free: false,
-  },
-  {
-    title: "Your Colors",
-    description:
-      "Match your brand. Pick any foreground and background color. It's your code.",
+      "Guests scan, they're connected. No spelling out passwords. Perfect for cafes, Airbnbs, and offices.",
     free: true,
   },
   {
-    title: "Print-Ready SVG",
+    title: "Business cards that never expire",
     description:
-      "Vector output that looks sharp on a business card or a billboard. No pixels, no problems.",
+      "Switch jobs or update your portfolio? Same card, new destination. Your QR code follows your career.",
+    free: false,
+  },
+  {
+    title: "Know which flyers actually work",
+    description:
+      "Every scan logged: when, where, what device. Stop guessing which marketing materials drive foot traffic.",
+    free: false,
+  },
+  {
+    title: "Brand colors, not generic black",
+    description:
+      "Match your brand. Your QR code should look like it belongs on your packaging, not a lab report.",
+    free: true,
+  },
+  {
+    title: "Billboard to business card",
+    description:
+      "Print-ready SVG that looks sharp at any size. No pixels, no blurry scans, no reprints.",
     free: true,
   },
 ];
@@ -217,13 +217,14 @@ export default function Home() {
           )}
         </div>
         <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-          QR codes without the{" "}
-          <span className="text-zinc-500 line-through">monthly bill</span>
+          Print once.{" "}
+          <span className="text-emerald-400">Update forever.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg text-zinc-400">
-          Other tools charge you every month for something that should be free.
-          Qdot gives you unlimited static QR codes at no cost. Need dynamic
-          codes? Pay once. Done.
+          Your restaurant menu changes. Your business card doesn&apos;t have to.
+          Create QR codes that point wherever you need — and change the
+          destination anytime, even after printing. Free for static codes.
+          One-time $9.99 for dynamic.
         </p>
 
         {/* Competitor comparison */}
@@ -423,11 +424,11 @@ export default function Home() {
       <section className="border-t border-zinc-800 bg-zinc-900/50">
         <div className="mx-auto max-w-5xl px-6 py-20">
           <h2 className="text-center text-2xl font-bold tracking-tight">
-            QR codes that work after you print them
+            One code. Infinite updates.
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-center text-sm text-zinc-500">
-            Dynamic QR codes let you change the destination anytime. No
-            reprinting. No wasted materials.
+            Print your QR code on menus, flyers, packaging, or business cards.
+            When things change, update the destination — not the print run.
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {[
@@ -483,10 +484,10 @@ export default function Home() {
       <section className="border-t border-zinc-800 bg-zinc-900">
         <div className="mx-auto max-w-5xl px-6 py-20">
           <h2 className="text-center text-2xl font-bold tracking-tight">
-            Everything. No gotchas.
+            Built for how you actually use QR codes
           </h2>
           <p className="mx-auto mt-3 max-w-md text-center text-sm text-zinc-500">
-            Most QR tools gate basic features behind paywalls. We don't.
+            Real use cases, not feature checkboxes. Free features stay free.
           </p>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
@@ -520,12 +521,12 @@ export default function Home() {
       {/* Pricing teaser */}
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
         <h2 className="text-2xl font-bold tracking-tight">
-          Pay once. Use forever.
+          Stop paying rent on your QR codes
         </h2>
         <p className="mx-auto mt-4 max-w-lg text-zinc-400">
-          Static QR codes are free. Unlimited. No account needed. When you
-          want dynamic codes and scan analytics, it&apos;s a one-time $9.99
-          upgrade. Not $9.99/month. Not $9.99/year. Once.
+          Static QR codes are free forever — no account needed. When you
+          need to update destinations after printing, track scans, or match your brand,
+          it&apos;s a one-time $9.99 upgrade. Not monthly. Not yearly. Once.
         </p>
         <Link
           href="/pricing"
