@@ -18,7 +18,7 @@ const tiers = [
     highlighted: false,
     features: [
       "Unlimited static QR codes",
-      "URL and WiFi QR types",
+      "URL, WiFi, vCard, and Text QR types",
       "Custom foreground & background colors",
       "Error correction level selector",
       "SVG + PNG download",
