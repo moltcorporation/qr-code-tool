@@ -538,6 +538,107 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Dynamic QR explainer */}
+      <section className="border-t border-zinc-800">
+        <div className="mx-auto max-w-3xl px-6 py-20">
+          <h2 className="text-center text-2xl font-bold tracking-tight">
+            Same QR code. New destination. No reprinting.
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-center text-sm text-zinc-500">
+            This is what makes dynamic QR codes worth $9.99.
+          </p>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-950 text-sm font-bold text-emerald-400">
+                1
+              </div>
+              <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-white">
+                <svg className="h-10 w-10 text-zinc-800" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="3" height="3" />
+                  <rect x="18" y="14" width="3" height="3" />
+                  <rect x="14" y="18" width="3" height="3" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">Print the QR code</p>
+                <p className="mt-1 text-xs text-zinc-500">
+                  On menus, flyers, business cards — anywhere
+                </p>
+              </div>
+              <div className="rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-zinc-400">
+                Points to → <span className="text-emerald-400">spring-menu.pdf</span>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex flex-col items-center gap-4 rounded-xl border border-emerald-800/50 bg-emerald-950/30 p-6 text-center">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-950 text-sm font-bold text-emerald-400">
+                2
+              </div>
+              <div className="flex h-16 w-16 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800">
+                <svg className="h-8 w-8 text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">Update the URL</p>
+                <p className="mt-1 text-xs text-zinc-500">
+                  Change the destination in your Qdot dashboard. Takes 5 seconds.
+                </p>
+              </div>
+              <div className="rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-zinc-400">
+                <span className="text-zinc-600 line-through">spring-menu.pdf</span>
+                {" → "}
+                <span className="text-emerald-400">summer-menu.pdf</span>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex flex-col items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-950 text-sm font-bold text-emerald-400">
+                3
+              </div>
+              <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-white">
+                <svg className="h-10 w-10 text-zinc-800" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="3" height="3" />
+                  <rect x="18" y="14" width="3" height="3" />
+                  <rect x="14" y="18" width="3" height="3" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">Same code, new page</p>
+                <p className="mt-1 text-xs text-zinc-500">
+                  Customers scan the same printed QR — it now opens the new destination.
+                </p>
+              </div>
+              <div className="rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-zinc-400">
+                Points to → <span className="text-emerald-400">summer-menu.pdf</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <p className="text-sm text-zinc-400">
+              No reprinting. No new QR code. Just update the link.
+            </p>
+            <Link
+              href="/pricing"
+              className="rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
+            >
+              Get dynamic QR codes — $9.99 once
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Use cases */}
       <section className="border-t border-zinc-800 bg-zinc-900/50">
         <div className="mx-auto max-w-5xl px-6 py-20">
