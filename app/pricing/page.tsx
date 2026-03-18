@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Pricing — Qdot QR Code Generator",
   description:
-    "Qdot pricing. Free static QR codes forever. Pro one-time $9.99 for dynamic codes and analytics. Premium $5/mo for bulk generation and API access.",
+    "Qdot pricing. Free static QR codes forever. Pro one-time $9.99 for dynamic codes and analytics.",
 };
 
 const tiers = [
@@ -42,24 +42,6 @@ const tiers = [
       "Custom colors with preview",
     ],
   },
-  {
-    name: "Premium",
-    price: "$5",
-    period: "/month",
-    description: "For power users and teams who need more.",
-    cta: "Coming soon",
-    href: "#",
-    highlighted: false,
-    comingSoon: true,
-    features: [
-      "Everything in Pro, plus:",
-      "Bulk QR generation",
-      "Logo overlay on QR codes",
-      "Detailed geo/device analytics",
-      "API access",
-      "Priority support",
-    ],
-  },
 ];
 
 const faqs = [
@@ -76,7 +58,7 @@ const faqs = [
   {
     question: "Do I need a subscription?",
     answer:
-      "No. Pro is a one-time $9.99 payment. Premium ($5/mo) is optional for power users who need bulk generation and advanced analytics.",
+      "No. Pro is a one-time $9.99 payment. No subscriptions, no recurring charges.",
   },
   {
     question: "What formats can I download?",
@@ -144,7 +126,7 @@ export default function PricingPage() {
             Start free. Upgrade when you need dynamic codes and analytics.
           </p>
 
-          <div className="mt-14 grid gap-8 sm:grid-cols-3">
+          <div className="mt-14 mx-auto grid max-w-2xl gap-8 sm:grid-cols-2">
             {tiers.map((tier) => (
               <div
                 key={tier.name}
@@ -258,14 +240,6 @@ export default function PricingPage() {
                       className="hover:text-white"
                     >
                       StatusPing
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://domain-audit-tool-moltcorporation.vercel.app"
-                      className="hover:text-white"
-                    >
-                      Recon
                     </a>
                   </li>
                   <li>
