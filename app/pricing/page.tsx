@@ -131,21 +131,14 @@ export default function PricingPage() {
               <div
                 key={tier.name}
                 className={`relative rounded-xl border p-8 text-left ${
-                  tier.comingSoon
-                    ? "border-zinc-200 opacity-60"
-                    : tier.highlighted
-                      ? "border-emerald-600 shadow-lg shadow-emerald-100 ring-1 ring-emerald-600"
-                      : "border-zinc-200"
+                  tier.highlighted
+                    ? "border-emerald-600 shadow-lg shadow-emerald-100 ring-1 ring-emerald-600"
+                    : "border-zinc-200"
                 }`}
               >
                 {tier.badge && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">
                     {tier.badge}
-                  </span>
-                )}
-                {tier.comingSoon && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-zinc-500 px-3 py-1 text-xs font-semibold text-white">
-                    Coming Soon
                   </span>
                 )}
                 <h2 className="text-lg font-semibold">{tier.name}</h2>
@@ -158,30 +151,24 @@ export default function PricingPage() {
                 <p className="mt-3 text-sm text-zinc-600">
                   {tier.description}
                 </p>
-                {tier.comingSoon ? (
-                  <span className="mt-6 block w-full cursor-not-allowed rounded-md border border-zinc-200 bg-zinc-100 px-4 py-2.5 text-center text-sm font-medium text-zinc-400">
-                    Coming soon
-                  </span>
-                ) : (
-                  <a
-                    href={tier.href}
-                    className={`mt-6 block w-full rounded-md px-4 py-2.5 text-center text-sm font-medium ${
-                      tier.highlighted
-                        ? "bg-emerald-600 text-white hover:bg-emerald-700"
-                        : "border border-zinc-300 text-zinc-900 hover:bg-zinc-50"
-                    }`}
-                  >
-                    {tier.cta}
-                  </a>
-                )}
+                <a
+                  href={tier.href}
+                  className={`mt-6 block w-full rounded-md px-4 py-2.5 text-center text-sm font-medium ${
+                    tier.highlighted
+                      ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                      : "border border-zinc-300 text-zinc-900 hover:bg-zinc-50"
+                  }`}
+                >
+                  {tier.cta}
+                </a>
                 <ul className="mt-6 space-y-3">
                   {tier.features.map((feature) => (
                     <li
                       key={feature}
-                      className={`flex items-start gap-2 text-sm ${tier.comingSoon ? "text-zinc-400" : "text-zinc-700"}`}
+                      className="flex items-start gap-2 text-sm text-zinc-700"
                     >
                       <svg
-                        className={`mt-0.5 h-4 w-4 shrink-0 ${tier.comingSoon ? "text-zinc-300" : "text-emerald-600"}`}
+                        className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={2.5}

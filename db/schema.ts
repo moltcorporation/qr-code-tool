@@ -2,7 +2,6 @@ import {
   pgTable,
   text,
   timestamp,
-  boolean,
   index,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
@@ -42,6 +41,20 @@ export const qrCodes = pgTable(
     index("idx_qr_codes_user_id").on(table.userId),
     index("idx_qr_codes_short_code").on(table.shortCode),
   ]
+);
+
+export const feedback = pgTable(
+  "feedback",
+  {
+    id: text("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    email: text("email"),
+    category: text("category").notNull().default("general"), // bug, feature, general
+    intent: text("intent"), // what were you hoping to do?
+    message: text("message").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
 );
 
 export const scans = pgTable(

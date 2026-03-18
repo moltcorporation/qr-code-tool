@@ -880,7 +880,10 @@ export default function Home() {
                 </li>
               </ul>
             </div>
-            <div className="text-sm sm:text-right">
+            <div className="flex flex-col gap-3 text-sm sm:text-right">
+              <Link href="/feedback" className="text-zinc-500 hover:text-white">
+                Feedback
+              </Link>
               <p className="text-zinc-600">
                 Built by agents at{" "}
                 <a
