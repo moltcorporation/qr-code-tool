@@ -518,6 +518,100 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Analytics preview — show what Pro includes */}
+      <section className="border-t border-zinc-800">
+        <div className="mx-auto max-w-4xl px-6 py-20">
+          <h2 className="text-center text-2xl font-bold tracking-tight">
+            Track every scan. Know what&apos;s working.
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-center text-sm text-zinc-500">
+            Pro includes scan analytics so you can see who&apos;s scanning, when, and from where.
+            Here&apos;s what your dashboard looks like.
+          </p>
+
+          <div className="mt-10 rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+            {/* Stats row */}
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { label: "Scans this week", value: "127", change: "+23%" },
+                { label: "Mobile", value: "89%", change: "" },
+                { label: "Top location", value: "Chicago", change: "" },
+              ].map((stat) => (
+                <div key={stat.label} className="rounded-lg border border-zinc-800 bg-zinc-950 p-4 text-center">
+                  <p className="text-2xl font-bold text-white">{stat.value}</p>
+                  <p className="mt-1 text-xs text-zinc-500">{stat.label}</p>
+                  {stat.change && (
+                    <span className="mt-1 inline-block rounded-full bg-emerald-950 px-2 py-0.5 text-xs text-emerald-400">
+                      {stat.change}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Mini chart — 7-day bar chart */}
+            <div className="mt-6 rounded-lg border border-zinc-800 bg-zinc-950 p-4">
+              <p className="mb-3 text-xs font-medium text-zinc-500">Scans — last 7 days</p>
+              <div className="flex items-end gap-2" style={{ height: "80px" }}>
+                {[
+                  { day: "Mon", h: 45 },
+                  { day: "Tue", h: 62 },
+                  { day: "Wed", h: 38 },
+                  { day: "Thu", h: 75 },
+                  { day: "Fri", h: 80 },
+                  { day: "Sat", h: 55 },
+                  { day: "Sun", h: 30 },
+                ].map((d) => (
+                  <div key={d.day} className="flex flex-1 flex-col items-center gap-1">
+                    <div
+                      className="w-full rounded-sm bg-emerald-500/80"
+                      style={{ height: `${d.h}%` }}
+                    />
+                    <span className="text-[10px] text-zinc-600">{d.day}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Recent scans */}
+            <div className="mt-6 rounded-lg border border-zinc-800 bg-zinc-950 p-4">
+              <p className="mb-3 text-xs font-medium text-zinc-500">Recent scans</p>
+              <div className="flex flex-col gap-2">
+                {[
+                  { time: "2 min ago", device: "iPhone", location: "Chicago, IL", ref: "Direct scan" },
+                  { time: "18 min ago", device: "Android", location: "New York, NY", ref: "Instagram bio" },
+                  { time: "1 hr ago", device: "iPhone", location: "Los Angeles, CA", ref: "Menu card" },
+                ].map((scan) => (
+                  <div key={scan.time} className="flex items-center justify-between rounded-md bg-zinc-900 px-3 py-2 text-xs">
+                    <div className="flex items-center gap-3">
+                      <span className="text-zinc-400">{scan.time}</span>
+                      <span className="text-zinc-300">{scan.device}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-zinc-400">{scan.location}</span>
+                      <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-zinc-500">{scan.ref}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <p className="mt-4 text-center text-xs text-zinc-600">
+              Sample data — your dashboard populates as people scan your QR codes
+            </p>
+          </div>
+
+          <div className="mt-6 text-center">
+            <Link
+              href="/pricing"
+              className="inline-block rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
+            >
+              Get Pro — $9.99 once
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing teaser */}
       <section className="mx-auto max-w-3xl px-6 py-20 text-center">
         <h2 className="text-2xl font-bold tracking-tight">

@@ -220,6 +220,46 @@ export default function PricingPage() {
           </div>
         </section>
 
+        {/* Analytics preview */}
+        <section className="mx-auto max-w-3xl px-6 pb-16">
+          <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
+            <h3 className="text-center text-lg font-bold text-zinc-900">
+              What Pro analytics looks like
+            </h3>
+            <p className="mt-1 text-center text-sm text-zinc-500">
+              Track every scan — who, when, and where.
+            </p>
+            <div className="mt-6 grid grid-cols-3 gap-3">
+              {[
+                { label: "Scans this week", value: "127" },
+                { label: "Mobile", value: "89%" },
+                { label: "Top location", value: "Chicago" },
+              ].map((stat) => (
+                <div key={stat.label} className="rounded-lg border border-zinc-200 bg-white p-3 text-center">
+                  <p className="text-xl font-bold text-zinc-900">{stat.value}</p>
+                  <p className="mt-0.5 text-xs text-zinc-500">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 flex items-end gap-1.5" style={{ height: "60px" }}>
+              {[45, 62, 38, 75, 80, 55, 30].map((h, i) => (
+                <div key={i} className="flex flex-1 flex-col items-center gap-1">
+                  <div
+                    className="w-full rounded-sm bg-emerald-500"
+                    style={{ height: `${h}%` }}
+                  />
+                  <span className="text-[9px] text-zinc-400">
+                    {["M", "T", "W", "T", "F", "S", "S"][i]}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-center text-xs text-zinc-400">
+              Sample data — your dashboard populates as people scan your codes
+            </p>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="border-t border-zinc-200 bg-zinc-50">
           <div className="mx-auto max-w-3xl px-6 py-20">
