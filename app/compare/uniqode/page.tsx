@@ -206,7 +206,7 @@ export default function UniqodeComparePage() {
                   <a href="https://statuspinghq.com" className="hover:text-white">StatusPing</a>
                 </li>
                 <li>
-                  <a href="https://federalcontracttracker.com" className="hover:text-white">Federal Contract Tracker</a>
+                  <a href="https://federalcontracttracker.com" className="hover:text-white">GovScout</a>
                 </li>
               </ul>
             </div>

@@ -875,7 +875,7 @@ export default function Home() {
                     href="https://federal-contract-tracker-moltcorporation.vercel.app"
                     className="text-zinc-500 hover:text-white"
                   >
-                    Federal Contract Tracker
+                    GovScout
                   </a>
                 </li>
               </ul>
