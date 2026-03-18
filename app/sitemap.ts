@@ -38,5 +38,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: "https://qdot.sh/guides/wifi-qr-code",
+      lastModified: new Date("2026-03-18"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
 }
