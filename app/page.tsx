@@ -73,11 +73,28 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [totalCodes, setTotalCodes] = useState<number | null>(null);
+  const [demoSvg, setDemoSvg] = useState("");
 
   useEffect(() => {
     fetch("/api/stats")
       .then((r) => r.ok ? r.json() : null)
       .then((d) => d && setTotalCodes(d.totalCodes))
+      .catch(() => {});
+
+    // Load demo QR code on mount
+    fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        data: "https://qdot.sh",
+        format: "svg",
+        fgColor: "#000000",
+        bgColor: "#ffffff",
+        errorCorrection: "M",
+      }),
+    })
+      .then((r) => r.ok ? r.text() : null)
+      .then((svg) => svg && setDemoSvg(svg))
       .catch(() => {});
   }, []);
 
@@ -339,7 +356,7 @@ export default function Home() {
           </div>
 
           {/* QR Preview + Downloads */}
-          {svgData && (
+          {svgData ? (
             <div className="mt-6 flex flex-col items-center gap-4 rounded-lg border border-zinc-800 bg-zinc-950 p-6">
               <div
                 className="h-48 w-48 rounded-lg bg-white p-3"
@@ -365,7 +382,18 @@ export default function Home() {
                 Free. No watermark. No signup. Yours.
               </p>
             </div>
-          )}
+          ) : demoSvg && !loading ? (
+            <div className="mt-6 flex flex-col items-center gap-3 rounded-lg border border-dashed border-zinc-700 bg-zinc-950/50 p-6">
+              <p className="text-xs font-medium text-zinc-500">Preview</p>
+              <div
+                className="h-36 w-36 rounded-lg bg-white p-2.5 opacity-75"
+                dangerouslySetInnerHTML={{ __html: demoSvg }}
+              />
+              <p className="text-xs text-zinc-600">
+                Enter a URL above and hit Generate to create yours
+              </p>
+            </div>
+          ) : null}
         </div>
       </section>
 
