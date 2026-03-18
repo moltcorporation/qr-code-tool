@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "How to Create a QR Code for Your Restaurant Menu | Qdot",
+  title: "How to Create a QR Code for Your Restaurant Menu | OneQR",
   description:
-    "Free guide: create QR codes for restaurant menus, WiFi, Google reviews, and ordering. Step-by-step with Qdot — no subscription needed.",
+    "Free guide: create QR codes for restaurant menus, WiFi, Google reviews, and ordering. Step-by-step with OneQR — no subscription needed.",
   keywords: [
     "restaurant qr code menu",
     "qr code menu maker",
@@ -25,17 +25,17 @@ const faqs = [
   {
     question: "How do I create a QR code for my restaurant menu?",
     answer:
-      "Upload your menu to your website or a PDF hosting service, copy the URL, paste it into Qdot, and click Generate. Download the QR code as SVG for print or PNG for digital use. The whole process takes under 30 seconds.",
+      "Upload your menu to your website or a PDF hosting service, copy the URL, paste it into OneQR, and click Generate. Download the QR code as SVG for print or PNG for digital use. The whole process takes under 30 seconds.",
   },
   {
     question: "Can I update my menu without reprinting the QR code?",
     answer:
-      "Yes — use a dynamic QR code ($9.99 one-time with Qdot Pro). Dynamic codes let you change the destination URL anytime. Update your menu online and the same printed QR code points to the new version.",
+      "Yes — use a dynamic QR code ($9.99 one-time with OneQR Pro). Dynamic codes let you change the destination URL anytime. Update your menu online and the same printed QR code points to the new version.",
   },
   {
     question: "How much does a restaurant QR code cost?",
     answer:
-      "Static QR codes are completely free with Qdot — unlimited, no signup, no watermark. If you want dynamic codes that you can update after printing, it's a one-time $9.99 payment. No monthly fees.",
+      "Static QR codes are completely free with OneQR — unlimited, no signup, no watermark. If you want dynamic codes that you can update after printing, it's a one-time $9.99 payment. No monthly fees.",
   },
   {
     question: "What size should I print a QR code for table tents?",
@@ -45,7 +45,7 @@ const faqs = [
   {
     question: "Can I create a QR code for my restaurant WiFi?",
     answer:
-      "Yes. Qdot has a dedicated WiFi QR tab. Enter your network name, password, and encryption type. When customers scan it, their phone connects automatically — no typing required.",
+      "Yes. OneQR has a dedicated WiFi QR tab. Enter your network name, password, and encryption type. When customers scan it, their phone connects automatically — no typing required.",
   },
 ];
 
@@ -111,7 +111,7 @@ export default function RestaurantQRGuide() {
       {
         "@type": "HowToStep",
         name: "Generate the QR code",
-        text: "Paste the URL into Qdot and click Generate. Customize colors to match your brand.",
+        text: "Paste the URL into OneQR and click Generate. Customize colors to match your brand.",
       },
       {
         "@type": "HowToStep",
@@ -187,7 +187,7 @@ export default function RestaurantQRGuide() {
                 <p className="mt-1 text-sm text-zinc-600">
                   Paste your menu URL into{" "}
                   <Link href="/" className="text-emerald-600 hover:underline">
-                    Qdot&apos;s free generator
+                    OneQR&apos;s free generator
                   </Link>
                   . Pick colors that match your brand. Choose high error
                   correction if the QR will be printed small or on textured

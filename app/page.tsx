@@ -94,7 +94,7 @@ export default function Home() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        data: "https://qdot.sh",
+        data: "https://oneqr.sh",
         format: "svg",
         fgColor: "#000000",
         bgColor: "#ffffff",
@@ -199,7 +199,7 @@ export default function Home() {
     const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = blobUrl;
-    a.download = "qdot-qr.svg";
+    a.download = "oneqr-qr.svg";
     a.click();
     URL.revokeObjectURL(blobUrl);
   }
@@ -207,7 +207,7 @@ export default function Home() {
   function downloadPng() {
     const a = document.createElement("a");
     a.href = pngDataUrl;
-    a.download = "qdot-qr.png";
+    a.download = "oneqr-qr.png";
     a.click();
   }
 
@@ -279,7 +279,7 @@ export default function Home() {
             </div>
           ))}
           <div className="flex items-center gap-2 rounded-full border border-emerald-800 bg-emerald-950 px-4 py-1.5">
-            <span className="text-emerald-300">Qdot</span>
+            <span className="text-emerald-300">OneQR</span>
             <span className="font-bold text-emerald-400">$9.99 once</span>
           </div>
         </div>
@@ -588,7 +588,7 @@ export default function Home() {
               <div>
                 <p className="text-sm font-semibold text-white">Update the URL</p>
                 <p className="mt-1 text-xs text-zinc-500">
-                  Change the destination in your Qdot dashboard. Takes 5 seconds.
+                  Change the destination in your OneQR dashboard. Takes 5 seconds.
                 </p>
               </div>
               <div className="rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-zinc-400">
@@ -859,7 +859,7 @@ export default function Home() {
               </p>
               <ul className="mt-3 flex flex-col gap-2 text-sm">
                 <li>
-                  <span className="font-medium text-emerald-400">Qdot</span>{" "}
+                  <span className="font-medium text-emerald-400">OneQR</span>{" "}
                   <span className="text-zinc-600">— QR Code Generator</span>
                 </li>
                 <li>

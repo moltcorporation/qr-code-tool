@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Free WiFi QR Code Generator | Create WiFi QR Codes Instantly | Qdot",
+  title: "Free WiFi QR Code Generator | Create WiFi QR Codes Instantly | OneQR",
   description:
     "Create a free WiFi QR code so guests connect instantly — no typing passwords. Works for restaurants, offices, Airbnbs, and events. No signup required.",
   keywords: [
@@ -31,7 +31,7 @@ const faqs = [
   {
     question: "Is it free to create a WiFi QR code?",
     answer:
-      "Yes. Qdot generates WiFi QR codes completely free — unlimited, no signup, no watermark. You can download as SVG for print or PNG for digital use.",
+      "Yes. OneQR generates WiFi QR codes completely free — unlimited, no signup, no watermark. You can download as SVG for print or PNG for digital use.",
   },
   {
     question: "Is sharing my WiFi password via QR code safe?",
@@ -112,7 +112,7 @@ export default function WifiQRGuide() {
       {
         "@type": "HowToStep",
         name: "Open the WiFi QR generator",
-        text: "Go to Qdot and click the WiFi tab at the top of the generator.",
+        text: "Go to OneQR and click the WiFi tab at the top of the generator.",
       },
       {
         "@type": "HowToStep",
@@ -195,7 +195,7 @@ export default function WifiQRGuide() {
                 <p className="mt-1 text-sm text-zinc-600">
                   Go to{" "}
                   <Link href="/" className="text-emerald-600 hover:underline">
-                    Qdot
+                    OneQR
                   </Link>{" "}
                   and click the <strong>WiFi</strong> tab at the top of the
                   generator. This switches to WiFi QR mode.

@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "qdot-dev-secret-change-in-production"
+  process.env.JWT_SECRET || "oneqr-dev-secret-change-in-production"
 );
-const COOKIE_NAME = "qdot-session";
+const COOKIE_NAME = "oneqr-session";
 
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, 10);

@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://qdot.sh/sitemap.xml",
+    sitemap: "https://oneqr.sh/sitemap.xml",
   };
 }

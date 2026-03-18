@@ -1,37 +1,37 @@
 import Link from "next/link";
 
 const comparisonRows = [
-  { feature: "Pricing (basic)", qdot: "Free (static) / $9.99 one-time (dynamic)", competitor: "$7/mo (Starter)" },
-  { feature: "Pricing (advanced)", qdot: "$5/mo (Premium)", competitor: "$37/mo (Advanced)" },
-  { feature: "Static QR codes", qdot: "Unlimited, free forever", competitor: "Limited on free tier" },
-  { feature: "Dynamic QR codes", qdot: "$9.99 one-time unlock", competitor: "Monthly subscription required" },
-  { feature: "WiFi QR", qdot: "Free", competitor: "Available on paid plans" },
-  { feature: "Scan analytics", qdot: "Included with Pro ($9.99 one-time)", competitor: "Monthly subscription tiers" },
-  { feature: "Custom colors", qdot: "Free", competitor: "Paid plans" },
-  { feature: "Bulk generation", qdot: "$5/mo Premium tier", competitor: "Higher-tier plans" },
-  { feature: "Setup", qdot: "No signup for static, instant", competitor: "Account required" },
+  { feature: "Pricing (basic)", oneqr: "Free (static) / $9.99 one-time (dynamic)", competitor: "$7/mo (Starter)" },
+  { feature: "Pricing (advanced)", oneqr: "$5/mo (Premium)", competitor: "$37/mo (Advanced)" },
+  { feature: "Static QR codes", oneqr: "Unlimited, free forever", competitor: "Limited on free tier" },
+  { feature: "Dynamic QR codes", oneqr: "$9.99 one-time unlock", competitor: "Monthly subscription required" },
+  { feature: "WiFi QR", oneqr: "Free", competitor: "Available on paid plans" },
+  { feature: "Scan analytics", oneqr: "Included with Pro ($9.99 one-time)", competitor: "Monthly subscription tiers" },
+  { feature: "Custom colors", oneqr: "Free", competitor: "Paid plans" },
+  { feature: "Bulk generation", oneqr: "$5/mo Premium tier", competitor: "Higher-tier plans" },
+  { feature: "Setup", oneqr: "No signup for static, instant", competitor: "Account required" },
 ];
 
 const faqs = [
   {
-    question: "Is Qdot really free compared to QR TIGER?",
+    question: "Is OneQR really free compared to QR TIGER?",
     answer:
-      "Yes. Qdot offers unlimited static QR codes for free with no signup. QR TIGER limits free-tier QR codes and requires an account.",
+      "Yes. OneQR offers unlimited static QR codes for free with no signup. QR TIGER limits free-tier QR codes and requires an account.",
   },
   {
-    question: "How does Qdot's one-time pricing compare to QR TIGER's subscription?",
+    question: "How does OneQR's one-time pricing compare to QR TIGER's subscription?",
     answer:
-      "Qdot Pro is a one-time $9.99 payment for dynamic QR codes and analytics. QR TIGER charges $7-37/mo depending on the plan, which adds up to $84-444/year.",
+      "OneQR Pro is a one-time $9.99 payment for dynamic QR codes and analytics. QR TIGER charges $7-37/mo depending on the plan, which adds up to $84-444/year.",
   },
   {
-    question: "Does QR TIGER offer features that Qdot doesn't?",
+    question: "Does QR TIGER offer features that OneQR doesn't?",
     answer:
-      "Yes. QR TIGER supports more QR code types like vCard, app store links, and social media codes. QR TIGER also has a longer track record and larger template library. Qdot focuses on simplicity and affordability for URL and WiFi QR codes.",
+      "Yes. QR TIGER supports more QR code types like vCard, app store links, and social media codes. QR TIGER also has a longer track record and larger template library. OneQR focuses on simplicity and affordability for URL and WiFi QR codes.",
   },
   {
-    question: "Can I switch from QR TIGER to Qdot?",
+    question: "Can I switch from QR TIGER to OneQR?",
     answer:
-      "You can start using Qdot immediately for new QR codes — no migration needed. Static codes work instantly with no signup. For dynamic codes, you'll need Qdot Pro ($9.99 one-time).",
+      "You can start using OneQR immediately for new QR codes — no migration needed. Static codes work instantly with no signup. For dynamic codes, you'll need OneQR Pro ($9.99 one-time).",
   },
 ];
 
@@ -41,7 +41,7 @@ export default function QrTigerComparePage() {
       {/* Header */}
       <header className="border-b border-zinc-200">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold tracking-tight">Qdot</Link>
+          <Link href="/" className="text-lg font-bold tracking-tight">OneQR</Link>
           <div className="flex items-center gap-4">
             <Link href="/pricing" className="text-sm text-zinc-600 hover:text-zinc-900">Pricing</Link>
             <Link href="/" className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">Generate QR free</Link>
@@ -55,7 +55,7 @@ export default function QrTigerComparePage() {
           QR TIGER Alternative — One-Time QR Code Generator
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-600">
-          QR TIGER charges $7-37/mo for dynamic QR codes. Qdot gives you unlimited static codes
+          QR TIGER charges $7-37/mo for dynamic QR codes. OneQR gives you unlimited static codes
           for free and dynamic codes for a one-time $9.99 payment. No monthly bills.
         </p>
       </section>
@@ -63,7 +63,7 @@ export default function QrTigerComparePage() {
       {/* Honest comparison */}
       <section className="mx-auto max-w-4xl px-6 pb-16">
         <h2 className="text-2xl font-bold tracking-tight text-center">
-          Qdot vs QR TIGER — Honest Comparison
+          OneQR vs QR TIGER — Honest Comparison
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-600">
           Both tools generate QR codes, but they take very different approaches to pricing and features.
@@ -75,7 +75,7 @@ export default function QrTigerComparePage() {
             <thead>
               <tr className="border-b-2 border-zinc-200">
                 <th className="py-3 pr-4 text-left font-semibold text-zinc-900">Feature</th>
-                <th className="px-4 py-3 text-left font-semibold text-emerald-600">Qdot</th>
+                <th className="px-4 py-3 text-left font-semibold text-emerald-600">OneQR</th>
                 <th className="px-4 py-3 text-left font-semibold text-zinc-500">QR TIGER</th>
               </tr>
             </thead>
@@ -83,7 +83,7 @@ export default function QrTigerComparePage() {
               {comparisonRows.map((row) => (
                 <tr key={row.feature} className="border-b border-zinc-100">
                   <td className="py-3 pr-4 font-medium text-zinc-900">{row.feature}</td>
-                  <td className="px-4 py-3 text-zinc-700">{row.qdot}</td>
+                  <td className="px-4 py-3 text-zinc-700">{row.oneqr}</td>
                   <td className="px-4 py-3 text-zinc-500">{row.competitor}</td>
                 </tr>
               ))}
@@ -97,7 +97,7 @@ export default function QrTigerComparePage() {
         <div className="mx-auto max-w-4xl px-6 py-16">
           <div className="grid gap-8 sm:grid-cols-2">
             <div className="rounded-xl border border-emerald-200 bg-white p-8">
-              <h3 className="text-lg font-semibold text-emerald-600">When to use Qdot</h3>
+              <h3 className="text-lg font-semibold text-emerald-600">When to use OneQR</h3>
               <ul className="mt-4 space-y-3 text-sm text-zinc-700">
                 <li className="flex items-start gap-2">
                   <svg className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
@@ -182,10 +182,10 @@ export default function QrTigerComparePage() {
         </h3>
         <div className="mt-4 flex flex-wrap justify-center gap-4">
           <Link href="/compare/uniqode" className="rounded-md border border-zinc-200 px-4 py-2 text-sm text-zinc-600 hover:border-zinc-300 hover:text-zinc-900">
-            Qdot vs Uniqode
+            OneQR vs Uniqode
           </Link>
           <Link href="/compare/bitly-qr" className="rounded-md border border-zinc-200 px-4 py-2 text-sm text-zinc-600 hover:border-zinc-300 hover:text-zinc-900">
-            Qdot vs Bitly QR
+            OneQR vs Bitly QR
           </Link>
         </div>
       </section>
@@ -200,7 +200,7 @@ export default function QrTigerComparePage() {
               </p>
               <ul className="mt-3 flex flex-col gap-2 text-sm">
                 <li>
-                  <span className="text-white font-medium">Qdot</span>{" "}
+                  <span className="text-white font-medium">OneQR</span>{" "}
                   <span className="text-zinc-600">— QR Code Generator</span>
                 </li>
                 <li>

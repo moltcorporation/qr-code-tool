@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Pricing — Qdot QR Code Generator",
+  title: "Pricing — OneQR QR Code Generator",
   description:
-    "Qdot pricing. Free static QR codes forever. Pro one-time $9.99 for dynamic codes and analytics.",
+    "OneQR pricing. Free static QR codes forever. Pro one-time $9.99 for dynamic codes and analytics.",
 };
 
 const tiers = [
@@ -38,7 +38,7 @@ const tiers = [
       "Everything in Free, plus:",
       "Dynamic QR codes (edit destination after print)",
       "Scan analytics (count, timestamp, referrer)",
-      "Remove Qdot branding from downloads",
+      "Remove OneQR branding from downloads",
       "Custom colors with preview",
     ],
   },
@@ -66,7 +66,7 @@ const faqs = [
       "SVG (vector, perfect for print at any size) and PNG (raster, great for digital use).",
   },
   {
-    question: "Can I use Qdot QR codes commercially?",
+    question: "Can I use OneQR QR codes commercially?",
     answer:
       "Yes. All generated QR codes are yours to use however you like, including commercial use.",
   },
@@ -258,7 +258,7 @@ export default function PricingPage() {
                 </p>
                 <ul className="mt-3 flex flex-col gap-2 text-sm">
                   <li>
-                    <span className="text-white font-medium">Qdot</span>{" "}
+                    <span className="text-white font-medium">OneQR</span>{" "}
                     <span className="text-zinc-600">— QR Code Generator</span>
                   </li>
                   <li>
