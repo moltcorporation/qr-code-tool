@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-type Tab = "url" | "wifi";
+type Tab = "url" | "wifi" | "vcard" | "text";
 
 const EC_LEVELS = [
   { value: "L", label: "Low (7%)" },
@@ -65,6 +65,14 @@ export default function Home() {
   const [ssid, setSsid] = useState("");
   const [wifiPassword, setWifiPassword] = useState("");
   const [encryption, setEncryption] = useState("WPA");
+  const [vcFirstName, setVcFirstName] = useState("");
+  const [vcLastName, setVcLastName] = useState("");
+  const [vcPhone, setVcPhone] = useState("");
+  const [vcEmail, setVcEmail] = useState("");
+  const [vcCompany, setVcCompany] = useState("");
+  const [vcTitle, setVcTitle] = useState("");
+  const [vcWebsite, setVcWebsite] = useState("");
+  const [plainText, setPlainText] = useState("");
   const [fgColor, setFgColor] = useState("#000000");
   const [bgColor, setBgColor] = useState("#ffffff");
   const [errorCorrection, setErrorCorrection] = useState("M");
@@ -102,13 +110,43 @@ export default function Home() {
     if (tab === "wifi") {
       return `WIFI:T:${encryption};S:${ssid};P:${wifiPassword};;`;
     }
+    if (tab === "vcard") {
+      const lines = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        `N:${vcLastName};${vcFirstName};;;`,
+        `FN:${vcFirstName} ${vcLastName}`,
+      ];
+      if (vcPhone) lines.push(`TEL:${vcPhone}`);
+      if (vcEmail) lines.push(`EMAIL:${vcEmail}`);
+      if (vcCompany) lines.push(`ORG:${vcCompany}`);
+      if (vcTitle) lines.push(`TITLE:${vcTitle}`);
+      if (vcWebsite) lines.push(`URL:${vcWebsite}`);
+      lines.push("END:VCARD");
+      return lines.join("\n");
+    }
+    if (tab === "text") {
+      return plainText;
+    }
     return url;
   }
 
   async function handleGenerate() {
     const data = getData();
-    if (!data || (tab === "url" && !url.trim()) || (tab === "wifi" && !ssid.trim())) {
-      setError(tab === "url" ? "Enter a URL" : "Enter a network name");
+    const isEmpty =
+      (tab === "url" && !url.trim()) ||
+      (tab === "wifi" && !ssid.trim()) ||
+      (tab === "vcard" && !vcFirstName.trim() && !vcLastName.trim()) ||
+      (tab === "text" && !plainText.trim()) ||
+      !data;
+    if (isEmpty) {
+      const messages: Record<Tab, string> = {
+        url: "Enter a URL",
+        wifi: "Enter a network name",
+        vcard: "Enter at least a first or last name",
+        text: "Enter some text",
+      };
+      setError(messages[tab]);
       return;
     }
 
@@ -264,6 +302,18 @@ export default function Home() {
             >
               WiFi
             </button>
+            <button
+              onClick={() => setTab("vcard")}
+              className={`px-4 py-2.5 text-sm font-medium ${tab === "vcard" ? "border-b-2 border-emerald-400 text-emerald-400" : "text-zinc-500 hover:text-zinc-300"}`}
+            >
+              vCard
+            </button>
+            <button
+              onClick={() => setTab("text")}
+              className={`px-4 py-2.5 text-sm font-medium ${tab === "text" ? "border-b-2 border-emerald-400 text-emerald-400" : "text-zinc-500 hover:text-zinc-300"}`}
+            >
+              Text
+            </button>
           </div>
 
           <div className="mt-4 flex flex-col gap-4">
@@ -305,6 +355,74 @@ export default function Home() {
                   ))}
                 </select>
               </>
+            )}
+
+            {tab === "vcard" && (
+              <>
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    value={vcFirstName}
+                    onChange={(e) => setVcFirstName(e.target.value)}
+                    placeholder="First name"
+                    className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                  />
+                  <input
+                    type="text"
+                    value={vcLastName}
+                    onChange={(e) => setVcLastName(e.target.value)}
+                    placeholder="Last name"
+                    className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                  />
+                </div>
+                <input
+                  type="tel"
+                  value={vcPhone}
+                  onChange={(e) => setVcPhone(e.target.value)}
+                  placeholder="Phone"
+                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                />
+                <input
+                  type="email"
+                  value={vcEmail}
+                  onChange={(e) => setVcEmail(e.target.value)}
+                  placeholder="Email"
+                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                />
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    value={vcCompany}
+                    onChange={(e) => setVcCompany(e.target.value)}
+                    placeholder="Company"
+                    className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                  />
+                  <input
+                    type="text"
+                    value={vcTitle}
+                    onChange={(e) => setVcTitle(e.target.value)}
+                    placeholder="Job title"
+                    className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                  />
+                </div>
+                <input
+                  type="url"
+                  value={vcWebsite}
+                  onChange={(e) => setVcWebsite(e.target.value)}
+                  placeholder="Website (optional)"
+                  className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"
+                />
+              </>
+            )}
+
+            {tab === "text" && (
+              <textarea
+                value={plainText}
+                onChange={(e) => setPlainText(e.target.value)}
+                placeholder="Enter text to encode..."
+                rows={3}
+                className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-white placeholder-zinc-500 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 resize-none"
+              />
             )}
 
             {/* Options row */}
