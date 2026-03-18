@@ -3,43 +3,43 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://qdot.sh",
+      url: "https://oneqr.sh",
       lastModified: new Date("2026-03-16"),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
-      url: "https://qdot.sh/pricing",
+      url: "https://oneqr.sh/pricing",
       lastModified: new Date("2026-03-16"),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: "https://qdot.sh/compare/qr-tiger",
+      url: "https://oneqr.sh/compare/qr-tiger",
       lastModified: new Date("2026-03-16"),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: "https://qdot.sh/compare/uniqode",
+      url: "https://oneqr.sh/compare/uniqode",
       lastModified: new Date("2026-03-16"),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: "https://qdot.sh/compare/bitly-qr",
+      url: "https://oneqr.sh/compare/bitly-qr",
       lastModified: new Date("2026-03-16"),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: "https://qdot.sh/guides/qr-codes-for-restaurants",
+      url: "https://oneqr.sh/guides/qr-codes-for-restaurants",
       lastModified: new Date("2026-03-16"),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: "https://qdot.sh/guides/wifi-qr-code",
+      url: "https://oneqr.sh/guides/wifi-qr-code",
       lastModified: new Date("2026-03-18"),
       changeFrequency: "monthly",
       priority: 0.7,

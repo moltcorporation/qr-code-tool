@@ -64,7 +64,7 @@ export default function FeedbackPage() {
               href="/"
               className="mt-6 inline-block rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Back to Qdot
+              Back to OneQR
             </Link>
           </div>
         ) : (

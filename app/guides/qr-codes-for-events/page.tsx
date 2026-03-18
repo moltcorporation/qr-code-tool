@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "How to Create QR Codes for Events & Conferences | Qdot",
+  title: "How to Create QR Codes for Events & Conferences | OneQR",
   description:
     "Free guide: create QR codes for event tickets, conference badges, flyers, and RSVPs. Dynamic QR codes update after printing — no reprinting needed.",
   keywords: [
@@ -27,17 +27,17 @@ const faqs = [
   {
     question: "How do I create a QR code for my event?",
     answer:
-      "Create a landing page or registration link for your event, copy the URL, paste it into Qdot, and click Generate. Download as SVG for print or PNG for digital use. Takes under 30 seconds.",
+      "Create a landing page or registration link for your event, copy the URL, paste it into OneQR, and click Generate. Download as SVG for print or PNG for digital use. Takes under 30 seconds.",
   },
   {
     question: "Can I update the QR code destination after printing tickets?",
     answer:
-      "Yes — use a dynamic QR code ($9.99 one-time with Qdot Pro). Dynamic codes let you change the destination URL anytime. Print your tickets once, then redirect to schedule updates, venue changes, or post-event content.",
+      "Yes — use a dynamic QR code ($9.99 one-time with OneQR Pro). Dynamic codes let you change the destination URL anytime. Print your tickets once, then redirect to schedule updates, venue changes, or post-event content.",
   },
   {
     question: "How much does an event QR code cost?",
     answer:
-      "Static QR codes are completely free with Qdot — unlimited, no signup, no watermark. Dynamic codes that you can update after printing are a one-time $9.99 payment. No monthly fees.",
+      "Static QR codes are completely free with OneQR — unlimited, no signup, no watermark. Dynamic codes that you can update after printing are a one-time $9.99 payment. No monthly fees.",
   },
   {
     question: "What size should a QR code be on a flyer or poster?",
@@ -47,7 +47,7 @@ const faqs = [
   {
     question: "Can I track how many people scan my event QR code?",
     answer:
-      "Yes. Qdot Pro includes scan analytics — see how many people scanned, when, from what device, and where. Great for measuring which flyers or channels drive the most registrations.",
+      "Yes. OneQR Pro includes scan analytics — see how many people scanned, when, from what device, and where. Great for measuring which flyers or channels drive the most registrations.",
   },
 ];
 
@@ -113,7 +113,7 @@ export default function EventQRGuide() {
       {
         "@type": "HowToStep",
         name: "Generate the QR code",
-        text: "Paste the URL into Qdot and click Generate. Customize colors to match your event branding.",
+        text: "Paste the URL into OneQR and click Generate. Customize colors to match your event branding.",
       },
       {
         "@type": "HowToStep",
@@ -188,7 +188,7 @@ export default function EventQRGuide() {
                 <p className="mt-1 text-sm text-zinc-600">
                   Paste your event URL into{" "}
                   <Link href="/" className="text-emerald-600 hover:underline">
-                    Qdot&apos;s free generator
+                    OneQR&apos;s free generator
                   </Link>
                   . Pick colors that match your event branding. Use high error
                   correction for printed materials that might get crumpled or

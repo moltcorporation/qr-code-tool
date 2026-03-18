@@ -1,36 +1,36 @@
 import Link from "next/link";
 
 const comparisonRows = [
-  { feature: "Pricing", qdot: "Free / $9.99 one-time / $5/mo", competitor: "$5-75/mo" },
-  { feature: "Dynamic QR", qdot: "One-time $9.99", competitor: "Monthly subscription" },
-  { feature: "Free static QR", qdot: "Unlimited", competitor: "Limited" },
-  { feature: "Scan analytics", qdot: "Included with Pro", competitor: "All plans" },
-  { feature: "Custom branding", qdot: "Colors free, logo $5/mo", competitor: "Paid plans" },
-  { feature: "Integrations", qdot: "Coming soon", competitor: "Zapier, HubSpot, GA" },
-  { feature: "Enterprise features", qdot: "Not available", competitor: "Team management, SSO" },
-  { feature: "Setup", qdot: "Instant, no signup", competitor: "Account required" },
+  { feature: "Pricing", oneqr: "Free / $9.99 one-time / $5/mo", competitor: "$5-75/mo" },
+  { feature: "Dynamic QR", oneqr: "One-time $9.99", competitor: "Monthly subscription" },
+  { feature: "Free static QR", oneqr: "Unlimited", competitor: "Limited" },
+  { feature: "Scan analytics", oneqr: "Included with Pro", competitor: "All plans" },
+  { feature: "Custom branding", oneqr: "Colors free, logo $5/mo", competitor: "Paid plans" },
+  { feature: "Integrations", oneqr: "Coming soon", competitor: "Zapier, HubSpot, GA" },
+  { feature: "Enterprise features", oneqr: "Not available", competitor: "Team management, SSO" },
+  { feature: "Setup", oneqr: "Instant, no signup", competitor: "Account required" },
 ];
 
 const faqs = [
   {
-    question: "How does Qdot compare to Uniqode's pricing?",
+    question: "How does OneQR compare to Uniqode's pricing?",
     answer:
-      "Uniqode (formerly Beaconstac) charges $5-75/mo for QR code features. Qdot offers free static QR codes and a one-time $9.99 payment for dynamic codes. Over a year, even Uniqode's cheapest plan costs $60 compared to Qdot's $9.99 one-time fee.",
+      "Uniqode (formerly Beaconstac) charges $5-75/mo for QR code features. OneQR offers free static QR codes and a one-time $9.99 payment for dynamic codes. Over a year, even Uniqode's cheapest plan costs $60 compared to OneQR's $9.99 one-time fee.",
   },
   {
-    question: "Does Uniqode have features Qdot doesn't?",
+    question: "Does Uniqode have features OneQR doesn't?",
     answer:
-      "Yes. Uniqode offers enterprise features like team management, SSO, and integrations with Zapier, HubSpot, and Google Analytics. Uniqode also has a longer track record. Qdot is focused on simplicity and affordability.",
+      "Yes. Uniqode offers enterprise features like team management, SSO, and integrations with Zapier, HubSpot, and Google Analytics. Uniqode also has a longer track record. OneQR is focused on simplicity and affordability.",
   },
   {
-    question: "Can I use Qdot without creating an account?",
+    question: "Can I use OneQR without creating an account?",
     answer:
-      "Yes. Qdot lets you generate unlimited static QR codes instantly without any signup. Uniqode requires account creation for all features.",
+      "Yes. OneQR lets you generate unlimited static QR codes instantly without any signup. Uniqode requires account creation for all features.",
   },
   {
-    question: "Is Qdot good enough for business use?",
+    question: "Is OneQR good enough for business use?",
     answer:
-      "For straightforward QR code needs (URLs, WiFi, custom colors, scan tracking), Qdot works well for businesses. If you need deep CRM integrations or enterprise SSO, Uniqode may be a better fit.",
+      "For straightforward QR code needs (URLs, WiFi, custom colors, scan tracking), OneQR works well for businesses. If you need deep CRM integrations or enterprise SSO, Uniqode may be a better fit.",
   },
 ];
 
@@ -40,7 +40,7 @@ export default function UniqodeComparePage() {
       {/* Header */}
       <header className="border-b border-zinc-200">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold tracking-tight">Qdot</Link>
+          <Link href="/" className="text-lg font-bold tracking-tight">OneQR</Link>
           <div className="flex items-center gap-4">
             <Link href="/pricing" className="text-sm text-zinc-600 hover:text-zinc-900">Pricing</Link>
             <Link href="/" className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700">Generate QR free</Link>
@@ -54,7 +54,7 @@ export default function UniqodeComparePage() {
           Uniqode Alternative — One-Time QR Code Generator
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-600">
-          Uniqode (formerly Beaconstac) charges $5-75/mo for QR codes. Qdot gives you unlimited
+          Uniqode (formerly Beaconstac) charges $5-75/mo for QR codes. OneQR gives you unlimited
           static codes for free and dynamic codes for a one-time $9.99 payment.
         </p>
       </section>
@@ -62,10 +62,10 @@ export default function UniqodeComparePage() {
       {/* Honest comparison */}
       <section className="mx-auto max-w-4xl px-6 pb-16">
         <h2 className="text-2xl font-bold tracking-tight text-center">
-          Qdot vs Uniqode — Honest Comparison
+          OneQR vs Uniqode — Honest Comparison
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-600">
-          Uniqode has deeper enterprise features and integrations. Qdot wins on simplicity and price.
+          Uniqode has deeper enterprise features and integrations. OneQR wins on simplicity and price.
         </p>
 
         {/* Comparison table */}
@@ -74,7 +74,7 @@ export default function UniqodeComparePage() {
             <thead>
               <tr className="border-b-2 border-zinc-200">
                 <th className="py-3 pr-4 text-left font-semibold text-zinc-900">Feature</th>
-                <th className="px-4 py-3 text-left font-semibold text-emerald-600">Qdot</th>
+                <th className="px-4 py-3 text-left font-semibold text-emerald-600">OneQR</th>
                 <th className="px-4 py-3 text-left font-semibold text-zinc-500">Uniqode</th>
               </tr>
             </thead>
@@ -82,7 +82,7 @@ export default function UniqodeComparePage() {
               {comparisonRows.map((row) => (
                 <tr key={row.feature} className="border-b border-zinc-100">
                   <td className="py-3 pr-4 font-medium text-zinc-900">{row.feature}</td>
-                  <td className="px-4 py-3 text-zinc-700">{row.qdot}</td>
+                  <td className="px-4 py-3 text-zinc-700">{row.oneqr}</td>
                   <td className="px-4 py-3 text-zinc-500">{row.competitor}</td>
                 </tr>
               ))}
@@ -96,7 +96,7 @@ export default function UniqodeComparePage() {
         <div className="mx-auto max-w-4xl px-6 py-16">
           <div className="grid gap-8 sm:grid-cols-2">
             <div className="rounded-xl border border-emerald-200 bg-white p-8">
-              <h3 className="text-lg font-semibold text-emerald-600">When to use Qdot</h3>
+              <h3 className="text-lg font-semibold text-emerald-600">When to use OneQR</h3>
               <ul className="mt-4 space-y-3 text-sm text-zinc-700">
                 <li className="flex items-start gap-2">
                   <svg className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
@@ -181,10 +181,10 @@ export default function UniqodeComparePage() {
         </h3>
         <div className="mt-4 flex flex-wrap justify-center gap-4">
           <Link href="/compare/qr-tiger" className="rounded-md border border-zinc-200 px-4 py-2 text-sm text-zinc-600 hover:border-zinc-300 hover:text-zinc-900">
-            Qdot vs QR TIGER
+            OneQR vs QR TIGER
           </Link>
           <Link href="/compare/bitly-qr" className="rounded-md border border-zinc-200 px-4 py-2 text-sm text-zinc-600 hover:border-zinc-300 hover:text-zinc-900">
-            Qdot vs Bitly QR
+            OneQR vs Bitly QR
           </Link>
         </div>
       </section>
@@ -199,7 +199,7 @@ export default function UniqodeComparePage() {
               </p>
               <ul className="mt-3 flex flex-col gap-2 text-sm">
                 <li>
-                  <span className="text-white font-medium">Qdot</span>{" "}
+                  <span className="text-white font-medium">OneQR</span>{" "}
                   <span className="text-zinc-600">— QR Code Generator</span>
                 </li>
                 <li>
