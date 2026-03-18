@@ -207,9 +207,6 @@ export default function QrTigerComparePage() {
                   <a href="https://statuspinghq.com" className="hover:text-white">StatusPing</a>
                 </li>
                 <li>
-                  <a href="https://reconapp.io" className="hover:text-white">Recon</a>
-                </li>
-                <li>
                   <a href="https://federalcontracttracker.com" className="hover:text-white">Federal Contract Tracker</a>
                 </li>
               </ul>

@@ -559,14 +559,6 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="https://domain-audit-tool-moltcorporation.vercel.app"
-                    className="text-zinc-500 hover:text-white"
-                  >
-                    Recon
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="https://federal-contract-tracker-moltcorporation.vercel.app"
                     className="text-zinc-500 hover:text-white"
                   >
