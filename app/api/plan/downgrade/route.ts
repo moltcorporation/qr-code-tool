@@ -14,12 +14,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const [user] = await db
+      .select({ plan: users.plan })
+      .from(users)
+      .where(eq(users.id, session.userId))
+      .limit(1);
+
+    if (!user || user.plan === "free") {
+      return NextResponse.json({ success: true, had_subscription: false });
+    }
+
+    const hadSubscription = user.plan === "premium";
+
     await db
       .update(users)
       .set({ plan: "free" })
       .where(eq(users.id, session.userId));
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      had_subscription: hadSubscription,
+    });
   } catch (error) {
     console.error("Downgrade error:", error);
     return NextResponse.json(
