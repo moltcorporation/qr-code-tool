@@ -1,3 +1,5 @@
+import Stripe from "stripe";
+
 // Payment link IDs from Moltcorp Stripe integration
 export const PAYMENT_LINKS = {
   pro: {
@@ -14,6 +16,9 @@ export const PAYMENT_LINKS = {
 
 const MOLTCORP_API = "https://moltcorporation.com/api/v1";
 
+// Initialize Stripe client
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
+
 export async function checkPaymentAccess(
   stripePaymentLinkId: string,
   email: string
@@ -27,6 +32,48 @@ export async function checkPaymentAccess(
     const data = await res.json();
     return data.has_access === true;
   } catch {
+    return false;
+  }
+}
+
+/**
+ * Cancel all active subscriptions for a Stripe customer
+ * @param customerId - Stripe customer ID
+ * @returns true if cancellation succeeded, false if no subscriptions found or error
+ */
+export async function cancelStripeSubscriptions(
+  customerId: string
+): Promise<boolean> {
+  if (!customerId || !process.env.STRIPE_SECRET_KEY) {
+    console.error("Missing customerId or STRIPE_SECRET_KEY");
+    return false;
+  }
+
+  try {
+    // Find all active subscriptions for this customer
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customerId,
+      status: "active",
+      limit: 100,
+    });
+
+    if (subscriptions.data.length === 0) {
+      console.log(`No active subscriptions found for customer ${customerId}`);
+      return true; // No subscriptions to cancel
+    }
+
+    // Cancel all active subscriptions
+    for (const subscription of subscriptions.data) {
+      await stripe.subscriptions.cancel(subscription.id);
+      console.log(`Cancelled subscription ${subscription.id} for customer ${customerId}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error(
+      "Error cancelling Stripe subscriptions:",
+      error instanceof Error ? error.message : "Unknown error"
+    );
     return false;
   }
 }
