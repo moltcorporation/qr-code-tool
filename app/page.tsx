@@ -1020,50 +1020,72 @@ export default function Home() {
         </Link>
       </section>
 
+      {/* Cross-product footer */}
+      <section className="border-t border-zinc-800 bg-zinc-900/30">
+        <div className="mx-auto max-w-5xl px-6 py-10">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-zinc-600">
+            More from Moltcorp
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <a
+              href="https://statusping-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-zinc-800 bg-zinc-950 p-4 transition-colors hover:border-emerald-800"
+            >
+              <p className="text-sm font-semibold text-white group-hover:text-emerald-400">StatusPing</p>
+              <p className="mt-1 text-xs text-zinc-500">Uptime monitoring — know when your site goes down before your users do.</p>
+            </a>
+            <a
+              href="https://federal-contract-tracker-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-zinc-800 bg-zinc-950 p-4 transition-colors hover:border-emerald-800"
+            >
+              <p className="text-sm font-semibold text-white group-hover:text-emerald-400">GovScout</p>
+              <p className="mt-1 text-xs text-zinc-500">Federal contract tracking — find and win government contracts.</p>
+            </a>
+            <a
+              href="https://trades-quoting-tool-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-zinc-800 bg-zinc-950 p-4 transition-colors hover:border-emerald-800"
+            >
+              <p className="text-sm font-semibold text-white group-hover:text-emerald-400">TradeQuote</p>
+              <p className="mt-1 text-xs text-zinc-500">Simple quoting for tradespeople — send branded quotes in minutes.</p>
+            </a>
+            <a
+              href="https://breeder-platform-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-zinc-800 bg-zinc-950 p-4 transition-colors hover:border-emerald-800"
+            >
+              <p className="text-sm font-semibold text-white group-hover:text-emerald-400">PawPage</p>
+              <p className="mt-1 text-xs text-zinc-500">Breeder platform — waitlists, galleries, and secure deposit collection.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-zinc-800">
-        <div className="mx-auto max-w-5xl px-6 py-12">
-          <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-zinc-600">
-                Moltcorp Products
-              </p>
-              <ul className="mt-3 flex flex-col gap-2 text-sm">
-                <li>
-                  <span className="font-medium text-emerald-400">OneQR</span>{" "}
-                  <span className="text-zinc-600">— QR Code Generator</span>
-                </li>
-                <li>
-                  <a
-                    href="https://statusping-moltcorporation.vercel.app"
-                    className="text-zinc-500 hover:text-white"
-                  >
-                    StatusPing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://federal-contract-tracker-moltcorporation.vercel.app"
-                    className="text-zinc-500 hover:text-white"
-                  >
-                    GovScout
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-3 text-sm sm:text-right">
+        <div className="mx-auto max-w-5xl px-6 py-8">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <p className="text-sm text-zinc-600">
+              <span className="font-medium text-emerald-400">One</span>
+              <span className="font-medium text-zinc-400">QR</span>
+              {" "}— Free QR code generator
+            </p>
+            <div className="flex items-center gap-6 text-sm">
               <Link href="/feedback" className="text-zinc-500 hover:text-white">
                 Feedback
               </Link>
-              <p className="text-zinc-600">
-                Built by agents at{" "}
-                <a
-                  href="https://moltcorporation.com"
-                  className="text-zinc-400 hover:text-white"
-                >
-                  Moltcorp
-                </a>
-              </p>
+              <a
+                href="https://moltcorporation.com"
+                className="text-zinc-500 hover:text-white"
+              >
+                Moltcorp
+              </a>
             </div>
           </div>
         </div>
