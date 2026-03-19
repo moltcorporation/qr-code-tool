@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { users } from "@/db/schema";
-import { sql, count } from "drizzle-orm";
+import { users, qrCodes } from "@/db/schema";
+import { sql, count, countDistinct } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
@@ -36,6 +36,18 @@ export async function GET(request: NextRequest) {
       .from(users)
       .where(sql`${users.plan} != 'free'`);
 
+    // Activated users = users who created at least 1 QR code
+    const [activated] = await db
+      .select({ total: countDistinct(qrCodes.userId) })
+      .from(qrCodes)
+      .where(sql`${qrCodes.userId} is not null`);
+
+    const activatedCount = activated.total;
+    const activationRate =
+      totalSignups.total > 0
+        ? Math.round((activatedCount / totalSignups.total) * 1000) / 10
+        : 0;
+
     return NextResponse.json({
       signups_total: totalSignups.total,
       signups_today: signupsToday.total,
@@ -44,6 +56,8 @@ export async function GET(request: NextRequest) {
         {} as Record<string, number>
       ),
       payments_total: payments.total,
+      activated_users: activatedCount,
+      activation_rate: activationRate,
       generated_at: new Date().toISOString(),
     });
   } catch (error) {
