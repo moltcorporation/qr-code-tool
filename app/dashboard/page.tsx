@@ -10,6 +10,7 @@ import { EditDestination } from "./edit-destination";
 import { UpgradeBanner } from "./upgrade-banner";
 import { QRPreview } from "./qr-preview";
 import { CopyLinkButton, DownloadButtons, DeleteButton } from "./qr-actions";
+import { BillingSyncButton } from "./billing-sync-button";
 
 export default async function DashboardPage() {
   const session = await getSession();
@@ -64,8 +65,24 @@ export default async function DashboardPage() {
           </h1>
         </div>
 
-        <UpgradeBanner plan={user.plan} />
-        <CreateQRForm />
+        <UpgradeBanner plan={user.plan} email={user.email} />
+
+        {(user.plan === "pro" || user.plan === "premium") && (
+          <div className="mt-4 flex items-center gap-3">
+            <span className="text-sm text-zinc-500">
+              Plan: <span className="font-medium text-emerald-700 capitalize">{user.plan}</span>
+            </span>
+            <BillingSyncButton />
+          </div>
+        )}
+
+        {(user.plan === "pro" || user.plan === "premium") ? (
+          <CreateQRForm />
+        ) : (
+          <div className="mt-6 rounded-lg border border-zinc-200 bg-white p-5 text-center text-sm text-zinc-500">
+            Upgrade to Pro to create dynamic QR codes with editable destinations and scan analytics.
+          </div>
+        )}
 
         {codes.length === 0 ? (
           <div className="mt-8 rounded-lg border border-dashed border-zinc-300 bg-white p-16 text-center">
@@ -103,7 +120,11 @@ export default async function DashboardPage() {
                       {qr.title || qr.shortCode}
                     </span>
                   </div>
-                  <EditDestination id={qr.id} currentUrl={qr.destinationUrl} />
+                  {(user.plan === "pro" || user.plan === "premium") ? (
+                    <EditDestination id={qr.id} currentUrl={qr.destinationUrl} />
+                  ) : (
+                    <span className="truncate text-sm text-zinc-500">{qr.destinationUrl}</span>
+                  )}
                   <CopyLinkButton shortCode={qr.shortCode} />
                   <div className="flex items-center gap-3 mt-1">
                     <span className="text-xs text-zinc-400">
@@ -129,12 +150,18 @@ export default async function DashboardPage() {
                     </span>
                     <span className="ml-1 text-xs text-zinc-500">scans</span>
                   </div>
-                  <Link
-                    href={`/dashboard/${qr.id}`}
-                    className="rounded-md border border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50"
-                  >
-                    Analytics
-                  </Link>
+                  {(user.plan === "pro" || user.plan === "premium") ? (
+                    <Link
+                      href={`/dashboard/${qr.id}`}
+                      className="rounded-md border border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50"
+                    >
+                      Analytics
+                    </Link>
+                  ) : (
+                    <span className="rounded-md border border-zinc-200 px-3 py-1.5 text-xs text-zinc-400">
+                      Pro
+                    </span>
+                  )}
                   <DeleteButton
                     id={qr.id}
                     title={qr.title || qr.shortCode}

@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { qrCodes, scans } from "@/db/schema";
 import { getSession } from "@/lib/auth";
+import { getUserPlan, isPro } from "@/lib/pro";
 import { eq, and, desc } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -12,6 +13,15 @@ export async function PATCH(
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  // Editing QR codes requires Pro plan
+  const plan = await getUserPlan(session.userId);
+  if (!isPro(plan)) {
+    return NextResponse.json(
+      { error: "Pro plan required to edit QR codes" },
+      { status: 403 }
+    );
   }
 
   const { id } = await params;
@@ -41,6 +51,15 @@ export async function GET(
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  // Scan analytics require Pro plan
+  const plan = await getUserPlan(session.userId);
+  if (!isPro(plan)) {
+    return NextResponse.json(
+      { error: "Pro plan required to view scan analytics" },
+      { status: 403 }
+    );
   }
 
   const { id } = await params;

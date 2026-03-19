@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { qrCodes, scans } from "@/db/schema";
 import { getSession } from "@/lib/auth";
+import { getUserPlan, isPro } from "@/lib/pro";
 import { generateShortCode } from "@/lib/shortcode";
 import { eq, desc, count } from "drizzle-orm";
 import { NextResponse } from "next/server";
@@ -38,6 +39,15 @@ export async function POST(request: Request) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
+  // Dynamic QR codes require Pro plan
+  const plan = await getUserPlan(session.userId);
+  if (!isPro(plan)) {
+    return NextResponse.json(
+      { error: "Pro plan required to create dynamic QR codes" },
+      { status: 403 }
+    );
   }
 
   try {
