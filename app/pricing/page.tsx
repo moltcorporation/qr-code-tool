@@ -140,7 +140,7 @@ export default function PricingPage() {
             Start free. Upgrade when you need dynamic codes and analytics.
           </p>
 
-          <div className="mt-14 mx-auto grid max-w-4xl gap-8 sm:grid-cols-3">
+          <div className="mt-14 mx-auto grid max-w-4xl grid-cols-1 gap-8 sm:grid-cols-3">
             {tiers.map((tier) => (
               <div
                 key={tier.name}
@@ -167,7 +167,7 @@ export default function PricingPage() {
                 </p>
                 <a
                   href={tier.href}
-                  className={`mt-6 block w-full rounded-md px-4 py-2.5 text-center text-sm font-medium ${
+                  className={`mt-6 block w-full rounded-md px-4 py-3 text-center text-sm font-medium ${
                     tier.highlighted
                       ? "bg-emerald-600 text-white hover:bg-emerald-700"
                       : "border border-zinc-300 text-zinc-900 hover:bg-zinc-50"
