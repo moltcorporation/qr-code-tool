@@ -50,7 +50,13 @@ export default async function DashboardPage() {
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-zinc-500">{user.email}</span>
-            <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
+            <Link
+              href="/dashboard/billing"
+              className="text-sm text-zinc-600 hover:text-zinc-900"
+            >
+              Billing
+            </Link>
+            <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700 capitalize">
               {user.plan}
             </span>
             <LogoutButton />
