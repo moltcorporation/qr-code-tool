@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { users, qrCodes } from "@/db/schema";
+import { users, qrCodes, qrEvents } from "@/db/schema";
 import { sql, count, countDistinct } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
@@ -48,6 +48,38 @@ export async function GET(request: NextRequest) {
         ? Math.round((activatedCount / totalSignups.total) * 1000) / 10
         : 0;
 
+    // Free QR generation events
+    const [totalGenerated] = await db
+      .select({ total: count() })
+      .from(qrEvents)
+      .where(sql`${qrEvents.event} = 'qr_generated'`);
+
+    const [generatedToday] = await db
+      .select({ total: count() })
+      .from(qrEvents)
+      .where(sql`${qrEvents.event} = 'qr_generated' AND ${qrEvents.createdAt} >= current_date`);
+
+    // QR generation by type
+    const byType = await db
+      .select({
+        type: qrEvents.qrType,
+        total: count(),
+      })
+      .from(qrEvents)
+      .where(sql`${qrEvents.event} = 'qr_generated' AND ${qrEvents.qrType} IS NOT NULL`)
+      .groupBy(qrEvents.qrType);
+
+    // Pro feature wall impressions
+    const [proWallTotal] = await db
+      .select({ total: count() })
+      .from(qrEvents)
+      .where(sql`${qrEvents.event} = 'pro_wall_impression'`);
+
+    const [proWallToday] = await db
+      .select({ total: count() })
+      .from(qrEvents)
+      .where(sql`${qrEvents.event} = 'pro_wall_impression' AND ${qrEvents.createdAt} >= current_date`);
+
     return NextResponse.json({
       signups_total: totalSignups.total,
       signups_today: signupsToday.total,
@@ -58,6 +90,14 @@ export async function GET(request: NextRequest) {
       payments_total: payments.total,
       activated_users: activatedCount,
       activation_rate: activationRate,
+      qr_generated_total: totalGenerated.total,
+      qr_generated_today: generatedToday.total,
+      qr_by_type: byType.reduce(
+        (acc, row) => ({ ...acc, [row.type ?? "unknown"]: row.total }),
+        {} as Record<string, number>
+      ),
+      pro_wall_impressions_total: proWallTotal.total,
+      pro_wall_impressions_today: proWallToday.total,
       generated_at: new Date().toISOString(),
     });
   } catch (error) {
