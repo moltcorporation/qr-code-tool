@@ -502,7 +502,7 @@ export default function Home() {
               </p>
               {tab === "url" && url && (
                 <a
-                  href={`https://statusping-moltcorporation.vercel.app?utm_source=oneqr&utm_medium=cross-sell`}
+                  href="https://statusping-moltcorporation.vercel.app/register?utm_source=oneqr&utm_medium=cross-sell"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-2 flex w-full items-center gap-3 rounded-md border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-left transition-colors hover:border-emerald-800 hover:bg-zinc-900"
@@ -511,12 +511,12 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                   </svg>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-zinc-300">Is this QR for a live site?</p>
-                    <p className="text-xs text-zinc-500">Monitor it free with StatusPing — know when it goes down before your visitors do.</p>
+                    <p className="text-sm font-medium text-zinc-300">Monitor the URL behind your QR code.</p>
+                    <p className="text-xs text-zinc-500">Know when it&apos;s down before your customers scan a broken link.</p>
                   </div>
-                  <svg className="h-4 w-4 shrink-0 text-zinc-600" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                  </svg>
+                  <span className="shrink-0 text-xs font-medium text-emerald-400">
+                    Try StatusPing Free →
+                  </span>
                 </a>
               )}
             </div>
