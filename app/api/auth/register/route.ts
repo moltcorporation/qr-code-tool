@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 
 export async function POST(request: Request) {
   try {
-    const { email, password } = await request.json();
+    const { email, password, utm_source } = await request.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -36,11 +36,14 @@ export async function POST(request: Request) {
     }
 
     const passwordHash = await hashPassword(password);
+    const utmSource = utm_source ? String(utm_source).trim().slice(0, 200) : null;
+
     const [user] = await db
       .insert(users)
       .values({
         email: email.toLowerCase().trim(),
         passwordHash,
+        ...(utmSource && { utmSource }),
       })
       .returning({ id: users.id });
 

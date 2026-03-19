@@ -16,6 +16,7 @@ export const users = pgTable(
     passwordHash: text("password_hash").notNull(),
     plan: text("plan").notNull().default("free"), // free, pro, premium
     stripeCustomerId: text("stripe_customer_id"),
+    utmSource: text("utm_source"),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   },
   (table) => [index("idx_users_email").on(table.email)]
