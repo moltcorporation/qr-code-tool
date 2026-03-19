@@ -226,6 +226,17 @@ export default async function DashboardPage() {
               <p className="mt-0.5 text-xs text-zinc-500">Breeder waitlists &amp; deposits</p>
             </a>
           </div>
+          <div className="mt-6 flex items-center gap-6 text-xs text-zinc-400">
+            <Link href="/privacy" className="hover:text-zinc-700">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-zinc-700">
+              Terms
+            </Link>
+            <Link href="/feedback" className="hover:text-zinc-700">
+              Feedback
+            </Link>
+          </div>
         </div>
       </footer>
     </div>
