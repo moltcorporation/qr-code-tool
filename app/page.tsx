@@ -500,6 +500,21 @@ export default function Home() {
               <p className="text-xs text-zinc-600">
                 Free. No watermark. No signup. Yours.
               </p>
+              {/* Pro upsell prompt */}
+              <div className="mt-2 w-full rounded-md border border-zinc-800 bg-zinc-900/50 px-4 py-3">
+                <p className="text-sm text-zinc-300">
+                  Want to know who scans this? With Pro, track scans in real-time, update the destination without reprinting, and get analytics.{" "}
+                  <span className="font-medium text-zinc-100">One-time $9.99.</span>
+                </p>
+                <a
+                  href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-block rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-500"
+                >
+                  Unlock scan analytics →
+                </a>
+              </div>
               {tab === "url" && url && (
                 <a
                   href="https://statusping-moltcorporation.vercel.app/register?utm_source=oneqr&utm_medium=cross-sell"
