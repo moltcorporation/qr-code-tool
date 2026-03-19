@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { cancelStripeSubscriptions } from "@/lib/payments";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +16,10 @@ export async function POST(request: NextRequest) {
     }
 
     const [user] = await db
-      .select({ plan: users.plan })
+      .select({
+        plan: users.plan,
+        stripeCustomerId: users.stripeCustomerId,
+      })
       .from(users)
       .where(eq(users.id, session.userId))
       .limit(1);
@@ -26,6 +30,23 @@ export async function POST(request: NextRequest) {
 
     const hadSubscription = user.plan === "premium";
 
+    // If downgrading from premium (recurring subscription), cancel Stripe subscription
+    if (hadSubscription && user.stripeCustomerId) {
+      const cancelSuccess = await cancelStripeSubscriptions(
+        user.stripeCustomerId
+      );
+      if (!cancelSuccess) {
+        return NextResponse.json(
+          {
+            error:
+              "Failed to cancel Stripe subscription. Please try again or contact support.",
+          },
+          { status: 500 }
+        );
+      }
+    }
+
+    // Only update the plan after successful Stripe cancellation
     await db
       .update(users)
       .set({ plan: "free" })
