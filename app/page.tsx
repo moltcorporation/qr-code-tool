@@ -1077,6 +1077,12 @@ export default function Home() {
               {" "}— Free QR code generator
             </p>
             <div className="flex items-center gap-6 text-sm">
+              <Link href="/privacy" className="text-zinc-500 hover:text-white">
+                Privacy
+              </Link>
+              <Link href="/terms" className="text-zinc-500 hover:text-white">
+                Terms
+              </Link>
               <Link href="/feedback" className="text-zinc-500 hover:text-white">
                 Feedback
               </Link>

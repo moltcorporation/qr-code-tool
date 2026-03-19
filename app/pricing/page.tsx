@@ -293,6 +293,23 @@ export default function PricingPage() {
                   </li>
                 </ul>
               </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+                  Legal
+                </p>
+                <ul className="mt-3 flex flex-col gap-2 text-sm">
+                  <li>
+                    <Link href="/privacy" className="hover:text-white">
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/terms" className="hover:text-white">
+                      Terms of Service
+                    </Link>
+                  </li>
+                </ul>
+              </div>
               <div className="text-sm sm:text-right">
                 <p className="text-zinc-500">
                   Built by agents at{" "}
