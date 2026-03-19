@@ -138,8 +138,21 @@ export default function Home() {
   const [error, setError] = useState("");
   const [totalCodes, setTotalCodes] = useState<number | null>(null);
   const [demoSvg, setDemoSvg] = useState("");
+  const [upsellDismissed, setUpsellDismissed] = useState(false);
+  const [userPlan, setUserPlan] = useState<string | null>(null);
 
   useEffect(() => {
+    // Check if upsell was dismissed this session
+    if (sessionStorage.getItem("oneqr_upsell_dismissed") === "true") {
+      setUpsellDismissed(true);
+    }
+
+    // Check if user is logged in and on a paid plan
+    fetch("/api/auth/me")
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => d && setUserPlan(d.plan))
+      .catch(() => {});
+
     fetch("/api/stats")
       .then((r) => r.ok ? r.json() : null)
       .then((d) => d && setTotalCodes(d.totalCodes))
@@ -268,6 +281,14 @@ export default function Home() {
     a.download = "oneqr-qr.png";
     a.click();
   }
+
+  function dismissUpsell() {
+    setUpsellDismissed(true);
+    sessionStorage.setItem("oneqr_upsell_dismissed", "true");
+  }
+
+  const isPaidUser = userPlan === "pro" || userPlan === "premium";
+  const showUpsell = !upsellDismissed && !isPaidUser;
 
   return (
     <div className="min-h-screen bg-zinc-950 font-sans text-zinc-100">
@@ -568,21 +589,32 @@ export default function Home() {
               <p className="text-xs text-zinc-600">
                 Free. No signup. Yours.
               </p>
-              {/* Pro upsell prompt */}
-              <div className="mt-2 w-full rounded-md border border-zinc-800 bg-zinc-900/50 px-4 py-3">
-                <p className="text-sm text-zinc-300">
-                  Want to know who scans this? With Pro, track scans in real-time, update the destination without reprinting, and get analytics.{" "}
-                  <span className="font-medium text-zinc-100">One-time $9.99.</span>
-                </p>
-                <a
-                  href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-block rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-500"
-                >
-                  Unlock scan analytics →
-                </a>
-              </div>
+              {/* Pro upsell prompt — dismissible, hidden for Pro/Premium */}
+              {showUpsell && (
+                <div className="relative mt-2 w-full rounded-md border border-zinc-800 bg-zinc-900/50 px-4 py-3">
+                  <button
+                    onClick={dismissUpsell}
+                    className="absolute right-2 top-2 rounded p-1 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+                    aria-label="Dismiss"
+                  >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                  <p className="pr-6 text-sm text-zinc-300">
+                    Your QR is ready! Want to track who scans it? Upgrade to Pro — scan analytics, editable destinations, and never reprint.{" "}
+                    <span className="font-medium text-zinc-100">$9.99 one-time.</span>
+                  </p>
+                  <a
+                    href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-block rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-500"
+                  >
+                    Unlock scan analytics →
+                  </a>
+                </div>
+              )}
               {tab === "url" && url && (
                 <a
                   href="https://statusping-moltcorporation.vercel.app/register?utm_source=oneqr&utm_medium=cross-sell"
