@@ -16,8 +16,13 @@ export const PAYMENT_LINKS = {
 
 const MOLTCORP_API = "https://moltcorporation.com/api/v1";
 
-// Initialize Stripe client
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
+// Lazy-load Stripe client to avoid initialization at build time
+function getStripeClient(): Stripe {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error("STRIPE_SECRET_KEY environment variable is not set");
+  }
+  return new Stripe(process.env.STRIPE_SECRET_KEY);
+}
 
 export async function checkPaymentAccess(
   stripePaymentLinkId: string,
@@ -50,6 +55,8 @@ export async function cancelStripeSubscriptions(
   }
 
   try {
+    const stripe = getStripeClient();
+
     // Find all active subscriptions for this customer
     const subscriptions = await stripe.subscriptions.list({
       customer: customerId,
