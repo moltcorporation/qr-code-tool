@@ -194,6 +194,14 @@ export default function Home() {
     return url;
   }
 
+  function trackEvent(event: string, qrType?: string) {
+    fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event, qrType }),
+    }).catch(() => {});
+  }
+
   async function handleGenerate() {
     const data = getData();
     const isEmpty =
@@ -239,6 +247,7 @@ export default function Home() {
       ]);
       setSvgData(svg);
       setPngDataUrl(dataUrl);
+      trackEvent("qr_generated", tab);
     } catch {
       setError("Failed to generate QR code. Please try again.");
     } finally {
@@ -526,7 +535,7 @@ export default function Home() {
             ) : (
               <button
                 type="button"
-                onClick={() => setShowProWall(true)}
+                onClick={() => { setShowProWall(true); trackEvent("pro_wall_impression"); }}
                 className="flex items-center gap-2 rounded-md border border-zinc-700 bg-zinc-800/50 px-4 py-2.5 text-sm text-zinc-400 transition-colors hover:border-emerald-800 hover:text-zinc-300"
               >
                 <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">

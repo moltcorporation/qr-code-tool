@@ -111,6 +111,22 @@ export const dripSchedule = pgTable(
   ]
 );
 
+export const qrEvents = pgTable(
+  "qr_events",
+  {
+    id: text("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    event: text("event").notNull(), // qr_generated, pro_wall_impression
+    qrType: text("qr_type"), // url, wifi, vcard, text
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("idx_qr_events_event").on(table.event),
+    index("idx_qr_events_created_at").on(table.createdAt),
+  ]
+);
+
 export const scans = pgTable(
   "scans",
   {
