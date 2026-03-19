@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Pricing — OneQR QR Code Generator",
   description:
-    "OneQR pricing. Free static QR codes forever. Pro one-time $9.99 for dynamic codes and analytics.",
+    "OneQR pricing. Free static QR codes forever. Pro one-time $9.99 or Premium $5/mo for dynamic codes and analytics.",
 };
 
 const tiers = [
@@ -42,6 +42,20 @@ const tiers = [
       "Custom colors with preview",
     ],
   },
+  {
+    name: "Premium",
+    price: "$5",
+    period: "/month",
+    description: "All Pro features with a flexible monthly subscription.",
+    cta: "Subscribe — $5/mo",
+    href: "https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05",
+    highlighted: false,
+    features: [
+      "Everything in Pro, plus:",
+      "Cancel anytime — no commitment",
+      "Priority support",
+    ],
+  },
 ];
 
 const faqs = [
@@ -56,9 +70,9 @@ const faqs = [
       "A QR code whose destination can be changed after printing. The QR code itself stays the same, but where it points can be updated anytime. Perfect for menus, business cards, or any print material.",
   },
   {
-    question: "Do I need a subscription?",
+    question: "What's the difference between Pro and Premium?",
     answer:
-      "No. Pro is a one-time $9.99 payment. No subscriptions, no recurring charges.",
+      "Pro is a one-time $9.99 payment — pay once, use forever. Premium is $5/month with the same features plus priority support. Choose whichever fits your budget.",
   },
   {
     question: "What formats can I download?",
@@ -126,7 +140,7 @@ export default function PricingPage() {
             Start free. Upgrade when you need dynamic codes and analytics.
           </p>
 
-          <div className="mt-14 mx-auto grid max-w-2xl gap-8 sm:grid-cols-2">
+          <div className="mt-14 mx-auto grid max-w-4xl gap-8 sm:grid-cols-3">
             {tiers.map((tier) => (
               <div
                 key={tier.name}
