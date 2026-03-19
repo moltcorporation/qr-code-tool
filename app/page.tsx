@@ -5,6 +5,62 @@ import Link from "next/link";
 
 type Tab = "url" | "wifi" | "vcard" | "text";
 
+const BRANDING_TEXT = "Made with OneQR";
+const BRANDING_URL =
+  "https://qr-code-tool-moltcorporation.vercel.app?utm_source=qr_branding&utm_medium=organic&utm_campaign=free_tier";
+
+function addBrandingToSvg(svgStr: string, bgColor: string): string {
+  const match = svgStr.match(/viewBox="0 0 (\d+) (\d+)"/);
+  if (!match) return svgStr;
+
+  const w = parseInt(match[1]);
+  const h = parseInt(match[2]);
+  const textArea = Math.max(3, Math.round(h * 0.1));
+  const newH = h + textArea;
+  const fontSize = Math.max(1.4, Math.round(h * 0.04 * 10) / 10);
+
+  let branded = svgStr.replace(
+    `viewBox="0 0 ${w} ${h}"`,
+    `viewBox="0 0 ${w} ${newH}"`
+  );
+
+  const bg = `<rect x="0" y="${h}" width="${w}" height="${textArea}" fill="${bgColor}"/>`;
+  const text = `<text x="${w / 2}" y="${h + textArea * 0.7}" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="${fontSize}" fill="#999999">${BRANDING_TEXT}</text>`;
+
+  branded = branded.replace("</svg>", `${bg}${text}</svg>`);
+  return branded;
+}
+
+function addBrandingToPng(
+  dataUrl: string,
+  bgColor: string
+): Promise<string> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const pad = Math.round(img.height * 0.07);
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height + pad;
+      const ctx = canvas.getContext("2d")!;
+
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+
+      const fs = Math.round(img.width * 0.028);
+      ctx.font = `${fs}px Arial, Helvetica, sans-serif`;
+      ctx.fillStyle = "#999999";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(BRANDING_TEXT, canvas.width / 2, img.height + pad / 2);
+
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.src = dataUrl;
+  });
+}
+
 const EC_LEVELS = [
   { value: "L", label: "Low (7%)" },
   { value: "M", label: "Medium (15%)" },
@@ -195,7 +251,8 @@ export default function Home() {
   }
 
   function downloadSvg() {
-    const blob = new Blob([svgData], { type: "image/svg+xml" });
+    const branded = addBrandingToSvg(svgData, bgColor);
+    const blob = new Blob([branded], { type: "image/svg+xml" });
     const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = blobUrl;
@@ -204,9 +261,10 @@ export default function Home() {
     URL.revokeObjectURL(blobUrl);
   }
 
-  function downloadPng() {
+  async function downloadPng() {
+    const branded = await addBrandingToPng(pngDataUrl, bgColor);
     const a = document.createElement("a");
-    a.href = pngDataUrl;
+    a.href = branded;
     a.download = "oneqr-qr.png";
     a.click();
   }
@@ -478,9 +536,19 @@ export default function Home() {
           {svgData ? (
             <div className="mt-6 flex flex-col items-center gap-4 rounded-lg border border-zinc-800 bg-zinc-950 p-6">
               <div
-                className="h-48 w-48 rounded-lg bg-white p-3"
-                dangerouslySetInnerHTML={{ __html: svgData }}
+                className="h-52 w-48 rounded-lg bg-white p-3"
+                dangerouslySetInnerHTML={{
+                  __html: addBrandingToSvg(svgData, bgColor),
+                }}
               />
+              <a
+                href={BRANDING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] text-zinc-500 hover:text-zinc-400 transition-colors"
+              >
+                Made with OneQR
+              </a>
               <div className="flex gap-3">
                 <button
                   onClick={downloadSvg}
@@ -498,7 +566,7 @@ export default function Home() {
                 )}
               </div>
               <p className="text-xs text-zinc-600">
-                Free. No watermark. No signup. Yours.
+                Free. No signup. Yours.
               </p>
               {/* Pro upsell prompt */}
               <div className="mt-2 w-full rounded-md border border-zinc-800 bg-zinc-900/50 px-4 py-3">
