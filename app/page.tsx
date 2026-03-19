@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import QRCode from "qrcode";
 
 type Tab = "url" | "wifi" | "vcard" | "text";
 
@@ -99,7 +100,7 @@ const features = [
     title: "Brand colors, not generic black",
     description:
       "Match your brand. Your QR code should look like it belongs on your packaging, not a lab report.",
-    free: true,
+    free: false,
   },
   {
     title: "Billboard to business card",
@@ -140,6 +141,7 @@ export default function Home() {
   const [demoSvg, setDemoSvg] = useState("");
   const [upsellDismissed, setUpsellDismissed] = useState(false);
   const [userPlan, setUserPlan] = useState<string | null>(null);
+  const [showProWall, setShowProWall] = useState(false);
 
   useEffect(() => {
     // Check if upsell was dismissed this session
@@ -158,21 +160,13 @@ export default function Home() {
       .then((d) => d && setTotalCodes(d.totalCodes))
       .catch(() => {});
 
-    // Load demo QR code on mount
-    fetch("/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        data: "https://oneqr.sh",
-        format: "svg",
-        fgColor: "#000000",
-        bgColor: "#ffffff",
-        errorCorrection: "M",
-      }),
-    })
-      .then((r) => r.ok ? r.text() : null)
-      .then((svg) => svg && setDemoSvg(svg))
-      .catch(() => {});
+    // Load demo QR code on mount (client-side)
+    QRCode.toString("https://oneqr.sh", {
+      type: "svg",
+      color: { dark: "#000000", light: "#ffffff" },
+      errorCorrectionLevel: "M",
+      margin: 2,
+    }).then((svg) => setDemoSvg(svg)).catch(() => {});
   }, []);
 
   function getData(): string {
@@ -224,38 +218,27 @@ export default function Home() {
     setSvgData("");
     setPngDataUrl("");
 
+    const ecLevel = (["L", "M", "Q", "H"].includes(errorCorrection)
+      ? errorCorrection
+      : "M") as "L" | "M" | "Q" | "H";
+
     try {
-      const svgRes = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          data,
-          format: "svg",
-          fgColor,
-          bgColor,
-          errorCorrection,
+      const [svg, dataUrl] = await Promise.all([
+        QRCode.toString(data.trim(), {
+          type: "svg",
+          color: { dark: fgColor, light: bgColor },
+          errorCorrectionLevel: ecLevel,
+          margin: 2,
         }),
-      });
-
-      if (!svgRes.ok) throw new Error("Generation failed");
-      const svg = await svgRes.text();
+        QRCode.toDataURL(data.trim(), {
+          color: { dark: fgColor, light: bgColor },
+          errorCorrectionLevel: ecLevel,
+          margin: 2,
+          width: 1024,
+        }),
+      ]);
       setSvgData(svg);
-
-      const pngRes = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          data,
-          format: "png",
-          fgColor,
-          bgColor,
-          errorCorrection,
-        }),
-      });
-
-      if (!pngRes.ok) throw new Error("PNG generation failed");
-      const pngJson = await pngRes.json();
-      setPngDataUrl(pngJson.dataUrl);
+      setPngDataUrl(dataUrl);
     } catch {
       setError("Failed to generate QR code. Please try again.");
     } finally {
@@ -364,8 +347,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Generator */}
-      <section className="mx-auto max-w-lg px-6 pb-20 pt-12">
+      {/* Generator — directly below hero for instant value */}
+      <section className="mx-auto max-w-lg px-6 pb-20 pt-6">
         <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl shadow-emerald-500/5">
           {/* Tabs */}
           <div className="flex border-b border-zinc-800">
@@ -504,41 +487,86 @@ export default function Home() {
               />
             )}
 
-            {/* Options row */}
-            <div className="flex flex-wrap items-center gap-4">
-              <div className="flex items-center gap-2">
-                <label className="text-xs text-zinc-500">Color</label>
-                <input
-                  type="color"
-                  value={fgColor}
-                  onChange={(e) => setFgColor(e.target.value)}
-                  className="h-8 w-8 cursor-pointer rounded border border-zinc-700 bg-zinc-800"
-                />
+            {/* Options row — Pro features gated */}
+            {isPaidUser ? (
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <label className="text-xs text-zinc-500">Color</label>
+                  <input
+                    type="color"
+                    value={fgColor}
+                    onChange={(e) => setFgColor(e.target.value)}
+                    className="h-8 w-8 cursor-pointer rounded border border-zinc-700 bg-zinc-800"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-xs text-zinc-500">Background</label>
+                  <input
+                    type="color"
+                    value={bgColor}
+                    onChange={(e) => setBgColor(e.target.value)}
+                    className="h-8 w-8 cursor-pointer rounded border border-zinc-700 bg-zinc-800"
+                  />
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-xs text-zinc-500">Error correction</label>
+                  <select
+                    value={errorCorrection}
+                    onChange={(e) => setErrorCorrection(e.target.value)}
+                    className="rounded border border-zinc-700 bg-zinc-800 px-2 py-1 text-xs text-white outline-none focus:border-emerald-500"
+                  >
+                    {EC_LEVELS.map((ec) => (
+                      <option key={ec.value} value={ec.value}>
+                        {ec.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <label className="text-xs text-zinc-500">Background</label>
-                <input
-                  type="color"
-                  value={bgColor}
-                  onChange={(e) => setBgColor(e.target.value)}
-                  className="h-8 w-8 cursor-pointer rounded border border-zinc-700 bg-zinc-800"
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <label className="text-xs text-zinc-500">Error correction</label>
-                <select
-                  value={errorCorrection}
-                  onChange={(e) => setErrorCorrection(e.target.value)}
-                  className="rounded border border-zinc-700 bg-zinc-800 px-2 py-1 text-xs text-white outline-none focus:border-emerald-500"
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowProWall(true)}
+                className="flex items-center gap-2 rounded-md border border-zinc-700 bg-zinc-800/50 px-4 py-2.5 text-sm text-zinc-400 transition-colors hover:border-emerald-800 hover:text-zinc-300"
+              >
+                <svg className="h-4 w-4 text-emerald-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+                Custom colors, analytics &amp; dynamic QR
+                <span className="rounded-full bg-emerald-950 px-2 py-0.5 text-xs font-medium text-emerald-400">Pro</span>
+              </button>
+            )}
+
+            {/* Pro feature wall */}
+            {showProWall && !isPaidUser && (
+              <div className="rounded-lg border border-emerald-800/50 bg-emerald-950/30 p-4">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-white">Unlock Pro features</p>
+                    <p className="mt-1 text-xs text-zinc-400">
+                      Custom brand colors, dynamic QR codes that update after printing, and scan analytics to track every scan.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setShowProWall(false)}
+                    className="rounded p-1 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
+                    aria-label="Close"
+                  >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <a
+                  href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-block rounded-md bg-emerald-500 px-4 py-2 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
                 >
-                  {EC_LEVELS.map((ec) => (
-                    <option key={ec.value} value={ec.value}>
-                      {ec.label}
-                    </option>
-                  ))}
-                </select>
+                  Unlock Pro — $9.99 once
+                </a>
               </div>
-            </div>
+            )}
 
             <button
               onClick={handleGenerate}
