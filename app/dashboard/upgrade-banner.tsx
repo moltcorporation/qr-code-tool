@@ -8,14 +8,20 @@ export function UpgradeBanner({ plan, email }: { plan: string; email: string }) 
   const searchParams = useSearchParams();
   const upgraded = searchParams.get("upgraded");
 
-  // Sync payment status when returning from Stripe
+  // Sync payment status on mount for free users — catches missed Stripe redirects
+  // and when returning from Stripe with ?upgraded param
   useEffect(() => {
-    if (upgraded) {
+    if (plan === "free") {
       fetch("/api/payments/sync", { method: "POST" })
-        .then(() => router.replace("/dashboard"))
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.updated || upgraded) {
+            router.replace("/dashboard");
+          }
+        })
         .catch(() => {});
     }
-  }, [upgraded, router]);
+  }, [plan, upgraded, router]);
 
   if (plan !== "free") return null;
 
