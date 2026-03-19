@@ -1,6 +1,8 @@
 import {
   pgTable,
   text,
+  smallint,
+  boolean,
   timestamp,
   index,
 } from "drizzle-orm/pg-core";
@@ -73,6 +75,21 @@ export const passwordResetTokens = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   },
   (table) => [index("idx_password_reset_tokens_token").on(table.token)]
+);
+
+export const onboardingEmails = pgTable(
+  "onboarding_emails",
+  {
+    id: text("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    email: text("email").notNull().unique(),
+    lastStepSent: smallint("last_step_sent").default(0),
+    unsubscribed: boolean("unsubscribed").default(false),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [index("idx_onboarding_email").on(table.email)]
 );
 
 export const scans = pgTable(
