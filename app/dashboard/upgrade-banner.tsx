@@ -30,7 +30,7 @@ export function UpgradeBanner({ plan, email }: { plan: string; email: string }) 
       <div className="flex items-center justify-between">
         <div>
           <p className="font-medium text-emerald-900">
-            Upgrade for dynamic QR codes
+            Unlock dynamic QR codes
           </p>
           <p className="mt-1 text-sm text-emerald-700">
             Edit destinations after printing and track every scan.

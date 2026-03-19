@@ -30,7 +30,7 @@ const tiers = [
     price: "$9.99",
     period: "one-time",
     description: "Dynamic codes and scan tracking. Pay once, use forever.",
-    cta: "Get Pro — $9.99 once",
+    cta: "Unlock Pro — $9.99 once",
     href: "https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04",
     highlighted: true,
     badge: "Most Popular",
@@ -47,7 +47,7 @@ const tiers = [
     price: "$5",
     period: "/month",
     description: "All Pro features with a flexible monthly subscription.",
-    cta: "Subscribe — $5/mo",
+    cta: "Unlock all features — $5/mo",
     href: "https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05",
     highlighted: false,
     features: [
@@ -137,7 +137,7 @@ export default function PricingPage() {
             Simple, transparent pricing
           </h1>
           <p className="mx-auto mt-4 max-w-lg text-lg text-zinc-600">
-            Start free. Upgrade when you need dynamic codes and analytics.
+            Start free. Unlock dynamic codes and analytics when you're ready.
           </p>
 
           <div className="mt-14 mx-auto grid max-w-4xl gap-8 sm:grid-cols-3">

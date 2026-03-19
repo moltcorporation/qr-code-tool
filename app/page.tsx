@@ -652,7 +652,7 @@ export default function Home() {
               href="/pricing"
               className="rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Get dynamic QR codes — $9.99 once
+              Unlock dynamic QR codes — $9.99 once
             </Link>
           </div>
         </div>
@@ -844,7 +844,7 @@ export default function Home() {
               href="/pricing"
               className="inline-block rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Get Pro — $9.99 once
+              Unlock scan analytics — $9.99 once
             </Link>
           </div>
         </div>
