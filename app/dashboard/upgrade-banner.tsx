@@ -30,7 +30,7 @@ export function UpgradeBanner({ plan, email }: { plan: string; email: string }) 
       <div className="flex items-center justify-between">
         <div>
           <p className="font-medium text-emerald-900">
-            Upgrade for dynamic QR codes
+            Unlock dynamic QR codes
           </p>
           <p className="mt-1 text-sm text-emerald-700">
             Edit destinations after printing and track every scan.
@@ -41,7 +41,7 @@ export function UpgradeBanner({ plan, email }: { plan: string; email: string }) 
             href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(email)}`}
             className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
           >
-            Pro — $9.99 once
+            Unlock Pro — $9.99 once
           </a>
           <a
             href={`https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05?prefilled_email=${encodeURIComponent(email)}`}

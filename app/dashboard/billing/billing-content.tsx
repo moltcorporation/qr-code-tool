@@ -79,7 +79,7 @@ export function BillingContent({ user }: { user: User }) {
             <p className="mt-2 text-sm text-zinc-600">
               {isPro
                 ? "You have access to all Pro features"
-                : "Upgrade to Pro to unlock dynamic QR codes"}
+                : "Unlock Pro for dynamic QR codes"}
             </p>
           </div>
           {isPro ? (
@@ -98,13 +98,13 @@ export function BillingContent({ user }: { user: User }) {
                 href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(user.email)}`}
                 className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
               >
-                Pro — $9.99 once
+                Unlock Pro — $9.99 once
               </a>
               <a
                 href={`https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05?prefilled_email=${encodeURIComponent(user.email)}`}
                 className="rounded-md border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
               >
-                Premium — $5/mo
+                Unlock Premium — $5/mo
               </a>
             </div>
           )}
