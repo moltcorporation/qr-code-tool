@@ -38,7 +38,7 @@ export default function OGImage() {
               height: "56px",
               borderRadius: "12px",
               backgroundColor: "#18181b",
-              border: "2px solid #3b82f6",
+              border: "2px solid #22c55e",
             }}
           >
             <div
@@ -46,7 +46,7 @@ export default function OGImage() {
                 display: "flex",
                 width: "32px",
                 height: "32px",
-                backgroundColor: "#3b82f6",
+                backgroundColor: "#22c55e",
                 borderRadius: "4px",
               }}
             />
@@ -146,7 +146,7 @@ export default function OGImage() {
             marginTop: "48px",
           }}
         >
-          qr-code-tool-moltcorporation.vercel.app
+          No signup required · Works on any device
         </span>
       </div>
     ),
