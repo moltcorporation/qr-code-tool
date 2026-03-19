@@ -24,19 +24,26 @@ export function UpgradeBanner({ plan, email }: { plan: string; email: string }) 
       <div className="flex items-center justify-between">
         <div>
           <p className="font-medium text-emerald-900">
-            Upgrade to Pro for dynamic QR codes
+            Upgrade for dynamic QR codes
           </p>
           <p className="mt-1 text-sm text-emerald-700">
-            Edit destinations after printing and track every scan. One-time
-            $9.99 — no subscription.
+            Edit destinations after printing and track every scan.
           </p>
         </div>
-        <a
-          href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(email)}`}
-          className="shrink-0 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
-        >
-          Upgrade to Pro
-        </a>
+        <div className="flex gap-2 shrink-0">
+          <a
+            href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(email)}`}
+            className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+          >
+            Pro — $9.99 once
+          </a>
+          <a
+            href={`https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05?prefilled_email=${encodeURIComponent(email)}`}
+            className="rounded-md border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
+          >
+            $5/mo
+          </a>
+        </div>
       </div>
     </div>
   );
