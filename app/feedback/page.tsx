@@ -39,7 +39,7 @@ export default function FeedbackPage() {
       <header className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <Link href="/" className="text-xl font-bold tracking-tight">
-            <span className="text-emerald-400">Q</span>dot
+            <span className="text-emerald-400">One</span>QR
           </Link>
           <Link
             href="/"

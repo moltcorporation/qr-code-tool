@@ -138,7 +138,7 @@ export default function EventQRGuide() {
       <header className="border-b border-zinc-200">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <Link href="/" className="text-xl font-bold tracking-tight">
-            <span className="text-emerald-600">Q</span>dot
+            <span className="text-emerald-600">One</span>QR
           </Link>
           <Link
             href="/"

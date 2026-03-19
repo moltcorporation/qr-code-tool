@@ -42,7 +42,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-white px-4">
       <div className="w-full max-w-sm">
         <Link href="/" className="mb-8 block text-center text-xl font-bold tracking-tight">
-          <span className="text-emerald-600">Q</span>dot
+          <span className="text-emerald-600">One</span>QR
         </Link>
 
         <h1 className="text-center text-2xl font-bold text-zinc-900">

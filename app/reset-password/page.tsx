@@ -94,7 +94,7 @@ export default function ResetPasswordPage() {
           href="/"
           className="mb-8 block text-center text-xl font-bold tracking-tight"
         >
-          <span className="text-emerald-600">Q</span>dot
+          <span className="text-emerald-600">One</span>QR
         </Link>
 
         {token ? (
