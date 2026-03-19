@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { users } from "@/db/schema";
+import { users, dripSchedule } from "@/db/schema";
 import { hashPassword, createSession } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
@@ -48,6 +48,17 @@ export async function POST(request: Request) {
       .returning({ id: users.id });
 
     await createSession(user.id);
+
+    // Schedule 5 drip emails: Day 0, 3, 5, 7, 10
+    const dripDays = [0, 3, 5, 7, 10];
+    const now = new Date();
+    await db.insert(dripSchedule).values(
+      dripDays.map((days, i) => ({
+        userId: user.id,
+        emailNumber: (i + 1) as 1 | 2 | 3 | 4 | 5,
+        sendAt: new Date(now.getTime() + days * 24 * 60 * 60 * 1000),
+      }))
+    );
 
     return NextResponse.json({ id: user.id }, { status: 201 });
   } catch (error) {
