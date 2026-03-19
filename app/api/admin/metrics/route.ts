@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { users, qrCodes } from "@/db/schema";
+import { users, qrCodes, pageViews } from "@/db/schema";
 import { sql, count, countDistinct } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
@@ -48,6 +48,27 @@ export async function GET(request: NextRequest) {
         ? Math.round((activatedCount / totalSignups.total) * 1000) / 10
         : 0;
 
+    // Visitor tracking
+    const [visitorsToday] = await db
+      .select({ total: count() })
+      .from(pageViews)
+      .where(sql`${pageViews.createdAt} >= current_date`);
+
+    const visitorsBySource = await db
+      .select({
+        source: sql<string>`coalesce(${pageViews.utmSource}, 'direct')`,
+        total: count(),
+      })
+      .from(pageViews)
+      .where(sql`${pageViews.createdAt} >= current_date`)
+      .groupBy(sql`coalesce(${pageViews.utmSource}, 'direct')`);
+
+    const visitorsTodayCount = visitorsToday.total;
+    const conversionRate =
+      visitorsTodayCount > 0
+        ? Math.round((signupsToday.total / visitorsTodayCount) * 1000) / 10
+        : 0;
+
     return NextResponse.json({
       signups_total: totalSignups.total,
       signups_today: signupsToday.total,
@@ -58,6 +79,12 @@ export async function GET(request: NextRequest) {
       payments_total: payments.total,
       activated_users: activatedCount,
       activation_rate: activationRate,
+      visitors_today: visitorsTodayCount,
+      visitors_by_source: visitorsBySource.reduce(
+        (acc, row) => ({ ...acc, [row.source]: row.total }),
+        {} as Record<string, number>
+      ),
+      conversion_rate: conversionRate,
       generated_at: new Date().toISOString(),
     });
   } catch (error) {
