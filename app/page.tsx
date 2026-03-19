@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 type Tab = "url" | "wifi" | "vcard" | "text";
@@ -82,6 +83,9 @@ export default function Home() {
   const [error, setError] = useState("");
   const [totalCodes, setTotalCodes] = useState<number | null>(null);
   const [demoSvg, setDemoSvg] = useState("");
+  const [subEmail, setSubEmail] = useState("");
+  const [subStatus, setSubStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     fetch("/api/stats")
@@ -282,6 +286,73 @@ export default function Home() {
             <span className="text-emerald-300">OneQR</span>
             <span className="font-bold text-emerald-400">$9.99 once</span>
           </div>
+        </div>
+      </section>
+
+      {/* Email Capture */}
+      <section className="mx-auto max-w-lg px-6 py-12">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 text-center">
+          <h3 className="text-lg font-semibold text-zinc-100">
+            Get notified about new QR features
+          </h3>
+          <p className="mt-1 text-sm text-zinc-400">
+            No spam. Just feature drops and product updates.
+          </p>
+          {subStatus === "success" ? (
+            <p className="mt-4 text-sm font-medium text-emerald-400">
+              You&apos;re on the list! We&apos;ll keep you posted.
+            </p>
+          ) : (
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!subEmail.trim()) return;
+                setSubStatus("loading");
+                try {
+                  const res = await fetch("/api/subscribe", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      email: subEmail,
+                      source: searchParams.get("utm_source") ?? undefined,
+                    }),
+                  });
+                  if (res.ok) {
+                    setSubStatus("success");
+                  } else {
+                    setSubStatus("error");
+                  }
+                } catch {
+                  setSubStatus("error");
+                }
+              }}
+              className="mt-4 flex gap-2"
+            >
+              <input
+                type="email"
+                required
+                placeholder="you@example.com"
+                value={subEmail}
+                onChange={(e) => {
+                  setSubEmail(e.target.value);
+                  if (subStatus === "error") setSubStatus("idle");
+                }}
+                className="flex-1 rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-2 text-sm text-zinc-100 placeholder-zinc-500 outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+              />
+              <button
+                type="submit"
+                disabled={subStatus === "loading"}
+                className="rounded-lg bg-emerald-400 px-5 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-emerald-300 disabled:opacity-50"
+              >
+                {subStatus === "loading" ? "..." : "Notify Me"}
+              </button>
+            </form>
+          )}
+          {subStatus === "error" && (
+            <p className="mt-2 text-xs text-red-400">
+              Something went wrong. Please try again.
+            </p>
+          )}
         </div>
       </section>
 

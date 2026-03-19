@@ -1,5 +1,6 @@
 import {
   pgTable,
+  serial,
   text,
   timestamp,
   index,
@@ -72,6 +73,17 @@ export const passwordResetTokens = pgTable(
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   },
   (table) => [index("idx_password_reset_tokens_token").on(table.token)]
+);
+
+export const emailSubscribers = pgTable(
+  "email_subscribers",
+  {
+    id: serial("id").primaryKey(),
+    email: text("email").notNull().unique(),
+    source: text("source"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [index("idx_email_subscribers_email").on(table.email)]
 );
 
 export const scans = pgTable(
