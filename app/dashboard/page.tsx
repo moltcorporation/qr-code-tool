@@ -89,7 +89,7 @@ export default async function DashboardPage() {
           <CreateQRForm />
         ) : (
           <div className="mt-6 rounded-lg border border-zinc-200 bg-white p-5 text-center text-sm text-zinc-500">
-            Upgrade to Pro to create dynamic QR codes with editable destinations and scan analytics.
+            Unlock Pro to create dynamic QR codes with editable destinations and scan analytics.
           </div>
         )}
 

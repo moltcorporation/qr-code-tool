@@ -79,7 +79,7 @@ export function BillingContent({ user }: { user: User }) {
             <p className="mt-2 text-sm text-zinc-600">
               {isPro
                 ? "You have access to all Pro features"
-                : "Upgrade to Pro to unlock dynamic QR codes"}
+                : "Unlock Pro for dynamic QR codes"}
             </p>
           </div>
           {isPro ? (
