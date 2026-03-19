@@ -27,13 +27,14 @@ export function BillingContent({ user }: { user: User }) {
         method: "POST",
       });
       if (!response.ok) {
-        throw new Error("Failed to downgrade plan");
+        const data = await response.json();
+        throw new Error(data.error || "Failed to downgrade plan");
       }
       const data = await response.json();
       setShowDowngradeConfirm(false);
       if (data.had_subscription) {
         alert(
-          "Your plan has been set to Free. Important: Your Stripe subscription is still active. Please cancel it through the Manage Subscription link on this page to stop future charges."
+          "Your Premium subscription has been cancelled and your plan has been downgraded to Free. You will not be charged further."
         );
       }
       router.refresh();
@@ -124,17 +125,16 @@ export function BillingContent({ user }: { user: User }) {
             {isSubscription ? (
               <div className="mt-3 space-y-3">
                 <p className="text-sm text-zinc-600">
-                  This will remove your access to Pro features immediately.
+                  This will remove your access to Pro features immediately and
+                  cancel your Premium subscription.
                 </p>
-                <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
-                  <p className="text-sm font-medium text-amber-800">
-                    Your Stripe subscription will remain active
+                <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3">
+                  <p className="text-sm font-medium text-emerald-800">
+                    Your Stripe subscription will be automatically cancelled
                   </p>
-                  <p className="mt-1 text-sm text-amber-700">
-                    Downgrading here does not cancel your $5/mo Stripe
-                    subscription. To stop future charges, you must also cancel
-                    through Stripe using the &quot;Manage Subscription&quot;
-                    link below after downgrading.
+                  <p className="mt-1 text-sm text-emerald-700">
+                    You will not be charged any further after downgrading. No
+                    action on Stripe needed.
                   </p>
                 </div>
               </div>
@@ -163,49 +163,6 @@ export function BillingContent({ user }: { user: User }) {
         </div>
       )}
 
-      {/* Subscription Management — only for Premium subscribers */}
-      {isSubscription && (
-        <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-8">
-          <h2 className="text-lg font-semibold text-zinc-900 mb-2">
-            Manage Subscription
-          </h2>
-          <p className="text-sm text-zinc-600 mb-4">
-            Your Premium subscription is billed monthly at $5/mo through Stripe.
-            To update your payment method, view invoices, or cancel your
-            subscription, use the management link in your Stripe receipt email
-            sent to <strong>{user.email}</strong>.
-          </p>
-          <div className="rounded-md border border-emerald-300 bg-white p-4">
-            <div className="flex items-start gap-3">
-              <svg
-                className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-              <div>
-                <p className="text-sm font-medium text-zinc-900">
-                  How to manage or cancel
-                </p>
-                <ol className="mt-1 list-decimal list-inside space-y-1 text-sm text-zinc-600">
-                  <li>Check your email for a receipt from Stripe</li>
-                  <li>
-                    Click &quot;Manage subscription&quot; in the email
-                  </li>
-                  <li>Cancel, update payment, or view invoices from there</li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Features Comparison */}
       <div className="rounded-lg border border-zinc-200 bg-white p-8">
