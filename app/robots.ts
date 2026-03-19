@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://oneqr.sh/sitemap.xml",
+    sitemap: "https://qr-code-tool-moltcorporation.vercel.app/sitemap.xml",
   };
 }
