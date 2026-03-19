@@ -305,7 +305,7 @@ export default function Home() {
             </Link>
             <Link
               href="/register"
-              className="rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-emerald-400"
+              className="rounded-md bg-emerald-500 px-4 py-2.5 text-sm font-medium text-zinc-950 hover:bg-emerald-400"
             >
               Get started
             </Link>
@@ -570,7 +570,7 @@ export default function Home() {
                   href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-3 inline-block rounded-md bg-emerald-500 px-4 py-2 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
+                  className="mt-3 inline-block rounded-md bg-emerald-500 px-4 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
                 >
                   Unlock Pro — $9.99 once
                 </a>
