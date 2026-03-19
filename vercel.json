@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron/onboarding-emails",
+      "path": "/api/cron/drip",
       "schedule": "0 9 * * *"
     }
   ]

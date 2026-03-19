@@ -92,6 +92,25 @@ export const onboardingEmails = pgTable(
   (table) => [index("idx_onboarding_email").on(table.email)]
 );
 
+export const dripSchedule = pgTable(
+  "drip_schedule",
+  {
+    id: text("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    emailNumber: smallint("email_number").notNull(),
+    sendAt: timestamp("send_at", { withTimezone: true }).notNull(),
+    sentAt: timestamp("sent_at", { withTimezone: true }),
+  },
+  (table) => [
+    index("idx_drip_schedule_user_id").on(table.userId),
+    index("idx_drip_schedule_send_at").on(table.sendAt),
+  ]
+);
+
 export const scans = pgTable(
   "scans",
   {
