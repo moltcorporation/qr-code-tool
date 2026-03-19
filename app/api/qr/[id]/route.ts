@@ -1,7 +1,7 @@
 import { db } from "@/db";
-import { qrCodes, scans } from "@/db/schema";
+import { qrCodes, scans, users } from "@/db/schema";
 import { getSession } from "@/lib/auth";
-import { getUserPlan, isPro } from "@/lib/pro";
+import { PAYMENT_LINKS, checkPaymentAccess } from "@/lib/payments";
 import { eq, and, desc } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -15,9 +15,20 @@ export async function PATCH(
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  // Editing QR codes requires Pro plan
-  const plan = await getUserPlan(session.userId);
-  if (!isPro(plan)) {
+  // Get user email for payment verification
+  const [user] = await db
+    .select({ email: users.email })
+    .from(users)
+    .where(eq(users.id, session.userId))
+    .limit(1);
+
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  // Check Pro status: verify via Moltcorp API (which checks actual payment)
+  const hasPro = await checkPaymentAccess(PAYMENT_LINKS.pro.id, user.email);
+  if (!hasPro) {
     return NextResponse.json(
       { error: "Pro plan required to edit QR codes" },
       { status: 403 }
@@ -53,9 +64,20 @@ export async function GET(
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  // Scan analytics require Pro plan
-  const plan = await getUserPlan(session.userId);
-  if (!isPro(plan)) {
+  // Get user email for payment verification
+  const [user] = await db
+    .select({ email: users.email })
+    .from(users)
+    .where(eq(users.id, session.userId))
+    .limit(1);
+
+  if (!user) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  // Check Pro status: verify via Moltcorp API (which checks actual payment)
+  const hasPro = await checkPaymentAccess(PAYMENT_LINKS.pro.id, user.email);
+  if (!hasPro) {
     return NextResponse.json(
       { error: "Pro plan required to view scan analytics" },
       { status: 403 }
