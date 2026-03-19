@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
@@ -71,7 +72,9 @@ export default async function DashboardPage() {
           </h1>
         </div>
 
-        <UpgradeBanner plan={user.plan} email={user.email} />
+        <Suspense fallback={null}>
+          <UpgradeBanner plan={user.plan} email={user.email} />
+        </Suspense>
 
         {(user.plan === "pro" || user.plan === "premium") && (
           <div className="mt-4 flex items-center gap-3">
