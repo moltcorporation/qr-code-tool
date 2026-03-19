@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { TrustBar } from "@/lib/components/TrustBar";
 
 type Tab = "url" | "wifi" | "vcard" | "text";
 
@@ -832,7 +833,11 @@ export default function Home() {
       </section>
 
       {/* Pricing teaser */}
-      <section className="mx-auto max-w-3xl px-6 py-20 text-center">
+      
+        {/* Trust Bar */}
+        <div className="my-12"><TrustBar /></div>
+
+        <section className="mx-auto max-w-3xl px-6 py-20 text-center">
         <h2 className="text-2xl font-bold tracking-tight">
           Stop paying rent on your QR codes
         </h2>
