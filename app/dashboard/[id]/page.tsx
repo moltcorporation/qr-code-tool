@@ -69,11 +69,17 @@ export default function AnalyticsPage() {
   const [data, setData] = useState<Analytics | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const [blocked, setBlocked] = useState(false);
+
   useEffect(() => {
     fetch(`/api/qr/${params.id}`)
       .then((res) => {
         if (res.status === 401) {
           router.push("/login");
+          return null;
+        }
+        if (res.status === 403) {
+          setBlocked(true);
           return null;
         }
         if (!res.ok) throw new Error("Failed");
@@ -88,6 +94,17 @@ export default function AnalyticsPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <p className="text-zinc-500">Loading analytics...</p>
+      </div>
+    );
+  }
+
+  if (blocked) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4">
+        <p className="text-zinc-700 font-medium">Scan analytics require a Pro plan</p>
+        <Link href="/dashboard" className="text-sm text-emerald-600 hover:text-emerald-700">
+          Back to dashboard
+        </Link>
       </div>
     );
   }

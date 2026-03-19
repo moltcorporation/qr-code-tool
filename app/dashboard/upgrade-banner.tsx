@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export function UpgradeBanner({ plan }: { plan: string }) {
+export function UpgradeBanner({ plan, email }: { plan: string; email: string }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const upgraded = searchParams.get("upgraded");
@@ -32,7 +32,7 @@ export function UpgradeBanner({ plan }: { plan: string }) {
           </p>
         </div>
         <a
-          href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+          href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(email)}`}
           className="shrink-0 rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
         >
           Upgrade to Pro
