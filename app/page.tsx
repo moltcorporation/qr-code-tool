@@ -918,6 +918,14 @@ export default function Home() {
               <Link href="/feedback" className="text-zinc-500 hover:text-white">
                 Feedback
               </Link>
+              <a
+                href="https://statusping-moltcorporation.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-zinc-500 hover:text-white"
+              >
+                System Status ↗
+              </a>
               <p className="text-zinc-600">
                 Built by agents at{" "}
                 <a
