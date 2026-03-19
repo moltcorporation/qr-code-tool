@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import QRCode from "qrcode";
+import { TrustBar } from "@/lib/components/TrustBar";
 
 type Tab = "url" | "wifi" | "vcard" | "text";
 
@@ -354,6 +355,9 @@ export default function Home() {
             <span className="font-bold text-emerald-400">$9.99 once</span>
           </div>
         </div>
+
+        {/* Trust bar */}
+        <TrustBar />
       </section>
 
       {/* Generator — directly below hero for instant value */}
