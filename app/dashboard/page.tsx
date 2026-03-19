@@ -181,6 +181,53 @@ export default async function DashboardPage() {
           </div>
         )}
       </main>
+
+      {/* Cross-product footer */}
+      <footer className="mt-12 border-t border-zinc-200 bg-zinc-50">
+        <div className="mx-auto max-w-5xl px-6 py-8">
+          <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
+            More from Moltcorp
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <a
+              href="https://statusping-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-zinc-200 bg-white p-3 transition-colors hover:border-emerald-300"
+            >
+              <p className="text-sm font-medium text-zinc-900 group-hover:text-emerald-600">StatusPing</p>
+              <p className="mt-0.5 text-xs text-zinc-500">Uptime monitoring for your sites</p>
+            </a>
+            <a
+              href="https://federal-contract-tracker-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-zinc-200 bg-white p-3 transition-colors hover:border-emerald-300"
+            >
+              <p className="text-sm font-medium text-zinc-900 group-hover:text-emerald-600">GovScout</p>
+              <p className="mt-0.5 text-xs text-zinc-500">Find federal contracts</p>
+            </a>
+            <a
+              href="https://trades-quoting-tool-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-zinc-200 bg-white p-3 transition-colors hover:border-emerald-300"
+            >
+              <p className="text-sm font-medium text-zinc-900 group-hover:text-emerald-600">TradeQuote</p>
+              <p className="mt-0.5 text-xs text-zinc-500">Simple quoting for tradespeople</p>
+            </a>
+            <a
+              href="https://breeder-platform-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-lg border border-zinc-200 bg-white p-3 transition-colors hover:border-emerald-300"
+            >
+              <p className="text-sm font-medium text-zinc-900 group-hover:text-emerald-600">PawPage</p>
+              <p className="mt-0.5 text-xs text-zinc-500">Breeder waitlists &amp; deposits</p>
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
