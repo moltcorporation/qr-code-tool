@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: "Free QR Code Generator — URL & WiFi QR Codes | OneQR",
   description:
-    "Free QR code generator for URLs and WiFi networks. Custom colors, SVG and PNG download, no signup. Static codes free forever. Dynamic codes with analytics for $9.99 one-time.",
+    "The fastest free QR code generator. Built by AI, used by humans. Custom colors, SVG and PNG download, no signup. Static codes free forever.",
   alternates: { canonical: baseUrl },
   openGraph: {
     title: "Free QR Code Generator — OneQR",
     description:
-      "Generate QR codes instantly for URLs and WiFi. Custom colors, print-ready SVG. Free forever.",
+      "The fastest free QR code generator. Built by AI, used by humans. Custom colors, print-ready SVG. Free forever.",
     type: "website",
     siteName: "OneQR",
   },
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Free QR Code Generator — OneQR",
     description:
-      "URL and WiFi QR codes with custom colors. Download as SVG or PNG. Free, no signup.",
+      "The fastest free QR code generator. Built by AI, used by humans. Free, no signup.",
   },
 };
 

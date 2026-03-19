@@ -236,7 +236,7 @@ export default function Home() {
               href="/register"
               className="rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-emerald-400"
             >
-              Get started
+              Create a QR Code Free
             </Link>
           </nav>
         </div>
@@ -258,7 +258,10 @@ export default function Home() {
           Print once.{" "}
           <span className="text-emerald-400">Update forever.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-zinc-400">
+        <p className="mx-auto mt-4 max-w-xl text-lg font-medium text-zinc-300">
+          Generate QR codes in seconds. Free, no signup required.
+        </p>
+        <p className="mx-auto mt-3 max-w-xl text-base text-zinc-400">
           Your restaurant menu changes. Your business card doesn&apos;t have to.
           Create QR codes that point wherever you need — and change the
           destination anytime, even after printing. Free for static codes.
@@ -466,7 +469,7 @@ export default function Home() {
               disabled={loading}
               className="w-full rounded-md bg-emerald-500 px-4 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400 disabled:opacity-50"
             >
-              {loading ? "Generating..." : "Generate QR Code"}
+              {loading ? "Generating..." : "Create a QR Code Free"}
             </button>
 
             {error && (
