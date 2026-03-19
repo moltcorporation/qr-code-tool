@@ -639,7 +639,7 @@ export default function Home() {
                     </svg>
                   </button>
                   <p className="pr-6 text-sm text-zinc-300">
-                    Your QR is ready! Want to track who scans it? Upgrade to Pro — scan analytics, editable destinations, and never reprint.{" "}
+                    Your QR is ready! Want to track who scans it? Unlock Pro — scan analytics, editable destinations, and never reprint.{" "}
                     <span className="font-medium text-zinc-100">$9.99 one-time.</span>
                   </p>
                   <a
@@ -804,7 +804,7 @@ export default function Home() {
               href="/pricing"
               className="rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Get dynamic QR codes — $9.99 once
+              Unlock dynamic QR codes — $9.99 once
             </Link>
           </div>
         </div>
@@ -996,7 +996,7 @@ export default function Home() {
               href="/pricing"
               className="inline-block rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Get Pro — $9.99 once
+              Unlock Pro — $9.99 once
             </Link>
           </div>
         </div>

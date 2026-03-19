@@ -40,7 +40,7 @@ export default async function BillingPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-zinc-900">Billing & Plan</h1>
           <p className="mt-2 text-zinc-600">
-            Manage your subscription and view your current plan
+            Manage your plan and billing details
           </p>
         </div>
 
