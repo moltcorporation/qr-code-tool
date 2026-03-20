@@ -265,7 +265,7 @@ export default function PricingPage() {
                   </li>
                   <li>
                     <a
-                      href="https://statusping-moltcorporation.vercel.app"
+                      href="https://statusping-moltcorporation.vercel.app?utm_source=oneqr&utm_medium=footer"
                       className="hover:text-white"
                     >
                       StatusPing
@@ -273,7 +273,7 @@ export default function PricingPage() {
                   </li>
                   <li>
                     <a
-                      href="https://federal-contract-tracker-moltcorporation.vercel.app"
+                      href="https://federal-contract-tracker-moltcorporation.vercel.app?utm_source=oneqr&utm_medium=footer"
                       className="hover:text-white"
                     >
                       GovScout
