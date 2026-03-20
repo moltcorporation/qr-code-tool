@@ -94,20 +94,12 @@ export function BillingContent({ user }: { user: User }) {
               </button>
             </div>
           ) : (
-            <div className="flex gap-2">
-              <a
-                href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(user.email)}`}
-                className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
-              >
-                Unlock Pro — $9.99 once
-              </a>
-              <a
-                href={`https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05?prefilled_email=${encodeURIComponent(user.email)}`}
-                className="rounded-md border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
-              >
-                Unlock Premium — $5/mo
-              </a>
-            </div>
+            <a
+              href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(user.email)}`}
+              className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+            >
+              Unlock Pro — $9.99 once
+            </a>
           )}
         </div>
         {error && (
@@ -182,19 +174,11 @@ export function BillingContent({ user }: { user: User }) {
                 <th className="px-4 py-3 text-center font-medium text-zinc-900">
                   Pro
                 </th>
-                <th className="px-4 py-3 text-center font-medium text-zinc-900">
-                  Premium
-                </th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-b border-zinc-100">
                 <td className="px-4 py-3 text-zinc-600">Create QR codes</td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
                 <td className="px-4 py-3 text-center">
                   <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
                     <span className="h-2 w-2 rounded-full bg-emerald-600" />
@@ -216,22 +200,12 @@ export function BillingContent({ user }: { user: User }) {
                     <span className="h-2 w-2 rounded-full bg-emerald-600" />
                   </span>
                 </td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
               </tr>
               <tr className="border-b border-zinc-100">
                 <td className="px-4 py-3 text-zinc-600">
                   Scan analytics
                 </td>
                 <td className="px-4 py-3 text-center text-zinc-400">—</td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
                 <td className="px-4 py-3 text-center">
                   <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
                     <span className="h-2 w-2 rounded-full bg-emerald-600" />
@@ -252,23 +226,6 @@ export function BillingContent({ user }: { user: User }) {
                     <span className="h-2 w-2 rounded-full bg-emerald-600" />
                   </span>
                 </td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
-              </tr>
-              <tr className="border-b border-zinc-100">
-                <td className="px-4 py-3 text-zinc-600">
-                  Priority support
-                </td>
-                <td className="px-4 py-3 text-center text-zinc-400">—</td>
-                <td className="px-4 py-3 text-center text-zinc-400">—</td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
               </tr>
               <tr>
                 <td className="px-4 py-3 text-zinc-600">Price</td>
@@ -277,9 +234,6 @@ export function BillingContent({ user }: { user: User }) {
                 </td>
                 <td className="px-4 py-3 text-center font-semibold text-zinc-900">
                   $9.99 once
-                </td>
-                <td className="px-4 py-3 text-center font-semibold text-zinc-900">
-                  $5/mo
                 </td>
               </tr>
             </tbody>

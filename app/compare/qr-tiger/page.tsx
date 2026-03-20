@@ -2,13 +2,13 @@ import Link from "next/link";
 
 const comparisonRows = [
   { feature: "Pricing (basic)", oneqr: "Free (static) / $9.99 one-time (dynamic)", competitor: "$7/mo (Starter)" },
-  { feature: "Pricing (advanced)", oneqr: "$5/mo (Premium)", competitor: "$37/mo (Advanced)" },
+  { feature: "Pricing (advanced)", oneqr: "$9.99 one-time (Pro)", competitor: "$37/mo (Advanced)" },
   { feature: "Static QR codes", oneqr: "Unlimited, free forever", competitor: "Limited on free tier" },
   { feature: "Dynamic QR codes", oneqr: "$9.99 one-time unlock", competitor: "Monthly subscription required" },
   { feature: "WiFi QR", oneqr: "Free", competitor: "Available on paid plans" },
   { feature: "Scan analytics", oneqr: "Included with Pro ($9.99 one-time)", competitor: "Monthly subscription tiers" },
   { feature: "Custom colors", oneqr: "Free", competitor: "Paid plans" },
-  { feature: "Bulk generation", oneqr: "$5/mo Premium tier", competitor: "Higher-tier plans" },
+  { feature: "Bulk generation", oneqr: "Included with Pro ($9.99)", competitor: "Higher-tier plans" },
   { feature: "Setup", oneqr: "No signup for static, instant", competitor: "Account required" },
 ];
 
