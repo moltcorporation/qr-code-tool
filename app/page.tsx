@@ -319,8 +319,8 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="mx-auto max-w-3xl px-6 pt-20 text-center">
+      {/* Hero — compact so generator is above the fold */}
+      <section className="mx-auto max-w-3xl px-6 pt-10 text-center">
         <div className="flex items-center justify-center gap-3">
           <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
             No subscription. Ever.
@@ -331,52 +331,17 @@ export default function Home() {
               : "10,000+ QR codes generated"}
           </span>
         </div>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
           Change where your QR code points —{" "}
           <span className="text-emerald-400">without reprinting it.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-zinc-400">
-          Your restaurant menu changes. Your business card doesn&apos;t have to.
-          Create QR codes that point wherever you need — and change the
-          destination anytime, even after printing. Free for static codes.
-          One-time $9.99 for dynamic.
+        <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400">
+          Free for static codes. One-time $9.99 for dynamic — no subscription.
         </p>
-        <a
-          href="#generator"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById("generator")?.scrollIntoView({ behavior: "smooth" });
-          }}
-          className="mt-6 inline-block rounded-lg bg-emerald-500 px-8 py-3 text-base font-semibold text-zinc-950 hover:bg-emerald-400 transition-colors"
-        >
-          Generate Free QR Code
-        </a>
-
-        {/* Competitor comparison */}
-        <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-4 text-sm">
-          {competitors.map((c) => (
-            <div
-              key={c.name}
-              className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-4 py-1.5"
-            >
-              <span className="text-zinc-500">{c.name}</span>
-              <span className="font-medium text-red-400 line-through">
-                {c.price}
-              </span>
-            </div>
-          ))}
-          <div className="flex items-center gap-2 rounded-full border border-emerald-800 bg-emerald-950 px-4 py-1.5">
-            <span className="text-emerald-300">OneQR</span>
-            <span className="font-bold text-emerald-400">$9.99 once</span>
-          </div>
-        </div>
-
-        {/* Trust bar */}
-        <TrustBar />
       </section>
 
-      {/* Generator — directly below hero for instant value */}
-      <section id="generator" className="mx-auto max-w-lg px-6 pb-20 pt-6">
+      {/* Generator — above the fold for instant value */}
+      <section id="generator" className="mx-auto max-w-lg px-6 pb-10 pt-6">
         <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl shadow-emerald-500/5">
           {/* Tabs */}
           <div className="flex border-b border-zinc-800">
@@ -706,6 +671,28 @@ export default function Home() {
             </div>
           ) : null}
         </div>
+      </section>
+
+      {/* Competitor comparison + trust bar — below generator */}
+      <section className="mx-auto max-w-3xl px-6 pb-8 text-center">
+        <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+          {competitors.map((c) => (
+            <div
+              key={c.name}
+              className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-4 py-1.5"
+            >
+              <span className="text-zinc-500">{c.name}</span>
+              <span className="font-medium text-red-400 line-through">
+                {c.price}
+              </span>
+            </div>
+          ))}
+          <div className="flex items-center gap-2 rounded-full border border-emerald-800 bg-emerald-950 px-4 py-1.5">
+            <span className="text-emerald-300">OneQR</span>
+            <span className="font-bold text-emerald-400">$9.99 once</span>
+          </div>
+        </div>
+        <TrustBar />
       </section>
 
       {/* Trust badges */}
