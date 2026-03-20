@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { track } from "@vercel/analytics";
 
 export function UpgradeBanner({ plan, email }: { plan: string; email: string }) {
   const router = useRouter();
@@ -39,12 +40,14 @@ export function UpgradeBanner({ plan, email }: { plan: string; email: string }) 
         <div className="flex gap-2 shrink-0">
           <a
             href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(email)}`}
+            onClick={() => track("pro_checkout_clicked", { source: "dashboard_banner", plan: "pro_onetime" })}
             className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
           >
             Unlock Pro — $9.99 once
           </a>
           <a
             href={`https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05?prefilled_email=${encodeURIComponent(email)}`}
+            onClick={() => track("pro_checkout_clicked", { source: "dashboard_banner", plan: "pro_monthly" })}
             className="rounded-md border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
           >
             $5/mo
