@@ -344,6 +344,9 @@ export default function Home() {
           Change where your QR code points —{" "}
           <span className="text-emerald-400">without reprinting it.</span>
         </h1>
+        <p className="mx-auto mt-3 max-w-xl text-sm text-zinc-300">
+          Generate WiFi QR codes to share your network without saying the password. Plus dynamic URLs, vCard details, and more.
+        </p>
         <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400">
           Free for static codes. One-time $9.99 for dynamic — no subscription.
         </p>
