@@ -126,7 +126,7 @@ export default function PricingPage() {
             Start free. Upgrade when you need dynamic codes and analytics.
           </p>
 
-          <div className="mt-14 mx-auto grid max-w-3xl gap-8 sm:grid-cols-2">
+          <div className="mt-14 mx-auto grid max-w-2xl gap-8 sm:grid-cols-2">
             {tiers.map((tier) => (
               <div
                 key={tier.name}
