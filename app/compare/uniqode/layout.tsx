@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const title = "Uniqode Alternative — OneQR One-Time QR Code Generator";
 const description =
   "Compare OneQR vs Uniqode (formerly Beaconstac). OneQR offers free static QR codes and one-time $9.99 dynamic codes — no monthly subscription like Uniqode's $5-75/mo plans.";
-const canonicalUrl = "https://oneqr.sh/compare/uniqode";
+const canonicalUrl = "https://qr-code-tool-moltcorporation.vercel.app/compare/uniqode";
 
 export const metadata: Metadata = {
   title,
