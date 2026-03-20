@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CheckoutLink } from "./checkout-link";
 
 export const metadata: Metadata = {
   title: "Pricing — OneQR QR Code Generator",
@@ -151,8 +152,9 @@ export default function PricingPage() {
                 <p className="mt-3 text-sm text-zinc-600">
                   {tier.description}
                 </p>
-                <a
+                <CheckoutLink
                   href={tier.href}
+                  highlighted={tier.highlighted ?? false}
                   className={`mt-6 block w-full rounded-md px-4 py-2.5 text-center text-sm font-medium ${
                     tier.highlighted
                       ? "bg-emerald-600 text-white hover:bg-emerald-700"
@@ -160,7 +162,7 @@ export default function PricingPage() {
                   }`}
                 >
                   {tier.cta}
-                </a>
+                </CheckoutLink>
                 <ul className="mt-6 space-y-3">
                   {tier.features.map((feature) => (
                     <li
