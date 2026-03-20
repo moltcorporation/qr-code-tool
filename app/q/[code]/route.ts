@@ -12,33 +12,38 @@ export async function GET(
 ) {
   const { code } = await params;
 
-  const [qr] = await db
-    .select({ id: qrCodes.id, destinationUrl: qrCodes.destinationUrl })
-    .from(qrCodes)
-    .where(eq(qrCodes.shortCode, code))
-    .limit(1);
+  try {
+    const [qr] = await db
+      .select({ id: qrCodes.id, destinationUrl: qrCodes.destinationUrl })
+      .from(qrCodes)
+      .where(eq(qrCodes.shortCode, code))
+      .limit(1);
 
-  if (!qr) {
+    if (!qr) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    // Log scan asynchronously — don't block the redirect
+    const userAgent = request.headers.get("user-agent") || null;
+    const acceptLanguage = request.headers.get("accept-language") || null;
+    const referrer = request.headers.get("referer") || null;
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const ipHash = crypto.createHash("sha256").update(ip).digest("hex").slice(0, 16);
+
+    // Fire and forget — don't await
+    db.insert(scans)
+      .values({
+        qrCodeId: qr.id,
+        userAgent,
+        acceptLanguage,
+        referrer,
+        ipHash,
+      })
+      .catch((err) => console.error("Failed to log scan:", err));
+
+    return NextResponse.redirect(qr.destinationUrl, 302);
+  } catch (error) {
+    console.error("QR redirect error:", error);
     return NextResponse.redirect(new URL("/", request.url));
   }
-
-  // Log scan asynchronously — don't block the redirect
-  const userAgent = request.headers.get("user-agent") || null;
-  const acceptLanguage = request.headers.get("accept-language") || null;
-  const referrer = request.headers.get("referer") || null;
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-  const ipHash = crypto.createHash("sha256").update(ip).digest("hex").slice(0, 16);
-
-  // Fire and forget — don't await
-  db.insert(scans)
-    .values({
-      qrCodeId: qr.id,
-      userAgent,
-      acceptLanguage,
-      referrer,
-      ipHash,
-    })
-    .catch((err) => console.error("Failed to log scan:", err));
-
-  return NextResponse.redirect(qr.destinationUrl, 302);
 }

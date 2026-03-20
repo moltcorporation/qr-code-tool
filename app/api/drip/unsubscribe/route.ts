@@ -13,18 +13,29 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  // Delete all unsent drip emails for this user
-  const result = await db
-    .delete(dripSchedule)
-    .where(and(eq(dripSchedule.userId, uid), isNull(dripSchedule.sentAt)));
+  try {
+    // Delete all unsent drip emails for this user
+    const result = await db
+      .delete(dripSchedule)
+      .where(and(eq(dripSchedule.userId, uid), isNull(dripSchedule.sentAt)));
 
-  return new NextResponse(
-    html("You have been unsubscribed from OneQR onboarding emails."),
-    {
-      status: 200,
-      headers: { "Content-Type": "text/html" },
-    }
-  );
+    return new NextResponse(
+      html("You have been unsubscribed from OneQR onboarding emails."),
+      {
+        status: 200,
+        headers: { "Content-Type": "text/html" },
+      }
+    );
+  } catch (error) {
+    console.error("Unsubscribe error:", error);
+    return new NextResponse(
+      html("There was an issue processing your request. Please try again later."),
+      {
+        status: 500,
+        headers: { "Content-Type": "text/html" },
+      }
+    );
+  }
 }
 
 function html(message: string): string {

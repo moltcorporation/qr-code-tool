@@ -10,13 +10,34 @@ export default async function BillingPage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
-  const [user] = await db
-    .select({ id: users.id, email: users.email, plan: users.plan })
-    .from(users)
-    .where(eq(users.id, session.userId))
-    .limit(1);
+  let user;
 
-  if (!user) redirect("/login");
+  try {
+    const users_result = await db
+      .select({ id: users.id, email: users.email, plan: users.plan })
+      .from(users)
+      .where(eq(users.id, session.userId))
+      .limit(1);
+    [user] = users_result;
+
+    if (!user) redirect("/login");
+  } catch (error) {
+    console.error("Billing page data fetch error:", error);
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-zinc-900 mb-2">Service Temporarily Unavailable</h1>
+          <p className="text-zinc-600 mb-4">We're experiencing a brief issue. Please try again in a moment.</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-zinc-50">

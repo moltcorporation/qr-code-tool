@@ -17,30 +17,52 @@ export default async function DashboardPage() {
   const session = await getSession();
   if (!session) redirect("/login");
 
-  const [user] = await db
-    .select({ id: users.id, email: users.email, plan: users.plan })
-    .from(users)
-    .where(eq(users.id, session.userId))
-    .limit(1);
+  let user;
+  let codes = [];
 
-  if (!user) redirect("/login");
+  try {
+    const users_result = await db
+      .select({ id: users.id, email: users.email, plan: users.plan })
+      .from(users)
+      .where(eq(users.id, session.userId))
+      .limit(1);
+    [user] = users_result;
 
-  const codes = await db
-    .select({
-      id: qrCodes.id,
-      shortCode: qrCodes.shortCode,
-      destinationUrl: qrCodes.destinationUrl,
-      title: qrCodes.title,
-      fgColor: qrCodes.fgColor,
-      bgColor: qrCodes.bgColor,
-      createdAt: qrCodes.createdAt,
-      scanCount: count(scans.id),
-    })
-    .from(qrCodes)
-    .leftJoin(scans, eq(scans.qrCodeId, qrCodes.id))
-    .where(eq(qrCodes.userId, user.id))
-    .groupBy(qrCodes.id)
-    .orderBy(desc(qrCodes.createdAt));
+    if (!user) redirect("/login");
+
+    codes = await db
+      .select({
+        id: qrCodes.id,
+        shortCode: qrCodes.shortCode,
+        destinationUrl: qrCodes.destinationUrl,
+        title: qrCodes.title,
+        fgColor: qrCodes.fgColor,
+        bgColor: qrCodes.bgColor,
+        createdAt: qrCodes.createdAt,
+        scanCount: count(scans.id),
+      })
+      .from(qrCodes)
+      .leftJoin(scans, eq(scans.qrCodeId, qrCodes.id))
+      .where(eq(qrCodes.userId, user.id))
+      .groupBy(qrCodes.id)
+      .orderBy(desc(qrCodes.createdAt));
+  } catch (error) {
+    console.error("Dashboard data fetch error:", error);
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-zinc-900 mb-2">Service Temporarily Unavailable</h1>
+          <p className="text-zinc-600 mb-4">We're experiencing a brief issue. Please try again in a moment.</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-zinc-50">
