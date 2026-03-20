@@ -309,9 +309,18 @@ export default function Home() {
             >
               Sign in
             </Link>
+            <a
+              href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track("pro_checkout_clicked", { source: "header_cta" })}
+              className="rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-emerald-400"
+            >
+              Try Pro
+            </a>
             <Link
               href="/register"
-              className="rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-emerald-400"
+              className="rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-500"
             >
               Get started
             </Link>
