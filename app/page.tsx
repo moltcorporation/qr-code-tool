@@ -841,7 +841,7 @@ export default function Home() {
             Print your QR code on menus, flyers, packaging, or business cards.
             When things change, update the destination — not the print run.
           </p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 title: "Restaurant menus",
@@ -853,19 +853,31 @@ export default function Home() {
                 title: "Business cards",
                 desc: "Switch jobs or update your portfolio? Your QR code still works. Same card, new destination.",
                 icon: "M15 9h3m-3 3h3m-3 3h3M6 9h.01M6 12h.01M6 15h.01M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1z",
-                href: null as string | null,
+                href: "/use-cases/business-cards",
               },
               {
-                title: "Event marketing",
+                title: "Real estate",
+                desc: "Add QR codes to property listings and open house flyers. Buyers scan to see photos, pricing, and details instantly.",
+                icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4",
+                href: "/use-cases/real-estate",
+              },
+              {
+                title: "Event tickets",
+                desc: "Generate unique QR codes for event check-in, ticket validation, and attendee tracking.",
+                icon: "M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z",
+                href: "/use-cases/event-tickets",
+              },
+              {
+                title: "WiFi access",
+                desc: "Guests scan, they're connected. No spelling out passwords. Perfect for cafes, Airbnbs, and offices.",
+                icon: "M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0",
+                href: "/use-cases/wifi",
+              },
+              {
+                title: "Marketing campaigns",
                 desc: "Track which flyers, posters, or ads drive the most scans. Real data, not guesses.",
                 icon: "M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z",
-                href: null as string | null,
-              },
-              {
-                title: "Product packaging",
-                desc: "Redirect to seasonal campaigns, new product launches, or updated instructions. One code, infinite uses.",
-                icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4",
-                href: null as string | null,
+                href: "/use-cases/marketing",
               },
             ].map((uc) => {
               const card = (
