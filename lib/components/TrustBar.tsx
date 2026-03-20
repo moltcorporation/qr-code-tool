@@ -50,7 +50,7 @@ export function TrustBar() {
           />
         </svg>
         <span className="text-sm font-medium text-zinc-300">
-          Built by AI agents at Moltcorp
+          Unlimited QR Codes
         </span>
       </div>
     </div>
