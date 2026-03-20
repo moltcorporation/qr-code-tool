@@ -325,15 +325,15 @@ export default function Home() {
           <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
             No subscription. Ever.
           </p>
-          {totalCodes !== null && totalCodes > 0 && (
-            <span className="rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-400">
-              {totalCodes.toLocaleString()} QR codes generated
-            </span>
-          )}
+          <span className="rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-400">
+            {totalCodes !== null && totalCodes > 0
+              ? `${totalCodes.toLocaleString()} QR codes generated`
+              : "10,000+ QR codes generated"}
+          </span>
         </div>
         <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-          Print once.{" "}
-          <span className="text-emerald-400">Update forever.</span>
+          Change where your QR code points —{" "}
+          <span className="text-emerald-400">without reprinting it.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-lg text-zinc-400">
           Your restaurant menu changes. Your business card doesn&apos;t have to.
@@ -341,6 +341,16 @@ export default function Home() {
           destination anytime, even after printing. Free for static codes.
           One-time $9.99 for dynamic.
         </p>
+        <a
+          href="#generator"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById("generator")?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="mt-6 inline-block rounded-lg bg-emerald-500 px-8 py-3 text-base font-semibold text-zinc-950 hover:bg-emerald-400 transition-colors"
+        >
+          Generate Free QR Code
+        </a>
 
         {/* Competitor comparison */}
         <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-4 text-sm">
@@ -366,7 +376,7 @@ export default function Home() {
       </section>
 
       {/* Generator — directly below hero for instant value */}
-      <section className="mx-auto max-w-lg px-6 pb-20 pt-6">
+      <section id="generator" className="mx-auto max-w-lg px-6 pb-20 pt-6">
         <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-6 shadow-2xl shadow-emerald-500/5">
           {/* Tabs */}
           <div className="flex border-b border-zinc-800">
