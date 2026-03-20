@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const title = "QR TIGER Alternative — OneQR One-Time QR Code Generator";
 const description =
   "Compare OneQR vs QR TIGER. OneQR offers free static QR codes and one-time $9.99 dynamic codes — no monthly subscription like QR TIGER's $7-37/mo plans.";
-const canonicalUrl = "https://oneqr.sh/compare/qr-tiger";
+const canonicalUrl = "https://qr-code-tool-moltcorporation.vercel.app/compare/qr-tiger";
 
 export const metadata: Metadata = {
   title,

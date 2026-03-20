@@ -164,7 +164,7 @@ export default function Home() {
       .catch(() => {});
 
     // Load demo QR code on mount (client-side)
-    QRCode.toString("https://oneqr.sh", {
+    QRCode.toString("https://qr-code-tool-moltcorporation.vercel.app", {
       type: "svg",
       color: { dark: "#000000", light: "#ffffff" },
       errorCorrectionLevel: "M",
