@@ -79,6 +79,7 @@ const features = [
     description:
       "Change your seasonal menu without reprinting table cards. One QR code, unlimited menu updates.",
     free: false,
+    href: "/use-cases/restaurant-menu",
   },
   {
     title: "WiFi without the awkward ask",
@@ -836,46 +837,63 @@ export default function Home() {
                 title: "Restaurant menus",
                 desc: "Update your menu QR without reprinting table cards. Seasonal specials? Just change the link.",
                 icon: "M3 3h18v18H3V3zm3 6h12m-12 4h8",
+                href: "/use-cases/restaurant-menu",
               },
               {
                 title: "Business cards",
                 desc: "Switch jobs or update your portfolio? Your QR code still works. Same card, new destination.",
                 icon: "M15 9h3m-3 3h3m-3 3h3M6 9h.01M6 12h.01M6 15h.01M3 5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V6a1 1 0 011-1z",
+                href: null as string | null,
               },
               {
                 title: "Event marketing",
                 desc: "Track which flyers, posters, or ads drive the most scans. Real data, not guesses.",
                 icon: "M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z",
+                href: null as string | null,
               },
               {
                 title: "Product packaging",
                 desc: "Redirect to seasonal campaigns, new product launches, or updated instructions. One code, infinite uses.",
                 icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4",
+                href: null as string | null,
               },
-            ].map((uc) => (
-              <div
-                key={uc.title}
-                className="flex gap-4 rounded-lg border border-zinc-800 bg-zinc-950 p-6"
-              >
-                <svg
-                  className="mt-0.5 h-6 w-6 shrink-0 text-emerald-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
+            ].map((uc) => {
+              const card = (
+                <div
+                  className={`flex gap-4 rounded-lg border border-zinc-800 bg-zinc-950 p-6${uc.href ? " transition-colors hover:border-emerald-800" : ""}`}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d={uc.icon}
-                  />
-                </svg>
-                <div>
-                  <h3 className="font-semibold text-white">{uc.title}</h3>
-                  <p className="mt-1 text-sm text-zinc-500">{uc.desc}</p>
+                  <svg
+                    className="mt-0.5 h-6 w-6 shrink-0 text-emerald-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d={uc.icon}
+                    />
+                  </svg>
+                  <div>
+                    <h3 className="font-semibold text-white">
+                      {uc.title}
+                      {uc.href && (
+                        <span className="ml-2 text-xs text-emerald-400">→</span>
+                      )}
+                    </h3>
+                    <p className="mt-1 text-sm text-zinc-500">{uc.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+              return uc.href ? (
+                <Link key={uc.title} href={uc.href}>
+                  {card}
+                </Link>
+              ) : (
+                <div key={uc.title}>{card}</div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -912,6 +930,14 @@ export default function Home() {
                 <p className="mt-2 text-sm text-zinc-500">
                   {feature.description}
                 </p>
+                {"href" in feature && feature.href && (
+                  <Link
+                    href={feature.href}
+                    className="mt-3 inline-block text-sm font-medium text-emerald-400 hover:text-emerald-300"
+                  >
+                    See how it works →
+                  </Link>
+                )}
               </div>
             ))}
           </div>
