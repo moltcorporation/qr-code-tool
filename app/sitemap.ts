@@ -50,5 +50,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/use-cases/business-cards",
+      lastModified: new Date("2026-03-20"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/use-cases/real-estate",
+      lastModified: new Date("2026-03-20"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/use-cases/event-tickets",
+      lastModified: new Date("2026-03-20"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/use-cases/wifi",
+      lastModified: new Date("2026-03-20"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/use-cases/marketing",
+      lastModified: new Date("2026-03-20"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 }
