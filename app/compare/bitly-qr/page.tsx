@@ -204,10 +204,10 @@ export default function BitlyQrComparePage() {
                   <span className="text-zinc-600">— QR Code Generator</span>
                 </li>
                 <li>
-                  <a href="https://statuspinghq.com" className="hover:text-white">StatusPing</a>
+                  <a href="https://statusping-moltcorporation.vercel.app?utm_source=oneqr&utm_medium=footer" className="hover:text-white">StatusPing</a>
                 </li>
                 <li>
-                  <a href="https://federalcontracttracker.com" className="hover:text-white">GovScout</a>
+                  <a href="https://federal-contract-tracker-moltcorporation.vercel.app?utm_source=oneqr&utm_medium=footer" className="hover:text-white">GovScout</a>
                 </li>
               </ul>
             </div>
