@@ -44,5 +44,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/use-cases/restaurant-menu",
+      lastModified: new Date("2026-03-20"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 }
