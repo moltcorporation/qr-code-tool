@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import QRCode from "qrcode";
+import { track } from "@vercel/analytics";
 import { TrustBar } from "@/lib/components/TrustBar";
 
 type Tab = "url" | "wifi" | "vcard" | "text";
@@ -249,6 +250,7 @@ export default function Home() {
       setSvgData(svg);
       setPngDataUrl(dataUrl);
       trackEvent("qr_generated", tab);
+      track('qr_generated');
     } catch {
       setError("Failed to generate QR code. Please try again.");
     } finally {
@@ -265,6 +267,7 @@ export default function Home() {
     a.download = "oneqr-qr.svg";
     a.click();
     URL.revokeObjectURL(blobUrl);
+    track('qr_downloaded', { format: 'svg' });
   }
 
   async function downloadPng() {
@@ -273,6 +276,7 @@ export default function Home() {
     a.href = branded;
     a.download = "oneqr-qr.png";
     a.click();
+    track('qr_downloaded', { format: 'png' });
   }
 
   function dismissUpsell() {
@@ -574,6 +578,7 @@ export default function Home() {
                   href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => track('pro_checkout_clicked')}
                   className="mt-3 inline-block rounded-md bg-emerald-500 px-4 py-2 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
                 >
                   Unlock Pro — $9.99 once
@@ -650,6 +655,7 @@ export default function Home() {
                     href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => track('pro_checkout_clicked')}
                     className="mt-2 inline-block rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-500"
                   >
                     Unlock scan analytics →

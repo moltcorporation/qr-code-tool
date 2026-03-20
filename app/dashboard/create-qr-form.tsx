@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 
 export function CreateQRForm() {
   const router = useRouter();
@@ -29,6 +30,7 @@ export function CreateQRForm() {
         return;
       }
 
+      track('qr_generated', { type: 'dynamic' });
       setUrl("");
       setTitle("");
       router.refresh();

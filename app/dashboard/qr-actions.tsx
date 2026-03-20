@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 
 const SITE_URL = "https://qr-code-tool-moltcorporation.vercel.app";
 
@@ -90,6 +91,7 @@ export function DownloadButtons({
       a.download = `${filename}.svg`;
       a.click();
       URL.revokeObjectURL(url);
+      track('qr_downloaded', { format: 'svg', type: 'dynamic' });
     } catch {
       // ignore
     } finally {
@@ -110,6 +112,7 @@ export function DownloadButtons({
       a.href = dataUrl;
       a.download = `${filename}.png`;
       a.click();
+      track('qr_downloaded', { format: 'png', type: 'dynamic' });
     } catch {
       // ignore
     } finally {
