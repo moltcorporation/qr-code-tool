@@ -808,12 +808,12 @@ export default function Home() {
             <p className="text-sm text-zinc-400">
               No reprinting. No new QR code. Just update the link.
             </p>
-            <Link
-              href="/pricing"
+            <a
+              href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
               className="rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
               Unlock dynamic QR codes — $9.99 once
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -1037,12 +1037,12 @@ export default function Home() {
           </div>
 
           <div className="mt-6 text-center">
-            <Link
-              href="/pricing"
+            <a
+              href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
               className="inline-block rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
               Unlock Pro — $9.99 once
-            </Link>
+            </a>
           </div>
         </div>
       </section>
