@@ -229,6 +229,36 @@ export default function PricingPage() {
           </div>
         </section>
 
+        {/* Pricing model explainer */}
+        <section className="mx-auto max-w-3xl px-6 pb-12">
+          <div className="rounded-lg border border-zinc-100 bg-zinc-50 px-6 py-5">
+            <h3 className="text-sm font-semibold text-zinc-900">
+              Why two pricing models?
+            </h3>
+            <div className="mt-3 grid gap-4 sm:grid-cols-2">
+              <div>
+                <p className="text-sm font-medium text-zinc-800">
+                  Starter — one-time purchase
+                </p>
+                <p className="mt-1 text-sm text-zinc-600">
+                  Pay once, generate unlimited dynamic QR codes forever. No
+                  recurring fees because static hosting costs us almost nothing.
+                </p>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-zinc-800">
+                  Pro — monthly subscription
+                </p>
+                <p className="mt-1 text-sm text-zinc-600">
+                  Real-time scan analytics, branded styles, and bulk generation
+                  require ongoing infrastructure. $7/mo covers the compute — cancel
+                  anytime.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Analytics preview */}
         <section className="mx-auto max-w-3xl px-6 pb-16">
           <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-6">
