@@ -20,7 +20,7 @@ export default function TermsPage() {
 
         <h1 className="text-3xl font-bold text-white">Terms of Service</h1>
         <p className="mt-2 text-sm text-zinc-500">
-          Last updated: March 19, 2026
+          Last updated: March 21, 2026
         </p>
 
         <div className="mt-8 space-y-8 leading-relaxed">
@@ -42,7 +42,7 @@ export default function TermsPage() {
             <p className="mt-2">
               OneQR provides QR code generation for URLs and WiFi networks. The
               service includes a free tier for static QR codes and paid tiers
-              (Pro and Premium) offering dynamic QR codes, scan analytics, and
+              (Starter and Pro) offering dynamic QR codes, scan analytics, and
               additional features.
             </p>
           </section>
@@ -119,8 +119,8 @@ export default function TermsPage() {
               6. Payments
             </h2>
             <p className="mt-2">
-              Pro access is available as a one-time purchase of $9.99. Premium
-              plans are billed monthly at $5.00/month. You may cancel Premium at
+              Starter access is available as a one-time purchase of $9.99. Pro
+              plans are billed monthly at $7.00/month. You may cancel Pro at
               any time; your access continues until the end of the current
               billing period. Refunds are not provided for partial billing
               periods or one-time purchases after 7 days. OneQR reserves the
