@@ -1041,7 +1041,7 @@ export default function Home() {
             </div>
 
             <p className="mt-4 text-center text-xs text-zinc-600">
-              Sample data — your dashboard populates as people scan your QR codes
+              Track every scan with real-time analytics
             </p>
           </div>
 
