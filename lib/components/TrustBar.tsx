@@ -33,7 +33,7 @@ export function TrustBar() {
             d="M5 13l4 4L19 7"
           />
         </svg>
-        <span className="text-sm font-medium text-zinc-300">Pay once — no subscription</span>
+        <span className="text-sm font-medium text-zinc-300">Free tier — no card required</span>
       </div>
       <div className="flex items-center gap-2">
         <svg
