@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pricing — OneQR QR Code Generator",
     description:
-      "Free static QR codes forever. Starter $9.99 one-time for dynamic codes. Pro $7/mo for analytics, branded styles, and bulk generation.",
+      "Free static QR codes forever. Pro $7/mo for dynamic codes, analytics, branded styles, and bulk generation. Starter $9.99 one-time also available.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Pricing — OneQR QR Code Generator",
     description:
-      "Free static QR codes forever. Starter $9.99 one-time for dynamic codes. Pro $7/mo for analytics, branded styles, and bulk generation.",
+      "Free static QR codes forever. Pro $7/mo for dynamic codes, analytics, branded styles, and bulk generation. Starter $9.99 one-time also available.",
   },
 };
 

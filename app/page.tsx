@@ -345,7 +345,7 @@ export default function Home() {
           <span className="text-emerald-400">without reprinting it.</span>
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400">
-          Free for static codes. One-time $9.99 for dynamic — no subscription.
+          Free for static codes. Pro from $7/mo for dynamic codes and analytics.
         </p>
       </section>
 
@@ -566,7 +566,7 @@ export default function Home() {
                   onClick={() => track("pro_checkout_clicked", { source: "pro_wall" })}
                   className="mt-3 inline-block rounded-md bg-emerald-500 px-4 py-2 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
                 >
-                  Unlock Pro — $9.99 once
+                  Unlock Pro — $7/mo
                 </a>
               </div>
             )}
@@ -634,7 +634,7 @@ export default function Home() {
                   </button>
                   <p className="pr-6 text-sm text-zinc-300">
                     Your QR is ready! Want to track who scans it? Unlock Pro — scan analytics, editable destinations, and never reprint.{" "}
-                    <span className="font-medium text-zinc-100">$9.99 one-time.</span>
+                    <span className="font-medium text-zinc-100">From $7/mo.</span>
                   </p>
                   <a
                     href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
@@ -679,7 +679,7 @@ export default function Home() {
           ))}
           <div className="flex items-center gap-2 rounded-full border border-emerald-800 bg-emerald-950 px-4 py-1.5">
             <span className="text-emerald-300">OneQR</span>
-            <span className="font-bold text-emerald-400">$9.99 once</span>
+            <span className="font-bold text-emerald-400">$7/mo</span>
           </div>
         </div>
         <TrustBar />
@@ -714,7 +714,7 @@ export default function Home() {
             Same QR code. New destination. No reprinting.
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-center text-sm text-zinc-500">
-            This is what makes dynamic QR codes worth $9.99.
+            This is what makes dynamic QR codes worth upgrading to Pro.
           </p>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -802,7 +802,7 @@ export default function Home() {
               href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
               className="rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Unlock dynamic QR codes — $9.99 once
+              Unlock dynamic QR codes — $7/mo
             </a>
           </div>
         </div>
@@ -1031,7 +1031,7 @@ export default function Home() {
               href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
               className="inline-block rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Unlock Pro — $9.99 once
+              Unlock Pro — $7/mo
             </a>
           </div>
         </div>
@@ -1045,7 +1045,7 @@ export default function Home() {
         <p className="mx-auto mt-4 max-w-lg text-zinc-400">
           Static QR codes are free forever — no account needed. When you
           need to update destinations after printing, track scans, or match your brand,
-          it&apos;s a one-time $9.99 upgrade. Not monthly. Not yearly. Once.
+          Pro starts at $7/mo. Cancel anytime.
         </p>
         <Link
           href="/pricing"

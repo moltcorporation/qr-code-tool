@@ -112,10 +112,10 @@ export default function OGImage() {
             }}
           >
             <span style={{ fontSize: 36, fontWeight: 700, color: "#3b82f6" }}>
-              $9.99
+              $7/mo
             </span>
             <span style={{ fontSize: 16, color: "#71717a" }}>
-              One-Time Pro
+              Pro Plan
             </span>
           </div>
           <div

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: "Free QR Code Generator — URL & WiFi QR Codes | OneQR",
   description:
-    "Free QR code generator for URLs and WiFi networks. Custom colors, SVG and PNG download, no signup. Static codes free forever. Dynamic codes with analytics for $9.99 one-time.",
+    "Free QR code generator for URLs and WiFi networks. Custom colors, SVG and PNG download, no signup. Static codes free forever. Pro with dynamic codes and analytics from $7/mo.",
   alternates: { canonical: baseUrl },
   openGraph: {
     title: "Free QR Code Generator — OneQR",
