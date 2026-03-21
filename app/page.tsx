@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import QRCode from "qrcode";
 import { track } from "@vercel/analytics";
+import { trackEvent as trackConversion } from "@/lib/track";
 import { TrustBar } from "@/lib/components/TrustBar";
 
 type Tab = "url" | "wifi" | "vcard" | "text";
@@ -372,7 +373,7 @@ export default function Home() {
               href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => track("pro_checkout_clicked", { source: "header_cta" })}
+              onClick={() => { track("pro_checkout_clicked", { source: "header_cta" }); trackConversion("checkout_initiated", { source: "header_cta", plan: "pro" }); }}
               className="rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-zinc-950 hover:bg-emerald-400"
             >
               Try Pro
@@ -622,7 +623,7 @@ export default function Home() {
                   href="https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => track("pro_checkout_clicked", { source: "pro_wall" })}
+                  onClick={() => { track("pro_checkout_clicked", { source: "pro_wall" }); trackConversion("checkout_initiated", { source: "pro_wall", plan: "pro" }); }}
                   className="mt-3 inline-block rounded-md bg-emerald-500 px-4 py-2 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
                 >
                   Unlock Pro — $7/mo
@@ -718,7 +719,7 @@ export default function Home() {
                     href="https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => track("pro_checkout_clicked", { source: "upsell_prompt" })}
+                    onClick={() => { track("pro_checkout_clicked", { source: "upsell_prompt" }); trackConversion("checkout_initiated", { source: "upsell_prompt", plan: "pro" }); }}
                     className="mt-2 inline-block rounded-md bg-violet-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-violet-500"
                   >
                     Unlock scan analytics →

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/lib/track";
 
 export default function PaymentSuccessPage() {
   const [countdown, setCountdown] = useState(10);
@@ -15,7 +16,10 @@ export default function PaymentSuccessPage() {
         if (!res.ok) throw new Error("sync failed");
         return res.json();
       })
-      .then(() => setSyncStatus("success"))
+      .then(() => {
+        setSyncStatus("success");
+        trackEvent("purchase", { source: "payment_success_page" });
+      })
       .catch(() => setSyncStatus("error"));
   }, []);
 
