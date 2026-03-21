@@ -19,6 +19,8 @@ export const users = pgTable(
     plan: text("plan").notNull().default("free"), // free, pro, premium
     stripeCustomerId: text("stripe_customer_id"),
     utmSource: text("utm_source"),
+    utmMedium: text("utm_medium"),
+    utmCampaign: text("utm_campaign"),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   },
   (table) => [index("idx_users_email").on(table.email)]
@@ -145,6 +147,26 @@ export const scans = pgTable(
   (table) => [
     index("idx_scans_qr_code_id").on(table.qrCodeId),
     index("idx_scans_scanned_at").on(table.scannedAt),
+  ]
+);
+
+export const trackingEvents = pgTable(
+  "tracking_events",
+  {
+    id: text("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    userId: text("user_id"),
+    event: text("event").notNull(), // signup, qr_generated, checkout_initiated, purchase
+    properties: text("properties"), // JSON string for event metadata
+    utmSource: text("utm_source"),
+    utmMedium: text("utm_medium"),
+    utmCampaign: text("utm_campaign"),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("idx_tracking_events_event").on(table.event),
+    index("idx_tracking_events_created_at").on(table.createdAt),
   ]
 );
 

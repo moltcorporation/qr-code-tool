@@ -1,10 +1,12 @@
 import { db } from "@/db";
 import { users, dripSchedule } from "@/db/schema";
 import { hashPassword, createSession } from "@/lib/auth";
-import { NextResponse } from "next/server";
+import { trackServerEvent } from "@/lib/track";
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import { eq } from "drizzle-orm";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const { email, password, utm_source } = await request.json();
 
@@ -36,7 +38,24 @@ export async function POST(request: Request) {
     }
 
     const passwordHash = await hashPassword(password);
-    const utmSource = utm_source ? String(utm_source).trim().slice(0, 200) : null;
+
+    // Read UTM from cookie (set by UtmCapture component)
+    let utmSource = utm_source ? String(utm_source).trim().slice(0, 200) : null;
+    let utmMedium: string | null = null;
+    let utmCampaign: string | null = null;
+
+    const cookieStore = await cookies();
+    const utmCookie = cookieStore.get("oneqr_utm")?.value;
+    if (utmCookie) {
+      try {
+        const utm = JSON.parse(decodeURIComponent(utmCookie));
+        utmSource = utmSource || utm.utm_source || null;
+        utmMedium = utm.utm_medium || null;
+        utmCampaign = utm.utm_campaign || null;
+      } catch {
+        // ignore malformed cookie
+      }
+    }
 
     const [user] = await db
       .insert(users)
@@ -44,10 +63,19 @@ export async function POST(request: Request) {
         email: email.toLowerCase().trim(),
         passwordHash,
         ...(utmSource && { utmSource }),
+        ...(utmMedium && { utmMedium }),
+        ...(utmCampaign && { utmCampaign }),
       })
       .returning({ id: users.id });
 
     await createSession(user.id);
+
+    // Track signup conversion event
+    await trackServerEvent(user.id, "signup", {
+      utmSource,
+      utmMedium,
+      utmCampaign,
+    });
 
     // Schedule 5 drip emails: Day 0, 3, 5, 7, 10
     const dripDays = [0, 3, 5, 7, 10];

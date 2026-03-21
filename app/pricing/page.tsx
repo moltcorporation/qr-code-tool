@@ -192,6 +192,7 @@ export default function PricingPage() {
                 <CheckoutLink
                   href={tier.href}
                   highlighted={tier.highlighted ?? false}
+                  plan={tier.name.toLowerCase()}
                   className={`mt-6 block w-full rounded-md px-4 py-2.5 text-center text-sm font-medium ${
                     tier.highlighted
                       ? "bg-emerald-600 text-white hover:bg-emerald-700"
