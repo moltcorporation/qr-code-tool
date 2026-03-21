@@ -52,10 +52,10 @@ export default function RegisterPage() {
         </Link>
 
         <h1 className="text-center text-2xl font-bold text-zinc-900">
-          Create unlimited QR codes — free forever
+          Sign up free in 10 seconds
         </h1>
         <p className="mt-2 text-center text-sm text-zinc-500">
-          No credit card required. Start generating in seconds.
+          Create unlimited QR codes — no credit card, cancel anytime.
         </p>
 
         {/* What you get */}
