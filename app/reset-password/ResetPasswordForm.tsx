@@ -14,14 +14,13 @@ export default function ResetPasswordForm() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [resetUrl, setResetUrl] = useState("");
+  const [sent, setSent] = useState(false);
   const [done, setDone] = useState(false);
 
   async function handleRequestReset(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setMessage("");
-    setResetUrl("");
     setLoading(true);
 
     try {
@@ -39,9 +38,7 @@ export default function ResetPasswordForm() {
       }
 
       setMessage(data.message);
-      if (data.resetUrl) {
-        setResetUrl(data.resetUrl);
-      }
+      setSent(true);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -198,27 +195,15 @@ export default function ResetPasswordForm() {
                 </div>
               )}
 
-              {message && (
+              {sent ? (
                 <div className="rounded-md bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                  {message}
-                </div>
-              )}
-
-              {resetUrl && (
-                <div className="rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3">
-                  <p className="text-xs font-medium text-emerald-800">
-                    Reset link (no email infra yet):
+                  <p className="font-medium">Check your email</p>
+                  <p className="mt-1">
+                    If an account exists with that email, we&apos;ve sent a
+                    password reset link. It expires in 1 hour.
                   </p>
-                  <a
-                    href={resetUrl}
-                    className="mt-1 block text-sm font-medium text-emerald-600 underline break-all"
-                  >
-                    Click here to reset your password
-                  </a>
                 </div>
-              )}
-
-              {!resetUrl && (
+              ) : (
                 <>
                   <div>
                     <label

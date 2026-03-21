@@ -3,6 +3,13 @@ import { users, passwordResetTokens } from "@/db/schema";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import crypto from "crypto";
+import { Resend } from "resend";
+import { createElement } from "react";
+import PasswordReset from "@/emails/password-reset";
+
+const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL ??
+  "https://qr-code-tool-moltcorporation.vercel.app";
 
 export async function POST(request: Request) {
   try {
@@ -24,7 +31,7 @@ export async function POST(request: Request) {
     // Always return success to prevent email enumeration
     if (!user) {
       return NextResponse.json({
-        message: "If an account exists with that email, a reset link has been generated.",
+        message: "If an account exists with that email, we've sent a reset link.",
       });
     }
 
@@ -37,11 +44,24 @@ export async function POST(request: Request) {
       expiresAt,
     });
 
-    // No email infra yet — return the token in the response for MVP
-    // In production, this would send an email instead
+    const resetUrl = `${APP_URL}/reset-password?token=${token}`;
+
+    // Send reset email via Resend
+    const apiKey = process.env.RESEND_API_KEY;
+    if (apiKey) {
+      const resend = new Resend(apiKey);
+      const from = process.env.EMAIL_FROM ?? "OneQR <hello@oneqr.dev>";
+
+      await resend.emails.send({
+        from,
+        to: email.toLowerCase().trim(),
+        subject: "[OneQR] Reset your password",
+        react: createElement(PasswordReset, { resetUrl }),
+      });
+    }
+
     return NextResponse.json({
-      message: "If an account exists with that email, a reset link has been generated.",
-      resetUrl: `/reset-password?token=${token}`,
+      message: "If an account exists with that email, we've sent a reset link.",
     });
   } catch (error) {
     console.error("Reset request error:", error);
