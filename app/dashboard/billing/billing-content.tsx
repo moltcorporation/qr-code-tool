@@ -85,16 +85,14 @@ export function BillingContent({ user }: { user: User }) {
           </div>
           {isPro ? (
             <div className="flex flex-col gap-2 items-end">
-              {process.env.NEXT_PUBLIC_STRIPE_PORTAL_LINK && (
-                <a
-                  href={process.env.NEXT_PUBLIC_STRIPE_PORTAL_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-md border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
-                >
-                  Manage Subscription
-                </a>
-              )}
+              <a
+                href={process.env.NEXT_PUBLIC_STRIPE_PORTAL_LINK || "https://billing.stripe.com/p/login/test"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-md border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
+              >
+                Manage Subscription
+              </a>
               <button
                 onClick={() => setShowDowngradeConfirm(true)}
                 disabled={downgrading}
