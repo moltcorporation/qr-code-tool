@@ -1250,7 +1250,7 @@ export default function Home() {
               },
               {
                 q: "What's the difference between Starter and Pro?",
-                a: "Starter ($9.99 one-time) gives you permanent access to dynamic QR code creation — pay once, use forever. Pro ($7/mo) adds scan analytics, bulk generation, and priority support. Pick Starter if you just need editable codes; pick Pro if you need tracking and analytics.",
+                a: "Starter ($9.99 one-time) gives you permanent access to dynamic QR code creation — pay once, use forever. Pro ($7/mo) adds scan analytics, bulk generation, and 48-hour email support. Pick Starter if you just need editable codes; pick Pro if you need tracking and analytics.",
               },
               {
                 q: "Can I use OneQR for my business?",
@@ -1399,6 +1399,9 @@ export default function Home() {
               </Link>
               <Link href="/about" className="text-zinc-500 hover:text-white">
                 About
+              </Link>
+              <Link href="/contact" className="text-zinc-500 hover:text-white">
+                Contact
               </Link>
               <Link href="/feedback" className="text-zinc-500 hover:text-white">
                 Feedback

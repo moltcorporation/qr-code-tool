@@ -131,7 +131,7 @@ export default function AboutPage() {
             <p>
               <span className="font-medium text-zinc-900">Pro ($7/mo)</span> —
               Full scan analytics, branded QR styles, bulk CSV generation,
-              priority support.
+              48-hour email support.
             </p>
           </div>
           <p className="mt-4">
