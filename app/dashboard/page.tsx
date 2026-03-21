@@ -190,6 +190,22 @@ export default async function DashboardPage() {
         )}
       </main>
 
+      {/* Contact support */}
+      <div className="mx-auto mt-8 max-w-5xl px-6">
+        <div className="rounded-lg border border-zinc-200 bg-white p-4 flex items-center justify-between">
+          <div>
+            <p className="text-sm font-medium text-zinc-700">Need help?</p>
+            <p className="text-xs text-zinc-400">We respond within 48 hours</p>
+          </div>
+          <Link
+            href="/contact"
+            className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
+          >
+            Contact Support &rarr;
+          </Link>
+        </div>
+      </div>
+
       {/* Cross-product footer */}
       <footer className="mt-12 border-t border-zinc-200 bg-zinc-50">
         <div className="mx-auto max-w-5xl px-6 py-8">

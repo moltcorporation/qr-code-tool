@@ -71,7 +71,7 @@ const tiers = [
       "Scan analytics (devices, referrers, daily trends)",
       "Branded QR styles (custom colors & dot patterns)",
       "Bulk QR generation from CSV",
-      "Priority support",
+      "48-hour email support",
       "Cancel anytime",
     ],
   },
