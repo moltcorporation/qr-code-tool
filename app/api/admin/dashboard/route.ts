@@ -1,113 +1,269 @@
 import { neon } from "@neondatabase/serverless";
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  const dsnOneQR = process.env.DATABASE_URL;
-  const dsnStatusPing = process.env.STATUSPING_DATABASE_URL;
-  const dsnGovScout = process.env.GOVSCOUT_DATABASE_URL;
+interface ProductMetrics {
+  signups: number;
+  activated: number;
+  paid: number;
+  activationRate: number;
+  conversionRate: number;
+  revenue: number;
+  transactions: number;
+  arpu: number;
+  utmSources: Record<string, number>;
+  status: string;
+}
 
+function emptyProduct(): ProductMetrics {
+  return {
+    signups: 0,
+    activated: 0,
+    paid: 0,
+    activationRate: 0,
+    conversionRate: 0,
+    revenue: 0,
+    transactions: 0,
+    arpu: 0,
+    utmSources: {},
+    status: "pending",
+  };
+}
+
+function calcRates(m: ProductMetrics): ProductMetrics {
+  m.activationRate = m.signups > 0 ? Math.round((m.activated / m.signups) * 1000) / 10 : 0;
+  m.conversionRate = m.signups > 0 ? Math.round((m.paid / m.signups) * 1000) / 10 : 0;
+  m.arpu = m.paid > 0 ? Math.round((m.revenue / m.paid) * 100) / 100 : 0;
+  return m;
+}
+
+export async function GET() {
   const metrics: Record<string, any> = {
     timestamp: new Date().toISOString(),
-    oneqr: { revenue: 0, activations: 0, signups: 0, qrGenerations: 0, status: "pending" },
-    statusping: { signups: 0, activated: 0, status: "pending" },
-    govscout: { emailsSent: 0, replies: 0, conversions: 0, status: "pending" },
+    oneqr: emptyProduct(),
+    govscout: emptyProduct(),
+    tradequote: emptyProduct(),
+    pawpage: emptyProduct(),
   };
 
-  // OneQR metrics (uses the same DATABASE_URL as host app)
+  // OneQR
+  const dsnOneQR = process.env.DATABASE_URL;
   if (dsnOneQR) {
     try {
       const sql = neon(dsnOneQR);
 
-      const revenueResult = await sql`
-        SELECT COALESCE(SUM(CAST(amount AS INTEGER)), 0) as total
+      const [signups] = await sql`SELECT COUNT(*) as c FROM users`;
+      const [activated] = await sql`SELECT COUNT(DISTINCT user_id) as c FROM qr_codes WHERE user_id IS NOT NULL`;
+      const [paid] = await sql`SELECT COUNT(*) as c FROM users WHERE plan != 'free'`;
+
+      const revResult = await sql`
+        SELECT COALESCE(SUM(CAST(amount AS INTEGER)), 0) as total, COUNT(*) as txns
         FROM stripe_payment_events
-        WHERE event_type = 'payment_intent.succeeded'
-        AND processed_at > NOW() - INTERVAL '24 hours'`;
-      const revenue = Math.round((Number(revenueResult[0]?.total) || 0) / 100);
+        WHERE event_type = 'payment_intent.succeeded'`;
+      const revenue = Math.round((Number(revResult[0]?.total) || 0) / 100);
+      const transactions = Number(revResult[0]?.txns ?? 0);
 
-      const activationResult = await sql`
-        SELECT COUNT(DISTINCT u.id) as count
-        FROM users u
-        INNER JOIN qr_codes qc ON u.id = qc.user_id
-        WHERE u.plan IN ('pro', 'premium')
-        AND qc.created_at > NOW() - INTERVAL '24 hours'`;
-      const activations = Number(activationResult[0]?.count ?? 0);
+      const utmRows = await sql`
+        SELECT COALESCE(utm_source, 'direct') as src, COUNT(*) as c
+        FROM users GROUP BY COALESCE(utm_source, 'direct')`;
+      const utmSources: Record<string, number> = {};
+      for (const row of utmRows) utmSources[row.src] = Number(row.c);
 
-      const signupResult = await sql`
-        SELECT COUNT(*) as count FROM users
-        WHERE created_at > NOW() - INTERVAL '24 hours'`;
-      const signups = Number(signupResult[0]?.count ?? 0);
-
-      const qrGenResult = await sql`
-        SELECT COUNT(*) as count FROM qr_events
-        WHERE event = 'qr_generated'
-        AND created_at > NOW() - INTERVAL '24 hours'`;
-      const qrGenerations = Number(qrGenResult[0]?.count ?? 0);
-
-      metrics.oneqr = { revenue, activations, signups, qrGenerations, status: "connected" };
+      metrics.oneqr = calcRates({
+        signups: Number(signups[0]?.c ?? 0),
+        activated: Number(activated[0]?.c ?? 0),
+        paid: Number(paid[0]?.c ?? 0),
+        activationRate: 0,
+        conversionRate: 0,
+        revenue,
+        transactions,
+        arpu: 0,
+        utmSources,
+        status: "connected",
+      });
     } catch (error) {
       console.error("OneQR metrics error:", error);
       metrics.oneqr.status = "error";
     }
   }
 
-  // StatusPing metrics (requires STATUSPING_DATABASE_URL env var in Vercel)
-  if (dsnStatusPing) {
-    try {
-      const sql = neon(dsnStatusPing);
-
-      const signupsResult = await sql`
-        SELECT COUNT(DISTINCT email) as count FROM monitors
-        WHERE created_at > NOW() - INTERVAL '24 hours'`;
-      const signups = Number(signupsResult[0]?.count ?? 0);
-
-      const activatedResult = await sql`
-        SELECT COUNT(DISTINCT monitor_id) as count FROM checks
-        WHERE checked_at > NOW() - INTERVAL '24 hours'`;
-      const activated = Number(activatedResult[0]?.count ?? 0);
-
-      metrics.statusping = { signups, activated, status: "connected" };
-    } catch (error) {
-      console.error("StatusPing metrics error:", error);
-      metrics.statusping.status = "error";
-    }
-  }
-
-  // GovScout metrics (requires GOVSCOUT_DATABASE_URL env var in Vercel)
+  // GovScout
+  const dsnGovScout = process.env.GOVSCOUT_DATABASE_URL;
   if (dsnGovScout) {
     try {
       const sql = neon(dsnGovScout);
 
-      const emailsResult = await sql`
-        SELECT COUNT(*) as count FROM drip_schedule
-        WHERE send_at > NOW() - INTERVAL '4 days' AND send_at <= NOW()`;
-      const emailsSent = Number(emailsResult[0]?.count ?? 0);
+      // GovScout may have users table with utm_source
+      const [signups] = await sql`SELECT COUNT(*) as c FROM users`;
+      const [activated] = await sql`
+        SELECT COUNT(DISTINCT id) as c FROM users
+        WHERE id IN (SELECT DISTINCT user_id FROM saved_searches WHERE user_id IS NOT NULL)`;
+      const [paid] = await sql`SELECT COUNT(*) as c FROM users WHERE plan != 'free'`;
 
-      const repliesResult = await sql`
-        SELECT COUNT(DISTINCT email) as count FROM email_subscribers
-        WHERE source IN ('email', 'cold-email', 'sam-gov')
-        AND created_at > NOW() - INTERVAL '4 days'`;
-      const replies = Number(repliesResult[0]?.count ?? 0);
+      // Revenue from stripe_payment_events if exists
+      let revenue = 0, transactions = 0;
+      try {
+        const revResult = await sql`
+          SELECT COALESCE(SUM(CAST(amount AS INTEGER)), 0) as total, COUNT(*) as txns
+          FROM stripe_payment_events
+          WHERE event_type = 'payment_intent.succeeded'`;
+        revenue = Math.round((Number(revResult[0]?.total) || 0) / 100);
+        transactions = Number(revResult[0]?.txns ?? 0);
+      } catch { /* table may not exist */ }
 
-      const conversionsResult = await sql`
-        SELECT COUNT(DISTINCT id) as count FROM users
-        WHERE utm_source IN ('email', 'cold-email', 'sam-gov')
-        AND created_at > NOW() - INTERVAL '4 days'`;
-      const conversions = Number(conversionsResult[0]?.count ?? 0);
+      const utmSources: Record<string, number> = {};
+      try {
+        const utmRows = await sql`
+          SELECT COALESCE(utm_source, 'direct') as src, COUNT(*) as c
+          FROM users GROUP BY COALESCE(utm_source, 'direct')`;
+        for (const row of utmRows) utmSources[row.src] = Number(row.c);
+      } catch { /* utm_source column may not exist */ }
 
-      metrics.govscout = { emailsSent, replies, conversions, status: "connected" };
+      metrics.govscout = calcRates({
+        signups: Number(signups[0]?.c ?? 0),
+        activated: Number(activated[0]?.c ?? 0),
+        paid: Number(paid[0]?.c ?? 0),
+        activationRate: 0,
+        conversionRate: 0,
+        revenue,
+        transactions,
+        arpu: 0,
+        utmSources,
+        status: "connected",
+      });
     } catch (error) {
       console.error("GovScout metrics error:", error);
       metrics.govscout.status = "error";
     }
   }
 
+  // TradeQuote
+  const dsnTradeQuote = process.env.TRADEQUOTE_DATABASE_URL;
+  if (dsnTradeQuote) {
+    try {
+      const sql = neon(dsnTradeQuote);
+
+      const [signups] = await sql`SELECT COUNT(*) as c FROM users`;
+      let activated = 0;
+      try {
+        const [act] = await sql`
+          SELECT COUNT(DISTINCT id) as c FROM users
+          WHERE id IN (SELECT DISTINCT user_id FROM quotes WHERE user_id IS NOT NULL)`;
+        activated = Number(act?.c ?? 0);
+      } catch { /* quotes table may not exist */ }
+
+      let paid = 0;
+      try {
+        const [p] = await sql`SELECT COUNT(*) as c FROM users WHERE plan != 'free'`;
+        paid = Number(p?.c ?? 0);
+      } catch { /* plan column may not exist */ }
+
+      let revenue = 0, transactions = 0;
+      try {
+        const revResult = await sql`
+          SELECT COALESCE(SUM(CAST(amount AS INTEGER)), 0) as total, COUNT(*) as txns
+          FROM stripe_payment_events
+          WHERE event_type = 'payment_intent.succeeded'`;
+        revenue = Math.round((Number(revResult[0]?.total) || 0) / 100);
+        transactions = Number(revResult[0]?.txns ?? 0);
+      } catch { /* table may not exist */ }
+
+      const utmSources: Record<string, number> = {};
+      try {
+        const utmRows = await sql`
+          SELECT COALESCE(utm_source, 'direct') as src, COUNT(*) as c
+          FROM users GROUP BY COALESCE(utm_source, 'direct')`;
+        for (const row of utmRows) utmSources[row.src] = Number(row.c);
+      } catch { /* column may not exist */ }
+
+      metrics.tradequote = calcRates({
+        signups: Number(signups[0]?.c ?? 0),
+        activated,
+        paid,
+        activationRate: 0,
+        conversionRate: 0,
+        revenue,
+        transactions,
+        arpu: 0,
+        utmSources,
+        status: "connected",
+      });
+    } catch (error) {
+      console.error("TradeQuote metrics error:", error);
+      metrics.tradequote.status = "error";
+    }
+  }
+
+  // PawPage
+  const dsnPawPage = process.env.PAWPAGE_DATABASE_URL;
+  if (dsnPawPage) {
+    try {
+      const sql = neon(dsnPawPage);
+
+      const [signups] = await sql`SELECT COUNT(*) as c FROM users`;
+      let activated = 0;
+      try {
+        const [act] = await sql`
+          SELECT COUNT(DISTINCT id) as c FROM users
+          WHERE id IN (SELECT DISTINCT user_id FROM litters WHERE user_id IS NOT NULL)`;
+        activated = Number(act?.c ?? 0);
+      } catch { /* litters table may not exist */ }
+
+      let paid = 0;
+      try {
+        const [p] = await sql`SELECT COUNT(*) as c FROM users WHERE plan != 'free'`;
+        paid = Number(p?.c ?? 0);
+      } catch { /* plan column may not exist */ }
+
+      let revenue = 0, transactions = 0;
+      try {
+        const revResult = await sql`
+          SELECT COALESCE(SUM(CAST(amount AS INTEGER)), 0) as total, COUNT(*) as txns
+          FROM stripe_payment_events
+          WHERE event_type = 'payment_intent.succeeded'`;
+        revenue = Math.round((Number(revResult[0]?.total) || 0) / 100);
+        transactions = Number(revResult[0]?.txns ?? 0);
+      } catch { /* table may not exist */ }
+
+      const utmSources: Record<string, number> = {};
+      try {
+        const utmRows = await sql`
+          SELECT COALESCE(utm_source, 'direct') as src, COUNT(*) as c
+          FROM users GROUP BY COALESCE(utm_source, 'direct')`;
+        for (const row of utmRows) utmSources[row.src] = Number(row.c);
+      } catch { /* column may not exist */ }
+
+      metrics.pawpage = calcRates({
+        signups: Number(signups[0]?.c ?? 0),
+        activated,
+        paid,
+        activationRate: 0,
+        conversionRate: 0,
+        revenue,
+        transactions,
+        arpu: 0,
+        utmSources,
+        status: "connected",
+      });
+    } catch (error) {
+      console.error("PawPage metrics error:", error);
+      metrics.pawpage.status = "error";
+    }
+  }
+
+  // Summary across all products
+  const products = [metrics.oneqr, metrics.govscout, metrics.tradequote, metrics.pawpage];
   metrics.summary = {
-    totalRevenue: metrics.oneqr.revenue,
-    totalActivations: metrics.oneqr.activations + metrics.statusping.activated,
-    totalSignups: metrics.oneqr.signups + metrics.statusping.signups + metrics.govscout.conversions,
-    totalLeads: metrics.govscout.emailsSent + metrics.govscout.replies,
+    totalRevenue: products.reduce((s, p) => s + p.revenue, 0),
+    totalTransactions: products.reduce((s, p) => s + p.transactions, 0),
+    totalSignups: products.reduce((s, p) => s + p.signups, 0),
+    totalPaid: products.reduce((s, p) => s + p.paid, 0),
+    overallConversionRate: 0,
   };
+  const totalSig = metrics.summary.totalSignups;
+  if (totalSig > 0) {
+    metrics.summary.overallConversionRate =
+      Math.round((metrics.summary.totalPaid / totalSig) * 1000) / 10;
+  }
 
   return NextResponse.json(metrics);
 }
