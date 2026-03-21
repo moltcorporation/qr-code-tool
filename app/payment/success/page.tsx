@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ConversionEvent } from "../../components/conversion-event";
 
 export default function PaymentSuccessPage() {
   const [countdown, setCountdown] = useState(10);
@@ -30,6 +31,7 @@ export default function PaymentSuccessPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white font-sans">
+      <ConversionEvent event="purchase" />
       {/* Header */}
       <header className="border-b border-zinc-200">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
