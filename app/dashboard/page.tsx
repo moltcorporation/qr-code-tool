@@ -90,6 +90,16 @@ export default async function DashboardPage() {
               Plan: <span className="font-medium text-emerald-700 capitalize">{user.plan}</span>
             </span>
             <BillingSyncButton />
+            {process.env.NEXT_PUBLIC_STRIPE_PORTAL_LINK && (
+              <a
+                href={process.env.NEXT_PUBLIC_STRIPE_PORTAL_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-emerald-600 hover:text-emerald-700"
+              >
+                Manage Subscription
+              </a>
+            )}
           </div>
         )}
 
