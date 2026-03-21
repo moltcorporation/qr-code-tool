@@ -226,7 +226,7 @@ export default function PricingPage() {
               ))}
             </div>
             <p className="mt-3 text-center text-xs text-zinc-400">
-              Sample data — your dashboard populates as people scan your codes
+              Track every scan with real-time analytics
             </p>
           </div>
         </section>
