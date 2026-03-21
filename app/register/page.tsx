@@ -52,13 +52,32 @@ export default function RegisterPage() {
         </Link>
 
         <h1 className="text-center text-2xl font-bold text-zinc-900">
-          Create an account
+          Create unlimited QR codes — free forever
         </h1>
         <p className="mt-2 text-center text-sm text-zinc-500">
-          Unlock dynamic QR codes and scan analytics
+          No credit card required. Start generating in seconds.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
+        {/* What you get */}
+        <div className="mt-4 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3">
+          <p className="text-xs font-medium text-zinc-700 mb-2">Your free account includes:</p>
+          <ul className="space-y-1 text-xs text-zinc-500">
+            <li className="flex items-center gap-2">
+              <svg className="h-3.5 w-3.5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              Unlimited static QR codes
+            </li>
+            <li className="flex items-center gap-2">
+              <svg className="h-3.5 w-3.5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              WiFi QR codes
+            </li>
+            <li className="flex items-center gap-2">
+              <svg className="h-3.5 w-3.5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              PNG &amp; SVG download
+            </li>
+          </ul>
+        </div>
+
+        <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
           {error && (
             <div className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
               {error}
@@ -105,7 +124,18 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-500">
+        <div className="mt-4 flex items-center justify-center gap-4 text-xs text-zinc-400">
+          <span className="flex items-center gap-1">
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+            No credit card
+          </span>
+          <span className="flex items-center gap-1">
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Free forever
+          </span>
+        </div>
+
+        <p className="mt-4 text-center text-sm text-zinc-500">
           Already have an account?{" "}
           <Link href="/login" className="font-medium text-emerald-600 hover:text-emerald-700">
             Sign in
