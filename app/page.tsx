@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import QRCode from "qrcode";
 import { track } from "@vercel/analytics";
@@ -145,12 +145,53 @@ export default function Home() {
   const [upsellDismissed, setUpsellDismissed] = useState(false);
   const [userPlan, setUserPlan] = useState<string | null>(null);
   const [showProWall, setShowProWall] = useState(false);
+  const [livePreviewSvg, setLivePreviewSvg] = useState("");
+  const [genCount, setGenCount] = useState(0);
+  const [showSignupGate, setShowSignupGate] = useState(false);
+  const [wifiDemoSvg, setWifiDemoSvg] = useState("");
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const MAX_FREE_GENERATIONS = 2;
+
+  // Live preview: debounced QR generation as user types
+  const updateLivePreview = useCallback((data: string) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (!data.trim()) {
+      setLivePreviewSvg("");
+      return;
+    }
+    debounceRef.current = setTimeout(() => {
+      QRCode.toString(data.trim(), {
+        type: "svg",
+        color: { dark: "#000000", light: "#ffffff" },
+        errorCorrectionLevel: "M",
+        margin: 2,
+      })
+        .then((svg) => setLivePreviewSvg(svg))
+        .catch(() => {});
+    }, 300);
+  }, []);
+
+  // Trigger live preview when URL input changes
+  useEffect(() => {
+    if (tab === "url" && url && !svgData) {
+      updateLivePreview(url);
+    } else if (tab === "wifi" && ssid && !svgData) {
+      updateLivePreview(`WIFI:T:${encryption};S:${ssid};P:${wifiPassword};;`);
+    } else if (!svgData) {
+      setLivePreviewSvg("");
+    }
+  }, [url, ssid, wifiPassword, encryption, tab, svgData, updateLivePreview]);
 
   useEffect(() => {
     // Check if upsell was dismissed this session
     if (sessionStorage.getItem("oneqr_upsell_dismissed") === "true") {
       setUpsellDismissed(true);
     }
+
+    // Restore generation count from session
+    const stored = sessionStorage.getItem("oneqr_gen_count");
+    if (stored) setGenCount(parseInt(stored, 10));
 
     // Check if user is logged in and on a paid plan
     fetch("/api/auth/me")
@@ -170,6 +211,14 @@ export default function Home() {
       errorCorrectionLevel: "M",
       margin: 2,
     }).then((svg) => setDemoSvg(svg)).catch(() => {});
+
+    // Generate WiFi demo QR
+    QRCode.toString("WIFI:T:WPA;S:CoffeeShop_Guest;P:welcome2024;;", {
+      type: "svg",
+      color: { dark: "#000000", light: "#ffffff" },
+      errorCorrectionLevel: "M",
+      margin: 2,
+    }).then((svg) => setWifiDemoSvg(svg)).catch(() => {});
   }, []);
 
   function getData(): string {
@@ -224,10 +273,17 @@ export default function Home() {
       return;
     }
 
+    // Check generation limit for non-logged-in users
+    if (!isPaidUser && genCount >= MAX_FREE_GENERATIONS) {
+      setShowSignupGate(true);
+      return;
+    }
+
     setLoading(true);
     setError("");
     setSvgData("");
     setPngDataUrl("");
+    setLivePreviewSvg("");
 
     const ecLevel = (["L", "M", "Q", "H"].includes(errorCorrection)
       ? errorCorrection
@@ -250,6 +306,9 @@ export default function Home() {
       ]);
       setSvgData(svg);
       setPngDataUrl(dataUrl);
+      const newCount = genCount + 1;
+      setGenCount(newCount);
+      sessionStorage.setItem("oneqr_gen_count", String(newCount));
       trackEvent("qr_generated", tab);
       track("qr_generated", { qr_type: tab });
     } catch {
@@ -601,25 +660,44 @@ export default function Home() {
               >
                 Made with OneQR
               </a>
-              <div className="flex gap-3">
-                <button
-                  onClick={downloadSvg}
-                  className="rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800"
-                >
-                  Download SVG
-                </button>
-                {pngDataUrl && (
-                  <button
-                    onClick={downloadPng}
-                    className="rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800"
+              {userPlan ? (
+                <>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={downloadSvg}
+                      className="rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800"
+                    >
+                      Download SVG
+                    </button>
+                    {pngDataUrl && (
+                      <button
+                        onClick={downloadPng}
+                        className="rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-800"
+                      >
+                        Download PNG
+                      </button>
+                    )}
+                  </div>
+                  <p className="text-xs text-zinc-600">
+                    Free. No signup. Yours.
+                  </p>
+                </>
+              ) : (
+                <div className="w-full rounded-md border border-emerald-800/50 bg-emerald-950/30 p-4 text-center">
+                  <p className="text-sm text-zinc-300">
+                    Create a free account to download your QR code
+                  </p>
+                  <Link
+                    href="/register"
+                    className="mt-3 inline-block rounded-md bg-emerald-500 px-5 py-2 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
                   >
-                    Download PNG
-                  </button>
-                )}
-              </div>
-              <p className="text-xs text-zinc-600">
-                Free. No signup. Yours.
-              </p>
+                    Sign up free — takes 10 seconds
+                  </Link>
+                  <p className="mt-2 text-xs text-zinc-600">
+                    No credit card required
+                  </p>
+                </div>
+              )}
               {/* Pro upsell prompt — dismissible, hidden for Pro/Premium */}
               {showUpsell && (
                 <div className="relative mt-2 w-full rounded-md border border-zinc-800 bg-zinc-900/50 px-4 py-3">
@@ -648,6 +726,17 @@ export default function Home() {
                 </div>
               )}
             </div>
+          ) : livePreviewSvg && !loading ? (
+            <div className="mt-6 flex flex-col items-center gap-3 rounded-lg border border-dashed border-emerald-800/50 bg-zinc-950/50 p-6">
+              <p className="text-xs font-medium text-emerald-400">Live preview</p>
+              <div
+                className="h-36 w-36 rounded-lg bg-white p-2.5 transition-opacity"
+                dangerouslySetInnerHTML={{ __html: livePreviewSvg }}
+              />
+              <p className="text-xs text-zinc-500">
+                Hit Generate to download
+              </p>
+            </div>
           ) : demoSvg && !loading ? (
             <div className="mt-6 flex flex-col items-center gap-3 rounded-lg border border-dashed border-zinc-700 bg-zinc-950/50 p-6">
               <p className="text-xs font-medium text-zinc-500">Preview</p>
@@ -660,6 +749,29 @@ export default function Home() {
               </p>
             </div>
           ) : null}
+          {/* Signup gate modal */}
+          {showSignupGate && (
+            <div className="mt-6 rounded-lg border border-violet-800/50 bg-violet-950/30 p-6 text-center">
+              <p className="text-sm font-medium text-white">
+                You&apos;ve used your free generations
+              </p>
+              <p className="mt-1 text-xs text-zinc-400">
+                Create a free account for unlimited QR codes
+              </p>
+              <Link
+                href="/register"
+                className="mt-3 inline-block rounded-md bg-violet-600 px-5 py-2 text-sm font-bold text-white hover:bg-violet-500"
+              >
+                Sign up free
+              </Link>
+              <button
+                onClick={() => setShowSignupGate(false)}
+                className="mt-2 block w-full text-xs text-zinc-500 hover:text-zinc-400"
+              >
+                Dismiss
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -706,6 +818,43 @@ export default function Home() {
           No watermark on downloads
         </div>
       </section>
+
+      {/* WiFi QR Demo — try it with your phone */}
+      {wifiDemoSvg && (
+        <section className="border-t border-zinc-800 bg-zinc-900/30">
+          <div className="mx-auto max-w-3xl px-6 py-16">
+            <div className="flex flex-col items-center gap-8 sm:flex-row sm:gap-12">
+              <div className="flex flex-col items-center gap-3">
+                <div
+                  className="h-44 w-44 rounded-xl bg-white p-3 shadow-lg shadow-emerald-500/10"
+                  dangerouslySetInnerHTML={{ __html: wifiDemoSvg }}
+                />
+                <p className="text-xs text-zinc-500">
+                  Network: <span className="text-zinc-300">CoffeeShop_Guest</span>
+                </p>
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400">
+                  Try it now
+                </p>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                  Scan this WiFi QR code with your phone
+                </h2>
+                <p className="mt-3 text-sm text-zinc-400">
+                  This is a real WiFi QR code. Point your camera at it — your phone
+                  will offer to join the network automatically. No typing passwords.
+                </p>
+                <p className="mt-3 text-sm text-zinc-400">
+                  Create your own WiFi QR in seconds using the{" "}
+                  <a href="#generator" className="text-emerald-400 hover:text-emerald-300">
+                    WiFi tab above
+                  </a>. Perfect for cafes, Airbnbs, offices, and home guests.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Dynamic QR explainer */}
       <section className="border-t border-zinc-800">
