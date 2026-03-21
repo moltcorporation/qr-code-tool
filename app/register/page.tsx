@@ -133,6 +133,29 @@ export default function RegisterPage() {
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             Free forever
           </span>
+          <span className="flex items-center gap-1">
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Cancel anytime
+          </span>
+        </div>
+
+        {/* What happens next */}
+        <div className="mt-4 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3">
+          <p className="text-xs font-medium text-zinc-700 mb-2">What happens next:</p>
+          <div className="space-y-1.5">
+            <div className="flex items-start gap-2 text-xs text-zinc-500">
+              <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[10px] font-bold text-emerald-700">1</span>
+              Create your free account
+            </div>
+            <div className="flex items-start gap-2 text-xs text-zinc-500">
+              <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[10px] font-bold text-emerald-700">2</span>
+              Generate unlimited QR codes immediately
+            </div>
+            <div className="flex items-start gap-2 text-xs text-zinc-500">
+              <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[10px] font-bold text-emerald-700">3</span>
+              Upgrade to Pro when you need scan analytics
+            </div>
+          </div>
         </div>
 
         <p className="mt-4 text-center text-sm text-zinc-500">
