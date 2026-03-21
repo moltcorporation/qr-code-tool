@@ -391,7 +391,7 @@ export default function Home() {
       <section className="mx-auto max-w-3xl px-6 pt-10 text-center">
         <div className="flex items-center justify-center gap-3">
           <p className="text-sm font-semibold uppercase tracking-widest text-emerald-400">
-            No subscription. Ever.
+            Free forever. Pro when you need it.
           </p>
           <span className="rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-400">
             {totalCodes !== null && totalCodes > 0
