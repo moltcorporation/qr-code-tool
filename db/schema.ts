@@ -147,3 +147,26 @@ export const scans = pgTable(
     index("idx_scans_scanned_at").on(table.scannedAt),
   ]
 );
+
+export const stripePaymentEvents = pgTable(
+  "stripe_payment_events",
+  {
+    id: text("id")
+      .primaryKey()
+      .default(sql`gen_random_uuid()`),
+    stripeEventId: text("stripe_event_id").notNull().unique(),
+    eventType: text("event_type").notNull(), // payment_intent.created, payment_intent.succeeded, etc.
+    paymentIntentId: text("payment_intent_id"),
+    email: text("email"),
+    amount: text("amount"), // Store as string to preserve precision
+    currency: text("currency"),
+    status: text("status"),
+    rawPayload: text("raw_payload"), // Store full webhook payload as JSON string
+    processedAt: timestamp("processed_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("idx_stripe_events_event_type").on(table.eventType),
+    index("idx_stripe_events_processed_at").on(table.processedAt),
+    index("idx_stripe_events_payment_intent_id").on(table.paymentIntentId),
+  ]
+);
