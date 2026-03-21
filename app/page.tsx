@@ -397,7 +397,7 @@ export default function Home() {
           <span className="rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1 text-xs text-zinc-400">
             {totalCodes !== null && totalCodes > 0
               ? `${totalCodes.toLocaleString()} QR codes generated`
-              : "10,000+ QR codes generated"}
+              : "Free QR code generator"}
           </span>
         </div>
         <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
