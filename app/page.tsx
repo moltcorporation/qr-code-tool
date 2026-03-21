@@ -1245,6 +1245,18 @@ export default function Home() {
                 a: "Yes — WiFi QR codes are a free feature. Enter your network name and password, and guests can connect by scanning. Works on all devices.",
               },
               {
+                q: "Why pay when I can generate QR codes for free?",
+                a: "Free static codes are great for simple links. Paid plans unlock dynamic codes (change the destination without reprinting), scan analytics (location, device, timestamp), custom branding, bulk generation, and WiFi QR codes with advanced options.",
+              },
+              {
+                q: "What's the difference between Starter and Pro?",
+                a: "Starter ($9.99 one-time) gives you permanent access to dynamic QR code creation — pay once, use forever. Pro ($7/mo) adds scan analytics, bulk generation, and priority support. Pick Starter if you just need editable codes; pick Pro if you need tracking and analytics.",
+              },
+              {
+                q: "Can I use OneQR for my business?",
+                a: "Absolutely. Commercial use is included at every tier — free, Starter, and Pro. Restaurants, retailers, event organizers, and service businesses all use OneQR for menus, marketing, WiFi access, and more.",
+              },
+              {
                 q: "What payment methods do you accept?",
                 a: "All major credit and debit cards through Stripe. Your payment info is handled securely — we never see or store your card details.",
               },
