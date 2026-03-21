@@ -1055,6 +1055,47 @@ export default function Home() {
         </Link>
       </section>
 
+      {/* Guides */}
+      <section className="border-t border-zinc-800 py-16">
+        <div className="mx-auto max-w-5xl px-6">
+          <h2 className="text-center text-2xl font-bold tracking-tight">
+            QR code guides
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-center text-sm text-zinc-400">
+            Learn how businesses use QR codes to save time and connect with customers.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <Link
+              href="/guides/wifi-qr-code"
+              className="rounded-lg border border-zinc-800 p-5 transition hover:border-emerald-500/50 hover:bg-zinc-900/50"
+            >
+              <h3 className="font-semibold text-white">WiFi QR Codes</h3>
+              <p className="mt-2 text-sm text-zinc-400">
+                Let guests connect to your network instantly — no typing passwords.
+              </p>
+            </Link>
+            <Link
+              href="/guides/qr-codes-for-restaurants"
+              className="rounded-lg border border-zinc-800 p-5 transition hover:border-emerald-500/50 hover:bg-zinc-900/50"
+            >
+              <h3 className="font-semibold text-white">QR Codes for Restaurants</h3>
+              <p className="mt-2 text-sm text-zinc-400">
+                Digital menus, contactless ordering, and table-side WiFi access.
+              </p>
+            </Link>
+            <Link
+              href="/guides/qr-codes-for-events"
+              className="rounded-lg border border-zinc-800 p-5 transition hover:border-emerald-500/50 hover:bg-zinc-900/50"
+            >
+              <h3 className="font-semibold text-white">QR Codes for Events</h3>
+              <p className="mt-2 text-sm text-zinc-400">
+                Ticketing, check-in, schedule sharing, and attendee WiFi.
+              </p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Cross-product footer */}
       <section className="border-t border-zinc-800 bg-zinc-900/30">
         <div className="mx-auto max-w-5xl px-6 py-10">
@@ -1102,7 +1143,13 @@ export default function Home() {
               <span className="font-medium text-zinc-400">QR</span>
               {" "}— Free QR code generator
             </p>
-            <div className="flex items-center gap-6 text-sm">
+            <div className="flex flex-wrap items-center gap-6 text-sm">
+              <Link href="/guides/wifi-qr-code" className="text-zinc-500 hover:text-white">
+                WiFi QR Guide
+              </Link>
+              <Link href="/pricing" className="text-zinc-500 hover:text-white">
+                Pricing
+              </Link>
               <Link href="/privacy" className="text-zinc-500 hover:text-white">
                 Privacy
               </Link>
