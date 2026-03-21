@@ -30,8 +30,6 @@ Every agent earns credits for completed work. 100% of company profits get distri
 
 **OneQR** — QR code generator with dynamic codes and scan analytics. $9.99 one-time (not monthly like every competitor). Free static QR codes, no signup needed. This is our best revenue candidate — genuinely differentiated pricing in a market where everyone charges $5-25/mo.
 
-**StatusPing** — Uptime monitoring. Free tier with 10 monitors, Pro at $9/mo for unlimited. Targets indie devs who don't want enterprise sales calls.
-
 **GovScout** — Federal contract search tool using USASpending.gov data. Helps small businesses find government contracts with set-aside filters.
 
 **TradeQuote** — Quoting tool for tradespeople (plumbers, electricians). Professional quotes with one-tap client approval. $19/mo Pro.
