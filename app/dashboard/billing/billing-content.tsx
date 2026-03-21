@@ -47,13 +47,13 @@ export function BillingContent({ user }: { user: User }) {
   }
 
   function getPlanLabel() {
-    if (isSubscription) return "Premium — Monthly subscription";
-    if (isOneTime) return "Pro — One-time purchase";
+    if (isSubscription) return "Pro — Monthly subscription";
+    if (isOneTime) return "Starter — One-time purchase";
     return "Free";
   }
 
   function getPlanPrice() {
-    if (isSubscription) return "$5/mo";
+    if (isSubscription) return "$7/mo";
     if (isOneTime) return "$9.99 (paid)";
     return "$0";
   }
@@ -94,12 +94,20 @@ export function BillingContent({ user }: { user: User }) {
               </button>
             </div>
           ) : (
-            <a
-              href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(user.email)}`}
-              className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
-            >
-              Unlock Pro — $9.99 once
-            </a>
+            <div className="flex flex-col gap-2 items-end">
+              <a
+                href={`https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g?prefilled_email=${encodeURIComponent(user.email)}`}
+                className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+              >
+                Start Pro — $7/mo
+              </a>
+              <a
+                href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(user.email)}`}
+                className="text-xs text-zinc-500 hover:text-zinc-700"
+              >
+                or $9.99 one-time (Starter)
+              </a>
+            </div>
           )}
         </div>
         {error && (
@@ -165,76 +173,41 @@ export function BillingContent({ user }: { user: User }) {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-zinc-200">
-                <th className="px-4 py-3 text-left font-medium text-zinc-900">
-                  Feature
-                </th>
-                <th className="px-4 py-3 text-center font-medium text-zinc-900">
-                  Free
-                </th>
-                <th className="px-4 py-3 text-center font-medium text-zinc-900">
-                  Pro
-                </th>
+                <th className="px-4 py-3 text-left font-medium text-zinc-900">Feature</th>
+                <th className="px-4 py-3 text-center font-medium text-zinc-900">Free</th>
+                <th className="px-4 py-3 text-center font-medium text-zinc-900">Starter</th>
+                <th className="px-4 py-3 text-center font-medium text-emerald-600">Pro</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-zinc-100">
-                <td className="px-4 py-3 text-zinc-600">Create QR codes</td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
-              </tr>
-              <tr className="border-b border-zinc-100">
-                <td className="px-4 py-3 text-zinc-600">
-                  Edit after creation
-                </td>
-                <td className="px-4 py-3 text-center text-zinc-400">—</td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
-              </tr>
-              <tr className="border-b border-zinc-100">
-                <td className="px-4 py-3 text-zinc-600">
-                  Scan analytics
-                </td>
-                <td className="px-4 py-3 text-center text-zinc-400">—</td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
-              </tr>
-              <tr className="border-b border-zinc-100">
-                <td className="px-4 py-3 text-zinc-600">
-                  Download QR codes
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
-                    <span className="h-2 w-2 rounded-full bg-emerald-600" />
-                  </span>
-                </td>
-              </tr>
+              {[
+                { feature: "Static QR codes", free: true, starter: true, pro: true },
+                { feature: "Dynamic QR codes", free: false, starter: true, pro: true },
+                { feature: "Basic scan counts", free: false, starter: true, pro: true },
+                { feature: "Full scan analytics", free: false, starter: false, pro: true },
+                { feature: "Branded QR styles", free: false, starter: false, pro: true },
+                { feature: "Bulk CSV generation", free: false, starter: false, pro: true },
+              ].map((row) => (
+                <tr key={row.feature} className="border-b border-zinc-100">
+                  <td className="px-4 py-3 text-zinc-600">{row.feature}</td>
+                  {[row.free, row.starter, row.pro].map((val, i) => (
+                    <td key={i} className="px-4 py-3 text-center">
+                      {val ? (
+                        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
+                          <span className="h-2 w-2 rounded-full bg-emerald-600" />
+                        </span>
+                      ) : (
+                        <span className="text-zinc-400">—</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
               <tr>
                 <td className="px-4 py-3 text-zinc-600">Price</td>
-                <td className="px-4 py-3 text-center font-semibold text-zinc-900">
-                  Free
-                </td>
-                <td className="px-4 py-3 text-center font-semibold text-zinc-900">
-                  $9.99 once
-                </td>
+                <td className="px-4 py-3 text-center font-semibold text-zinc-900">Free</td>
+                <td className="px-4 py-3 text-center font-semibold text-zinc-900">$9.99 once</td>
+                <td className="px-4 py-3 text-center font-semibold text-emerald-600">$7/mo</td>
               </tr>
             </tbody>
           </table>

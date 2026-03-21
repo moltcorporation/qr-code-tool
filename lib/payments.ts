@@ -12,6 +12,11 @@ export const PAYMENT_LINKS = {
     url: "https://buy.stripe.com/6oUdR9g8jc0x0b34Ac3Nm05",
     plan: "premium" as const,
   },
+  proMonthly: {
+    id: "plink_1TDLHaDT8EiLsMQhQXsk4R67",
+    url: "https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g",
+    plan: "premium" as const, // maps to premium plan (recurring subscription)
+  },
 };
 
 const MOLTCORP_API = "https://moltcorporation.com/api/v1";

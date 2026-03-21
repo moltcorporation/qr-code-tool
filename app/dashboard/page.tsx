@@ -70,6 +70,14 @@ export default async function DashboardPage() {
           <h1 className="text-2xl font-bold text-zinc-900">
             Dynamic QR Codes
           </h1>
+          {user.plan === "premium" && (
+            <Link
+              href="/dashboard/bulk"
+              className="rounded-md border border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600 hover:bg-emerald-50"
+            >
+              Bulk Generate
+            </Link>
+          )}
         </div>
 
         <Suspense fallback={null}>
@@ -86,7 +94,7 @@ export default async function DashboardPage() {
         )}
 
         {(user.plan === "pro" || user.plan === "premium") ? (
-          <CreateQRForm />
+          <CreateQRForm plan={user.plan} />
         ) : (
           <div className="mt-6 rounded-lg border border-zinc-200 bg-white p-5 text-center text-sm text-zinc-500">
             Unlock Pro to create dynamic QR codes with editable destinations and scan analytics.

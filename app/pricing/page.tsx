@@ -5,7 +5,7 @@ import { CheckoutLink } from "./checkout-link";
 export const metadata: Metadata = {
   title: "Pricing — OneQR QR Code Generator",
   description:
-    "OneQR pricing. Free static QR codes forever. Pro $9.99 one-time for dynamic codes and analytics.",
+    "OneQR pricing. Free static QR codes forever. Pro $7/mo for dynamic codes, analytics, branded styles, and bulk generation.",
 };
 
 const tiers = [
@@ -21,26 +21,41 @@ const tiers = [
       "Unlimited static QR codes",
       "URL, WiFi, vCard, and Text QR types",
       "Custom foreground & background colors",
-      "Error correction level selector",
       "SVG + PNG download",
       "No signup required",
     ],
   },
   {
-    name: "Pro",
+    name: "Starter",
     price: "$9.99",
     period: "one-time",
-    description: "Dynamic codes and scan tracking. Pay once, use forever.",
-    cta: "Unlock Pro — $9.99 once",
+    description: "Dynamic codes and scan counts. Pay once, use forever.",
+    cta: "Unlock Starter — $9.99",
     href: "https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04",
-    highlighted: true,
-    badge: "Most Popular",
+    highlighted: false,
     features: [
       "Everything in Free, plus:",
       "Dynamic QR codes (edit destination after print)",
-      "Scan analytics (count, timestamp, referrer)",
+      "Basic scan count tracking",
       "Remove OneQR branding from downloads",
-      "Custom colors with preview",
+    ],
+  },
+  {
+    name: "Pro",
+    price: "$7",
+    period: "/mo",
+    description: "Full analytics, branded styles, and bulk generation.",
+    cta: "Start Pro — $7/mo",
+    href: "https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g",
+    highlighted: true,
+    badge: "Best Value",
+    features: [
+      "Everything in Starter, plus:",
+      "Scan analytics (devices, referrers, daily trends)",
+      "Branded QR styles (custom colors & dot patterns)",
+      "Bulk QR generation from CSV",
+      "Priority support",
+      "Cancel anytime",
     ],
   },
 ];
@@ -57,9 +72,14 @@ const faqs = [
       "A QR code whose destination can be changed after printing. The QR code itself stays the same, but where it points can be updated anytime. Perfect for menus, business cards, or any print material.",
   },
   {
-    question: "Is Pro really a one-time payment?",
+    question: "What's the difference between Starter and Pro?",
     answer:
-      "Yes. Pay $9.99 once and you have Pro forever. No subscriptions, no renewals, no hidden fees.",
+      "Starter ($9.99 one-time) gives you dynamic QR codes and basic scan counts. Pro ($7/mo) adds full analytics with device and referrer tracking, branded QR styles, and bulk CSV generation. Pro is best for businesses running campaigns.",
+  },
+  {
+    question: "Can I cancel Pro anytime?",
+    answer:
+      "Yes. Cancel your Pro subscription anytime from your billing page. You'll keep access until the end of your billing period.",
   },
   {
     question: "What formats can I download?",
@@ -127,7 +147,7 @@ export default function PricingPage() {
             Start free. Upgrade when you need dynamic codes and analytics.
           </p>
 
-          <div className="mt-14 mx-auto grid max-w-3xl gap-8 sm:grid-cols-2">
+          <div className="mt-14 mx-auto grid max-w-5xl gap-8 sm:grid-cols-3">
             {tiers.map((tier) => (
               <div
                 key={tier.name}

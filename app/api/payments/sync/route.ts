@@ -22,12 +22,16 @@ export async function POST() {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  // Check Premium first (higher tier)
+  // Check Premium / Pro Monthly first (higher tier — recurring subscriptions)
   const hasPremium = await checkPaymentAccess(
     PAYMENT_LINKS.premium.id,
     user.email
   );
-  if (hasPremium && user.plan !== "premium") {
+  const hasProMonthly = await checkPaymentAccess(
+    PAYMENT_LINKS.proMonthly.id,
+    user.email
+  );
+  if ((hasPremium || hasProMonthly) && user.plan !== "premium") {
     await db
       .update(users)
       .set({ plan: "premium" })
@@ -45,8 +49,8 @@ export async function POST() {
     return NextResponse.json({ plan: "pro", updated: true });
   }
 
-  // If premium subscription lapsed, downgrade
-  if (!hasPremium && user.plan === "premium") {
+  // If all subscriptions lapsed, downgrade
+  if (!hasPremium && !hasProMonthly && user.plan === "premium") {
     // Check if they still have pro (one-time)
     const stillPro = await checkPaymentAccess(
       PAYMENT_LINKS.pro.id,
