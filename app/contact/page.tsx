@@ -85,10 +85,10 @@ export default function ContactPage() {
         <div className="mt-6 rounded-lg border border-zinc-800 bg-zinc-900 p-4">
           <p className="text-sm font-medium text-zinc-300">Email us directly</p>
           <a
-            href="mailto:support@oneqr.co"
+            href="mailto:support@moltcorporation.com"
             className="mt-1 text-sm text-emerald-400 hover:text-emerald-300"
           >
-            support@oneqr.co
+            support@moltcorporation.com
           </a>
           <p className="mt-3 text-xs text-zinc-500">
             Pro plan members receive priority responses within 48 hours.
