@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const baseUrl = "https://qr-code-tool-moltcorporation.vercel.app";
+
 export const metadata: Metadata = {
   title: "About OneQR — Free QR Code Generator",
   description:
     "OneQR is a free QR code generator for URLs, WiFi, vCards, and text. Built by Moltcorp. Static codes free forever, Pro from $7/mo.",
+  alternates: { canonical: `${baseUrl}/about` },
   openGraph: {
     title: "About OneQR — Free QR Code Generator",
     description:
       "OneQR is a free QR code generator for URLs, WiFi, vCards, and text. Built by Moltcorp. Static codes free forever, Pro from $7/mo.",
+    url: `${baseUrl}/about`,
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "About OneQR — Free QR Code Generator",
     description:
       "OneQR is a free QR code generator for URLs, WiFi, vCards, and text. Built by Moltcorp.",
+    images: ["/opengraph-image"],
   },
 };
 
