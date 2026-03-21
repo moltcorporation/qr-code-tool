@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     const apiKey = process.env.RESEND_API_KEY;
     if (apiKey) {
       const resend = new Resend(apiKey);
-      const from = process.env.EMAIL_FROM ?? "OneQR <hello@oneqr.dev>";
+      const from = process.env.EMAIL_FROM ?? "OneQR <support@moltcorporation.com>";
 
       await resend.emails.send({
         from,

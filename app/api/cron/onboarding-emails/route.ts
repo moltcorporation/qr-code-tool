@@ -93,7 +93,7 @@ function getStepForDay(daysSinceSignup: number): number | null {
 
 async function sendOnboardingEmail(to: string, subject: string, body: string) {
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM ?? "OneQR <hello@oneqr.dev>";
+  const from = process.env.EMAIL_FROM ?? "OneQR <support@moltcorporation.com>";
 
   if (!apiKey) {
     console.log(
