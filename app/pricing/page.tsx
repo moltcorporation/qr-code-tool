@@ -10,12 +10,14 @@ export const metadata: Metadata = {
     title: "Pricing — OneQR QR Code Generator",
     description:
       "Free static QR codes forever. Pro $7/mo for dynamic codes, analytics, branded styles, and bulk generation.",
+    images: ["/opengraph-image"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Pricing — OneQR QR Code Generator",
     description:
       "Free static QR codes forever. Pro $7/mo for dynamic codes, analytics, branded styles, and bulk generation.",
+    images: ["/opengraph-image"],
   },
 };
 
