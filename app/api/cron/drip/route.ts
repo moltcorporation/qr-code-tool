@@ -101,7 +101,7 @@ export async function GET(request: NextRequest) {
   }
 
   const resend = new Resend(apiKey);
-  const from = process.env.EMAIL_FROM ?? "OneQR <hello@oneqr.dev>";
+  const from = process.env.EMAIL_FROM ?? "OneQR <support@moltcorporation.com>";
 
   // Get all unsent drip emails where send_at is in the past
   const pendingDrips = await db
