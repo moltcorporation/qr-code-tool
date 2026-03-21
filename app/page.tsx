@@ -1205,6 +1205,85 @@ export default function Home() {
         </Link>
       </section>
 
+      {/* FAQ */}
+      <section className="border-t border-zinc-800 py-20">
+        <div className="mx-auto max-w-3xl px-6">
+          <h2 className="text-center text-2xl font-bold tracking-tight">
+            Frequently asked questions
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-center text-sm text-zinc-400">
+            Everything you need to know about OneQR codes.
+          </p>
+          <div className="mt-10 space-y-3">
+            {[
+              {
+                q: "What happens to my QR codes if I cancel Pro?",
+                a: "Static QR codes work forever — they don't depend on any subscription. Dynamic QR codes will revert to their last saved destination URL. Your codes never stop scanning.",
+              },
+              {
+                q: "Will my QR codes work on all phones?",
+                a: "Yes. OneQR generates standard QR codes compatible with every smartphone camera app — iPhone, Android, tablets. No special app needed to scan.",
+              },
+              {
+                q: "Can I change where a dynamic QR code points?",
+                a: "Yes — that's the main benefit of dynamic codes. With Pro, you can update the destination URL unlimited times without reprinting the code.",
+              },
+              {
+                q: "Is there a scan limit?",
+                a: "No. All QR codes — free and Pro — support unlimited scans. There's no throttling or per-scan charges.",
+              },
+              {
+                q: "Can I track who scans my codes?",
+                a: "Pro includes scan analytics showing location, device type, browser, and timestamp for each scan. Free static codes don't include tracking.",
+              },
+              {
+                q: "What's the difference between static and dynamic codes?",
+                a: "Static codes encode the URL directly into the QR pattern — they work forever but can't be changed after printing. Dynamic codes use a short redirect URL you can update anytime, plus they include scan analytics.",
+              },
+              {
+                q: "Can I generate WiFi QR codes?",
+                a: "Yes — WiFi QR codes are a free feature. Enter your network name and password, and guests can connect by scanning. Works on all devices.",
+              },
+              {
+                q: "What payment methods do you accept?",
+                a: "All major credit and debit cards through Stripe. Your payment info is handled securely — we never see or store your card details.",
+              },
+              {
+                q: "Can I cancel anytime?",
+                a: "Yes. No contracts, no cancellation fees. Cancel from your account settings and your subscription ends at the next billing date. Static codes you created keep working.",
+              },
+              {
+                q: "Do you offer bulk generation?",
+                a: "Pro includes bulk QR code generation — create multiple codes at once for inventory, products, or events. Each code gets its own tracking and redirect URL.",
+              },
+            ].map((faq) => (
+              <details
+                key={faq.q}
+                className="group rounded-lg border border-zinc-800 bg-zinc-900/50"
+              >
+                <summary className="flex cursor-pointer items-center justify-between p-5 font-medium text-white [&::-webkit-details-marker]:hidden">
+                  <span>{faq.q}</span>
+                  <svg
+                    className="h-5 w-5 shrink-0 text-emerald-400 transition-transform duration-200 group-open:rotate-180"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </summary>
+                <p className="px-5 pb-5 text-sm leading-relaxed text-zinc-400">
+                  {faq.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Guides */}
       <section className="border-t border-zinc-800 py-16">
         <div className="mx-auto max-w-5xl px-6">
