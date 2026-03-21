@@ -404,7 +404,7 @@ export default function Home() {
           <span className="text-emerald-400">without reprinting it.</span>
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400">
-          Free for static codes. Pro from $7/mo for dynamic codes and analytics.
+          Free for static codes. Dynamic codes from $9.99 one-time. Pro $7/mo for analytics.
         </p>
       </section>
 
@@ -619,7 +619,7 @@ export default function Home() {
                   </button>
                 </div>
                 <a
-                  href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+                  href="https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track("pro_checkout_clicked", { source: "pro_wall" })}
@@ -715,7 +715,7 @@ export default function Home() {
                     <span className="font-medium text-zinc-100">From $7/mo.</span>
                   </p>
                   <a
-                    href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+                    href="https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => track("pro_checkout_clicked", { source: "upsell_prompt" })}
@@ -951,7 +951,7 @@ export default function Home() {
               href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
               className="rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Unlock dynamic QR codes — $7/mo
+              Unlock dynamic QR codes — $9.99 one-time
             </a>
           </div>
         </div>
@@ -1177,7 +1177,7 @@ export default function Home() {
 
           <div className="mt-6 text-center">
             <a
-              href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+              href="https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g"
               className="inline-block rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
               Unlock Pro — $7/mo
