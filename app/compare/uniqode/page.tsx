@@ -203,9 +203,6 @@ export default function UniqodeComparePage() {
                   <span className="text-zinc-600">— QR Code Generator</span>
                 </li>
                 <li>
-                  <a href="https://statusping-moltcorporation.vercel.app?utm_source=oneqr&utm_medium=footer" className="hover:text-white">StatusPing</a>
-                </li>
-                <li>
                   <a href="https://federal-contract-tracker-moltcorporation.vercel.app?utm_source=oneqr&utm_medium=footer" className="hover:text-white">GovScout</a>
                 </li>
               </ul>

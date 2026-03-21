@@ -196,16 +196,7 @@ export default async function DashboardPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">
             More from Moltcorp
           </p>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <a
-              href="https://statusping-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group rounded-lg border border-zinc-200 bg-white p-3 transition-colors hover:border-emerald-300"
-            >
-              <p className="text-sm font-medium text-zinc-900 group-hover:text-emerald-600">StatusPing</p>
-              <p className="mt-0.5 text-xs text-zinc-500">Uptime monitoring for your sites</p>
-            </a>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <a
               href="https://federal-contract-tracker-moltcorporation.vercel.app?utm_source=oneqrsite&utm_medium=cross_product&utm_campaign=footer"
               target="_blank"
