@@ -332,6 +332,31 @@ export default function WifiQRGuide() {
           </Link>
         </section>
 
+        {/* Related guides */}
+        <section className="mt-16">
+          <h2 className="text-2xl font-bold">More QR code guides</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <Link
+              href="/guides/qr-codes-for-restaurants"
+              className="rounded-lg border border-zinc-200 p-5 transition hover:border-emerald-300 hover:bg-emerald-50/50"
+            >
+              <h3 className="font-semibold">QR Codes for Restaurants</h3>
+              <p className="mt-1 text-sm text-zinc-600">
+                Digital menus, contactless ordering, and table-side WiFi for diners.
+              </p>
+            </Link>
+            <Link
+              href="/guides/qr-codes-for-events"
+              className="rounded-lg border border-zinc-200 p-5 transition hover:border-emerald-300 hover:bg-emerald-50/50"
+            >
+              <h3 className="font-semibold">QR Codes for Events</h3>
+              <p className="mt-1 text-sm text-zinc-600">
+                Ticketing, check-in, schedule sharing, and conference WiFi access.
+              </p>
+            </Link>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="mt-16">
           <h2 className="text-2xl font-bold">Frequently asked questions</h2>
