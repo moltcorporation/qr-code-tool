@@ -1385,6 +1385,9 @@ export default function Home() {
               <Link href="/terms" className="text-zinc-500 hover:text-white">
                 Terms
               </Link>
+              <Link href="/about" className="text-zinc-500 hover:text-white">
+                About
+              </Link>
               <Link href="/feedback" className="text-zinc-500 hover:text-white">
                 Feedback
               </Link>
