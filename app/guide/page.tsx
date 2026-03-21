@@ -39,7 +39,7 @@ const faqs = [
   {
     question: "How much does it cost to create a QR code?",
     answer:
-      "Basic static QR codes are free on OneQR — no signup, no watermark, no limits. Dynamic QR codes with scan analytics and editable URLs are available with OneQR Pro for a one-time $9.99 payment. There are no monthly fees for static codes.",
+      "Basic static QR codes are free on OneQR — no signup, no watermark, no limits. Dynamic QR codes with scan analytics and editable URLs are available with OneQR Pro from $7/mo. There are no monthly fees for static codes.",
   },
   {
     question: "Do QR codes expire?",
@@ -115,7 +115,7 @@ const sections = [
           "You can change the destination URL anytime without reprinting",
           "Scan analytics: see how many scans, when, and from where",
           "Depend on the redirect service staying online",
-          "Available with OneQR Pro ($9.99 one-time)",
+          "Available with OneQR Pro (from $7/mo)",
           "Best for: printed materials where the destination might change (menus, flyers, business cards with seasonal offers)",
         ],
       },
@@ -476,7 +476,7 @@ export default function QRCodeGuide() {
             >
               See OneQR Pro
             </Link>{" "}
-            — $9.99 one-time, no subscription.
+            — from $7/mo for dynamic codes and analytics.
           </p>
         </section>
 
