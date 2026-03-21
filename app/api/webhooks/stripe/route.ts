@@ -1,7 +1,9 @@
 import { db } from "@/db";
-import { stripePaymentEvents } from "@/db/schema";
+import { stripePaymentEvents, users } from "@/db/schema";
+import { trackServerEvent } from "@/lib/track";
 import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
+import { eq } from "drizzle-orm";
 
 function getStripe() {
   if (!process.env.STRIPE_SECRET_KEY) {
@@ -105,6 +107,23 @@ export async function POST(request: NextRequest) {
       status,
       rawPayload: JSON.stringify(event.data.object),
     });
+
+    // Track purchase conversion event on successful payment
+    if (event.type === "payment_intent.succeeded" && email) {
+      const [user] = await db
+        .select({ id: users.id, utmSource: users.utmSource, utmMedium: users.utmMedium, utmCampaign: users.utmCampaign })
+        .from(users)
+        .where(eq(users.email, email.toLowerCase()))
+        .limit(1);
+
+      if (user) {
+        await trackServerEvent(user.id, "purchase", {
+          utmSource: user.utmSource,
+          utmMedium: user.utmMedium,
+          utmCampaign: user.utmCampaign,
+        }, { amount: amount || "0", currency: currency || "usd" });
+      }
+    }
 
     console.log(`Logged Stripe event: ${event.type} (${event.id})`);
   } catch (err) {
