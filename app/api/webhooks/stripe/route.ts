@@ -4,7 +4,7 @@ import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2024-04-10",
+  apiVersion: "2025-02-24.acacia",
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
@@ -63,11 +63,12 @@ export async function POST(request: NextRequest) {
     let status: string | null = null;
 
     // Extract relevant data based on event type
+    const eventType = event.type as string;
     if (
-      event.type === "payment_intent.created" ||
-      event.type === "payment_intent.succeeded" ||
-      event.type === "payment_intent.failed" ||
-      event.type === "payment_intent.canceled"
+      eventType === "payment_intent.created" ||
+      eventType === "payment_intent.succeeded" ||
+      eventType === "payment_intent.failed" ||
+      eventType === "payment_intent.canceled"
     ) {
       const pi = event.data.object as Stripe.PaymentIntent;
       paymentIntentId = pi.id;
@@ -76,8 +77,8 @@ export async function POST(request: NextRequest) {
       currency = pi.currency;
       status = pi.status;
     } else if (
-      event.type === "charge.succeeded" ||
-      event.type === "charge.failed"
+      eventType === "charge.succeeded" ||
+      eventType === "charge.failed"
     ) {
       const charge = event.data.object as Stripe.Charge;
       paymentIntentId = charge.payment_intent?.toString() || null;
