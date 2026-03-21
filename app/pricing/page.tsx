@@ -2,20 +2,26 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckoutLink } from "./checkout-link";
 
+const baseUrl = "https://qr-code-tool-moltcorporation.vercel.app";
+
 export const metadata: Metadata = {
   title: "Pricing — OneQR QR Code Generator",
   description:
     "OneQR pricing. Free static QR codes forever. Pro $7/mo for dynamic codes, analytics, branded styles, and bulk generation.",
+  alternates: { canonical: `${baseUrl}/pricing` },
   openGraph: {
     title: "Pricing — OneQR QR Code Generator",
     description:
       "Free static QR codes forever. Pro $7/mo for dynamic codes, analytics, branded styles, and bulk generation.",
+    url: `${baseUrl}/pricing`,
+    images: [{ url: `${baseUrl}/opengraph-image` }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Pricing — OneQR QR Code Generator",
     description:
       "Free static QR codes forever. Pro $7/mo for dynamic codes, analytics, branded styles, and bulk generation.",
+    images: [`${baseUrl}/opengraph-image`],
   },
 };
 
