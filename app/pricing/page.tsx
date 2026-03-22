@@ -34,6 +34,7 @@ const tiers = [
     cta: "Start for free",
     href: "/",
     highlighted: false,
+    amount: 0,
     features: [
       "Unlimited static QR codes",
       "URL, WiFi, vCard, and Text QR types",
@@ -50,6 +51,7 @@ const tiers = [
     cta: "Unlock Starter — $9.99",
     href: "https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04",
     highlighted: false,
+    amount: 9.99,
     features: [
       "Everything in Free, plus:",
       "Dynamic QR codes (edit destination after print)",
@@ -66,6 +68,7 @@ const tiers = [
     href: "https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g",
     highlighted: true,
     badge: "Best Value",
+    amount: 7,
     features: [
       "Everything in Starter, plus:",
       "Scan analytics (devices, referrers, daily trends)",
@@ -193,6 +196,7 @@ export default function PricingPage() {
                   href={tier.href}
                   highlighted={tier.highlighted ?? false}
                   plan={tier.name.toLowerCase()}
+                  amount={tier.amount}
                   className={`mt-6 block w-full rounded-md px-4 py-2.5 text-center text-sm font-medium ${
                     tier.highlighted
                       ? "bg-emerald-600 text-white hover:bg-emerald-700"
