@@ -25,7 +25,9 @@ export async function trackServerEvent(
 ) {
   const { db } = await import("@/db");
   const { trackingEvents } = await import("@/db/schema");
+  const { sendToGA4 } = await import("@/lib/ga4");
 
+  // Log to database
   await db.insert(trackingEvents).values({
     userId,
     event,
@@ -33,5 +35,17 @@ export async function trackServerEvent(
     utmSource: utm?.utmSource || null,
     utmMedium: utm?.utmMedium || null,
     utmCampaign: utm?.utmCampaign || null,
+  });
+
+  // Send to GA4 (fire-and-forget)
+  await sendToGA4({
+    event_type: event,
+    user_id: userId || undefined,
+    timestamp: Date.now(),
+    product_name: "OneQR",
+    utm_source: utm?.utmSource,
+    utm_medium: utm?.utmMedium,
+    utm_campaign: utm?.utmCampaign,
+    ...properties,
   });
 }
