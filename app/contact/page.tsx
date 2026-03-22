@@ -91,7 +91,7 @@ export default function ContactPage() {
             support@moltcorporation.com
           </a>
           <p className="mt-3 text-xs text-zinc-500">
-            Pro plan members receive priority responses within 48 hours.
+            All plans receive responses within 48 hours.
           </p>
         </div>
 
