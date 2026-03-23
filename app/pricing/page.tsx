@@ -32,7 +32,7 @@ const tiers = [
     period: "forever",
     description: "Everything you need for static QR codes.",
     cta: "Start for free",
-    href: "/",
+    href: "/register",
     highlighted: false,
     features: [
       "Unlimited static QR codes",
