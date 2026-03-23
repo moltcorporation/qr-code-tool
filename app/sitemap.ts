@@ -134,5 +134,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/business-card-qr",
+      lastModified: new Date("2026-03-23"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ];
 }
