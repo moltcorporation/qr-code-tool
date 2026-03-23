@@ -405,7 +405,7 @@ export default function Home() {
           <span className="text-emerald-400">without reprinting it.</span>
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-zinc-400">
-          Free for static codes. Dynamic codes from $9.99 one-time. Pro $7/mo for analytics.
+          Free for static codes. Pro $7/mo for dynamic codes, analytics, and more.
         </p>
       </section>
 
@@ -949,10 +949,10 @@ export default function Home() {
               No reprinting. No new QR code. Just update the link.
             </p>
             <a
-              href="https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04"
+              href="https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g"
               className="rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-bold text-zinc-950 hover:bg-emerald-400"
             >
-              Unlock dynamic QR codes — $9.99 one-time
+              Unlock dynamic QR codes — $7/mo
             </a>
           </div>
         </div>
@@ -1255,12 +1255,12 @@ export default function Home() {
                 a: "Free static codes are great for simple links. Paid plans unlock dynamic codes (change the destination without reprinting), scan analytics (location, device, timestamp), custom branding, bulk generation, and WiFi QR codes with advanced options.",
               },
               {
-                q: "What's the difference between Starter and Pro?",
-                a: "Starter ($9.99 one-time) gives you permanent access to dynamic QR code creation — pay once, use forever. Pro ($7/mo) adds scan analytics, bulk generation, and 48-hour email support. Pick Starter if you just need editable codes; pick Pro if you need tracking and analytics.",
+                q: "What's the difference between Free and Pro?",
+                a: "Free gives you unlimited static QR codes with no signup required. Pro ($7/mo) unlocks dynamic QR codes you can edit after printing, full scan analytics, branded styles, bulk CSV generation, and priority email support.",
               },
               {
                 q: "Can I use OneQR for my business?",
-                a: "Absolutely. Commercial use is included at every tier — free, Starter, and Pro. Restaurants, retailers, event organizers, and service businesses all use OneQR for menus, marketing, WiFi access, and more.",
+                a: "Absolutely. Commercial use is included on both Free and Pro tiers. Restaurants, retailers, event organizers, and service businesses all use OneQR for menus, marketing, WiFi access, and more.",
               },
               {
                 q: "What payment methods do you accept?",

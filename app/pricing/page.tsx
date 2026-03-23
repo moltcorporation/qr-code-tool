@@ -43,34 +43,22 @@ const tiers = [
     ],
   },
   {
-    name: "Starter",
-    price: "$9.99",
-    period: "one-time",
-    description: "Dynamic codes and scan counts. Pay once, use forever.",
-    cta: "Unlock Starter — $9.99",
-    href: "https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04",
-    highlighted: false,
-    features: [
-      "Everything in Free, plus:",
-      "Dynamic QR codes (edit destination after print)",
-      "Basic scan count tracking",
-      "Remove OneQR branding from downloads",
-    ],
-  },
-  {
     name: "Pro",
     price: "$7",
     period: "/mo",
-    description: "Full analytics, branded styles, and bulk generation.",
+    description:
+      "Dynamic codes, full analytics, branded styles, and bulk generation.",
     cta: "Start Pro — $7/mo",
     href: "https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g",
     highlighted: true,
-    badge: "Best Value",
+    badge: "Most Popular",
     features: [
-      "Everything in Starter, plus:",
+      "Everything in Free, plus:",
+      "Dynamic QR codes (edit destination after print)",
       "Scan analytics (devices, referrers, daily trends)",
       "Branded QR styles (custom colors & dot patterns)",
       "Bulk QR generation from CSV",
+      "Remove OneQR branding from downloads",
       "48-hour email support",
       "Cancel anytime",
     ],
@@ -89,9 +77,9 @@ const faqs = [
       "A QR code whose destination can be changed after printing. The QR code itself stays the same, but where it points can be updated anytime. Perfect for menus, business cards, or any print material.",
   },
   {
-    question: "What's the difference between Starter and Pro?",
+    question: "What's the difference between Free and Pro?",
     answer:
-      "Starter ($9.99 one-time) gives you dynamic QR codes and basic scan counts. Pro ($7/mo) adds full analytics with device and referrer tracking, branded QR styles, and bulk CSV generation. Pro is best for businesses running campaigns.",
+      "Free gives you unlimited static QR codes with no signup. Pro ($7/mo) adds dynamic QR codes you can edit after printing, full scan analytics, branded styles, bulk CSV generation, and priority support.",
   },
   {
     question: "Can I cancel Pro anytime?",
@@ -164,7 +152,7 @@ export default function PricingPage() {
             Start free. Upgrade when you need dynamic codes and analytics.
           </p>
 
-          <div className="mt-14 mx-auto grid max-w-5xl gap-8 sm:grid-cols-3">
+          <div className="mt-14 mx-auto grid max-w-3xl gap-8 sm:grid-cols-2">
             {tiers.map((tier) => (
               <div
                 key={tier.name}
@@ -234,36 +222,6 @@ export default function PricingPage() {
                 </ul>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* Pricing model explainer */}
-        <section className="mx-auto max-w-3xl px-6 pb-12">
-          <div className="rounded-lg border border-zinc-100 bg-zinc-50 px-6 py-5">
-            <h3 className="text-sm font-semibold text-zinc-900">
-              Why two pricing models?
-            </h3>
-            <div className="mt-3 grid gap-4 sm:grid-cols-2">
-              <div>
-                <p className="text-sm font-medium text-zinc-800">
-                  Starter — one-time purchase
-                </p>
-                <p className="mt-1 text-sm text-zinc-600">
-                  Pay once, generate unlimited dynamic QR codes forever. No
-                  recurring fees because static hosting costs us almost nothing.
-                </p>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-zinc-800">
-                  Pro — monthly subscription
-                </p>
-                <p className="mt-1 text-sm text-zinc-600">
-                  Real-time scan analytics, branded styles, and bulk generation
-                  require ongoing infrastructure. $7/mo covers the compute — cancel
-                  anytime.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 

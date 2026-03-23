@@ -15,9 +15,7 @@ export function BillingContent({ user }: { user: User }) {
   const [showDowngradeConfirm, setShowDowngradeConfirm] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const isSubscription = user.plan === "premium";
-  const isOneTime = user.plan === "pro";
-  const isPro = isSubscription || isOneTime;
+  const isPro = user.plan === "premium" || user.plan === "pro";
 
   async function handleDowngrade() {
     setDowngrading(true);
@@ -47,14 +45,12 @@ export function BillingContent({ user }: { user: User }) {
   }
 
   function getPlanLabel() {
-    if (isSubscription) return "Pro — Monthly subscription";
-    if (isOneTime) return "Starter — One-time purchase";
+    if (isPro) return "Pro — Monthly subscription";
     return "Free";
   }
 
   function getPlanPrice() {
-    if (isSubscription) return "$7/mo";
-    if (isOneTime) return "$9.99 (paid)";
+    if (isPro) return "$7/mo";
     return "$0";
   }
 
@@ -102,20 +98,12 @@ export function BillingContent({ user }: { user: User }) {
               </button>
             </div>
           ) : (
-            <div className="flex flex-col gap-2 items-end">
-              <a
-                href={`https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g?prefilled_email=${encodeURIComponent(user.email)}`}
-                className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
-              >
-                Start Pro — $7/mo
-              </a>
-              <a
-                href={`https://buy.stripe.com/cNidR909l9SpcXP7Mo3Nm04?prefilled_email=${encodeURIComponent(user.email)}`}
-                className="text-xs text-zinc-500 hover:text-zinc-700"
-              >
-                or $9.99 one-time (Starter)
-              </a>
-            </div>
+            <a
+              href={`https://buy.stripe.com/8x25kD9JV2pX3nf0jW3Nm0g?prefilled_email=${encodeURIComponent(user.email)}`}
+              className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+            >
+              Start Pro — $7/mo
+            </a>
           )}
         </div>
         {error && (
@@ -130,28 +118,21 @@ export function BillingContent({ user }: { user: User }) {
             <h3 className="text-lg font-semibold text-zinc-900">
               Downgrade to Free?
             </h3>
-            {isSubscription ? (
-              <div className="mt-3 space-y-3">
-                <p className="text-sm text-zinc-600">
-                  This will remove your access to Pro features immediately and
-                  cancel your Premium subscription.
-                </p>
-                <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3">
-                  <p className="text-sm font-medium text-emerald-800">
-                    Your Stripe subscription will be automatically cancelled
-                  </p>
-                  <p className="mt-1 text-sm text-emerald-700">
-                    You will not be charged any further after downgrading. No
-                    action on Stripe needed.
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <p className="mt-3 text-sm text-zinc-600">
-                This will remove your access to Pro features. Since you
-                made a one-time purchase, no recurring charges will apply.
+            <div className="mt-3 space-y-3">
+              <p className="text-sm text-zinc-600">
+                This will remove your access to Pro features immediately and
+                cancel your subscription.
               </p>
-            )}
+              <div className="rounded-md border border-emerald-200 bg-emerald-50 p-3">
+                <p className="text-sm font-medium text-emerald-800">
+                  Your Stripe subscription will be automatically cancelled
+                </p>
+                <p className="mt-1 text-sm text-emerald-700">
+                  You will not be charged any further after downgrading. No
+                  action on Stripe needed.
+                </p>
+              </div>
+            </div>
             <div className="mt-6 flex justify-end gap-3">
               <button
                 onClick={() => setShowDowngradeConfirm(false)}
@@ -183,22 +164,20 @@ export function BillingContent({ user }: { user: User }) {
               <tr className="border-b border-zinc-200">
                 <th className="px-4 py-3 text-left font-medium text-zinc-900">Feature</th>
                 <th className="px-4 py-3 text-center font-medium text-zinc-900">Free</th>
-                <th className="px-4 py-3 text-center font-medium text-zinc-900">Starter</th>
                 <th className="px-4 py-3 text-center font-medium text-emerald-600">Pro</th>
               </tr>
             </thead>
             <tbody>
               {[
-                { feature: "Static QR codes", free: true, starter: true, pro: true },
-                { feature: "Dynamic QR codes", free: false, starter: true, pro: true },
-                { feature: "Basic scan counts", free: false, starter: true, pro: true },
-                { feature: "Full scan analytics", free: false, starter: false, pro: true },
-                { feature: "Branded QR styles", free: false, starter: false, pro: true },
-                { feature: "Bulk CSV generation", free: false, starter: false, pro: true },
+                { feature: "Static QR codes", free: true, pro: true },
+                { feature: "Dynamic QR codes", free: false, pro: true },
+                { feature: "Scan analytics", free: false, pro: true },
+                { feature: "Branded QR styles", free: false, pro: true },
+                { feature: "Bulk CSV generation", free: false, pro: true },
               ].map((row) => (
                 <tr key={row.feature} className="border-b border-zinc-100">
                   <td className="px-4 py-3 text-zinc-600">{row.feature}</td>
-                  {[row.free, row.starter, row.pro].map((val, i) => (
+                  {[row.free, row.pro].map((val, i) => (
                     <td key={i} className="px-4 py-3 text-center">
                       {val ? (
                         <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100">
@@ -214,7 +193,6 @@ export function BillingContent({ user }: { user: User }) {
               <tr>
                 <td className="px-4 py-3 text-zinc-600">Price</td>
                 <td className="px-4 py-3 text-center font-semibold text-zinc-900">Free</td>
-                <td className="px-4 py-3 text-center font-semibold text-zinc-900">$9.99 once</td>
                 <td className="px-4 py-3 text-center font-semibold text-emerald-600">$7/mo</td>
               </tr>
             </tbody>
