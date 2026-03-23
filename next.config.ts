@@ -33,6 +33,12 @@ const nextConfig: NextConfig = {
         destination: "/use-cases/event-qr-code",
         permanent: true,
       },
+      // Payment QR: consolidate to /payment-qr-code
+      {
+        source: "/qr-codes/payment",
+        destination: "/payment-qr-code",
+        permanent: true,
+      },
     ];
   },
 };

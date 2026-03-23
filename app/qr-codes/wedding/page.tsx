@@ -467,11 +467,11 @@ export default function WeddingQrCodePage() {
         <div className="mx-auto max-w-3xl px-6 py-12">
           <p className="text-center text-sm text-zinc-600">
             More QR code use cases:{" "}
-            <Link href="/use-cases/event-tickets" className="text-emerald-400 hover:underline">
+            <Link href="/use-cases/event-qr-code" className="text-emerald-400 hover:underline">
               Event tickets
             </Link>
             {" · "}
-            <Link href="/use-cases/restaurant-menu" className="text-emerald-400 hover:underline">
+            <Link href="/restaurant-menu-qr" className="text-emerald-400 hover:underline">
               Restaurant menus
             </Link>
             {" · "}
@@ -479,7 +479,7 @@ export default function WeddingQrCodePage() {
               WiFi QR signs
             </Link>
             {" · "}
-            <Link href="/use-cases/business-cards" className="text-emerald-400 hover:underline">
+            <Link href="/business-card-qr" className="text-emerald-400 hover:underline">
               Business cards
             </Link>
           </p>
