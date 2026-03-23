@@ -527,7 +527,7 @@ export default function PaymentQRPage() {
               </p>
             </Link>
             <Link
-              href="/wedding"
+              href="/qr-codes/wedding"
               className="rounded-lg border border-zinc-800 bg-zinc-950 p-6 hover:border-emerald-400"
             >
               <h3 className="font-semibold text-white">Wedding QR Codes</h3>

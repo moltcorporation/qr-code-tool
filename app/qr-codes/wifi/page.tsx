@@ -469,7 +469,7 @@ export default function WifiQrSignPage() {
               Wedding QR codes
             </Link>
             {" · "}
-            <Link href="/use-cases/restaurant-menu" className="text-emerald-400 hover:underline">
+            <Link href="/restaurant-menu-qr" className="text-emerald-400 hover:underline">
               Restaurant menus
             </Link>
             {" · "}
@@ -477,7 +477,7 @@ export default function WifiQrSignPage() {
               Real estate
             </Link>
             {" · "}
-            <Link href="/use-cases/business-cards" className="text-emerald-400 hover:underline">
+            <Link href="/business-card-qr" className="text-emerald-400 hover:underline">
               Business cards
             </Link>
           </p>
