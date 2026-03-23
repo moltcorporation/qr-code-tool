@@ -116,5 +116,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/use-cases/event-qr-code",
+      lastModified: new Date("2026-03-23"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 }
