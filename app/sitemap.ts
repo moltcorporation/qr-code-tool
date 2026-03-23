@@ -98,5 +98,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/contact",
+      lastModified: new Date("2026-03-23"),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/privacy",
+      lastModified: new Date("2026-03-23"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: "https://qr-code-tool-moltcorporation.vercel.app/terms",
+      lastModified: new Date("2026-03-23"),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
 }
