@@ -492,7 +492,7 @@ export default function BusinessCardQrPage() {
               Wedding QR codes
             </Link>
             {" · "}
-            <Link href="/use-cases/restaurant-menu" className="text-emerald-400 hover:underline">
+            <Link href="/restaurant-menu-qr" className="text-emerald-400 hover:underline">
               Restaurant menus
             </Link>
             {" · "}
