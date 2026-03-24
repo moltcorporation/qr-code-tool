@@ -27,12 +27,22 @@ export const metadata: Metadata = {
       "Free QR code generator for business cards. Link to your website, LinkedIn, or vCard. Dynamic codes update after printing — $9.99 once.",
     type: "website",
     siteName: "OneQR",
+    url: `${baseUrl}/business-card-qr`,
+    images: [
+      {
+        url: `${baseUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Business Card QR Code Generator — OneQR",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Create a QR Code for Business Cards — Free Generator | OneQR",
     description:
       "Free QR code generator for business cards. Link to website, LinkedIn, or vCard. Update after printing — $9.99 once.",
+    images: [`${baseUrl}/opengraph-image`],
   },
 };
 

@@ -17,12 +17,22 @@ export const metadata: Metadata = {
       "Free QR codes for restaurant menus. Guests scan to view your menu — no app needed. Update without reprinting.",
     type: "website",
     siteName: "OneQR",
+    url: `${baseUrl}/restaurant-menu-qr`,
+    images: [
+      {
+        url: `${baseUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Restaurant Menu QR Code Generator — OneQR",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Restaurant Menu QR Code Generator | OneQR",
     description:
       "Free QR codes for restaurant menus. Guests scan to view your menu — no app needed.",
+    images: [`${baseUrl}/opengraph-image`],
   },
 };
 
@@ -123,12 +133,37 @@ const faqJsonLd = {
   })),
 };
 
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "OneQR Restaurant Menu QR Code Generator",
+  applicationCategory: "UtilitiesApplication",
+  offers: [
+    {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      description: "Static QR codes for restaurant menus — free forever",
+    },
+    {
+      "@type": "Offer",
+      price: "9.99",
+      priceCurrency: "USD",
+      description: "Dynamic QR codes — update your menu link without reprinting",
+    },
+  ],
+};
+
 export default function RestaurantMenuQrPage() {
   return (
     <div className="min-h-screen bg-zinc-950 font-sans text-zinc-100">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
 
       {/* Header */}
