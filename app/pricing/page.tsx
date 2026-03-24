@@ -111,12 +111,30 @@ const faqJsonLd = {
   })),
 };
 
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "OneQR QR Code Generator",
+  applicationCategory: "UtilitiesApplication",
+  offers: tiers.map((tier) => ({
+    "@type": "Offer",
+    price: tier.price === "$0" ? "0" : tier.price.replace("$", ""),
+    priceCurrency: "USD",
+    pricingPattern: tier.period === "forever" ? undefined : `P1M`,
+    description: tier.description,
+  })),
+};
+
 export default function PricingPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
 
       <div className="min-h-screen bg-white font-sans text-zinc-900">

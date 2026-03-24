@@ -17,12 +17,22 @@ export const metadata: Metadata = {
       "Generate payment QR codes for Zelle, Venmo, PayPal, Square, and more. Accept payments with a single scan.",
     type: "website",
     siteName: "OneQR",
+    url: `${baseUrl}/payment-qr-code`,
+    images: [
+      {
+        url: `${baseUrl}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: "Payment QR Code Generator — OneQR",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "QR Code for Payments | OneQR",
     description:
       "Accept payments via QR code. Zelle, Venmo, PayPal, Square — your choice.",
+    images: [`${baseUrl}/opengraph-image`],
   },
 };
 
@@ -126,12 +136,37 @@ const faqJsonLd = {
   })),
 };
 
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "OneQR Payment QR Code Generator",
+  applicationCategory: "UtilitiesApplication",
+  offers: [
+    {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      description: "Static QR codes for payments — free forever",
+    },
+    {
+      "@type": "Offer",
+      price: "9.99",
+      priceCurrency: "USD",
+      description: "Dynamic QR codes — update the destination after creation",
+    },
+  ],
+};
+
 export default function PaymentQRPage() {
   return (
     <div className="min-h-screen bg-zinc-950 font-sans text-zinc-100">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
 
       {/* Header */}
