@@ -16,6 +16,15 @@ export const metadata: Metadata = {
       "Free printable WiFi QR code signs. Guests scan to connect — no passwords. Perfect for cafes, Airbnbs, and offices.",
     type: "website",
     siteName: "OneQR",
+    url: `${baseUrl}/qr-codes/wifi`,
+    images: [
+      {
+        url: `${baseUrl}/api/og?title=WiFi%20QR%20Code%20Generator&desc=Free%20Printable%20WiFi%20QR%20Signs`,
+        width: 1200,
+        height: 630,
+        alt: "OneQR - WiFi QR Code Sign Generator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

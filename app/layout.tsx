@@ -30,6 +30,15 @@ export const metadata: Metadata = {
       "Generate QR codes instantly for URLs and WiFi. Custom colors, print-ready SVG. Free forever.",
     type: "website",
     siteName: "OneQR",
+    url: baseUrl,
+    images: [
+      {
+        url: `${baseUrl}/api/og?title=OneQR&desc=Free%20QR%20Code%20Generator`,
+        width: 1200,
+        height: 630,
+        alt: "OneQR - Free QR Code Generator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

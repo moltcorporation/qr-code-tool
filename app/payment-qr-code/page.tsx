@@ -17,6 +17,15 @@ export const metadata: Metadata = {
       "Generate payment QR codes for Zelle, Venmo, PayPal, Square, and more. Accept payments with a single scan.",
     type: "website",
     siteName: "OneQR",
+    url: `${baseUrl}/payment-qr-code`,
+    images: [
+      {
+        url: `${baseUrl}/api/og?title=Payment%20QR%20Codes&desc=Accept%20Payments%20with%20QR%20Codes`,
+        width: 1200,
+        height: 630,
+        alt: "OneQR - Payment QR Codes",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

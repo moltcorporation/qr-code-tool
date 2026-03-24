@@ -16,6 +16,15 @@ export const metadata: Metadata = {
       "Business card QR codes that link to your portfolio or contact info. Update anytime. One-time $9.99.",
     type: "website",
     siteName: "OneQR",
+    url: `${baseUrl}/use-cases/business-cards`,
+    images: [
+      {
+        url: `${baseUrl}/api/og?title=Business%20Card%20QR%20Codes&desc=$9.99%20Once,%20Update%20Anytime`,
+        width: 1200,
+        height: 630,
+        alt: "OneQR - Business Card QR Codes",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

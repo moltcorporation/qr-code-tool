@@ -17,6 +17,15 @@ export const metadata: Metadata = {
       "Free QR codes for restaurant menus. Guests scan to view your menu — no app needed. Update without reprinting.",
     type: "website",
     siteName: "OneQR",
+    url: `${baseUrl}/restaurant-menu-qr`,
+    images: [
+      {
+        url: `${baseUrl}/api/og?title=Restaurant%20Menu%20QR&desc=Free%20QR%20Generator%20for%20Menus`,
+        width: 1200,
+        height: 630,
+        alt: "OneQR - Restaurant Menu QR Code Generator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
