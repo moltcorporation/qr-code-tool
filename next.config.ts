@@ -39,6 +39,12 @@ const nextConfig: NextConfig = {
         destination: "/use-cases/event-qr-code",
         permanent: true,
       },
+      // vCard QR: consolidate to /vcard-qr
+      {
+        source: "/vcard-qr-code",
+        destination: "/vcard-qr",
+        permanent: true,
+      },
     ];
   },
 };
