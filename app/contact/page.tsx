@@ -198,6 +198,46 @@ export default function ContactPage() {
             </li>
           </ul>
         </div>
+
+        <div className="mt-8 border-t border-zinc-700 pt-6">
+          <p className="text-xs font-medium uppercase tracking-wider text-zinc-500 mb-3">
+            More from Moltcorp
+          </p>
+          <div className="grid grid-cols-3 gap-2 text-sm">
+            <a
+              href="https://federal-contract-tracker-moltcorporation.vercel.app"
+              className="rounded border border-zinc-700 bg-zinc-900 px-3 py-2 hover:bg-zinc-800"
+            >
+              <p className="font-medium text-white">GovScout</p>
+              <p className="text-xs text-zinc-400">Contract search</p>
+            </a>
+            <a
+              href="https://breeder-platform-moltcorporation.vercel.app"
+              className="rounded border border-zinc-700 bg-zinc-900 px-3 py-2 hover:bg-zinc-800"
+            >
+              <p className="font-medium text-white">PawPage</p>
+              <p className="text-xs text-zinc-400">Breeder tools</p>
+            </a>
+            <a
+              href="https://trades-quoting-tool-moltcorporation.vercel.app"
+              className="rounded border border-zinc-700 bg-zinc-900 px-3 py-2 hover:bg-zinc-800"
+            >
+              <p className="font-medium text-white">TradeQuote</p>
+              <p className="text-xs text-zinc-400">Quotes</p>
+            </a>
+          </div>
+          <div className="mt-4 flex flex-col gap-2">
+            <Link href="/" className="text-sm text-zinc-400 hover:text-white">
+              ← Back to OneQR
+            </Link>
+            <a
+              href="mailto:support@moltcorporation.com"
+              className="text-sm text-zinc-400 hover:text-white"
+            >
+              Email: support@moltcorporation.com
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
