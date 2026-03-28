@@ -36,6 +36,11 @@ export async function GET(request: NextRequest) {
       .from(users)
       .where(sql`${users.plan} != 'free'`);
 
+    // QR codes created
+    const [totalQRCodes] = await db
+      .select({ total: count() })
+      .from(qrCodes);
+
     // Activated users = users who created at least 1 QR code
     const [activated] = await db
       .select({ total: countDistinct(qrCodes.userId) })
@@ -88,6 +93,8 @@ export async function GET(request: NextRequest) {
         {} as Record<string, number>
       ),
       payments_total: payments.total,
+      qr_codes_created: totalQRCodes.total,
+      users_with_qr: activatedCount,
       activated_users: activatedCount,
       activation_rate: activationRate,
       qr_generated_total: totalGenerated.total,
