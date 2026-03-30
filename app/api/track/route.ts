@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { qrEvents, trackingEvents } from "@/db/schema";
 import { getSession } from "@/lib/auth";
+import { sendToGA4 } from "@/lib/ga4";
 import { cookies } from "next/headers";
 
 const QR_EVENTS = ["qr_generated", "pro_wall_impression"] as const;
@@ -63,6 +64,20 @@ export async function POST(request: NextRequest) {
         utmSource,
         utmMedium,
         utmCampaign,
+      });
+
+      // Send to GA4 (fire-and-forget)
+      sendToGA4({
+        event_type: event,
+        user_id: userId || undefined,
+        timestamp: Date.now(),
+        product_name: "OneQR",
+        utm_source: utmSource,
+        utm_medium: utmMedium,
+        utm_campaign: utmCampaign,
+        ...properties,
+      }).catch(() => {
+        // GA4 errors don't block user flows
       });
     }
 
